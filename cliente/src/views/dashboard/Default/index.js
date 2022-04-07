@@ -9,7 +9,6 @@ import {CardGroup } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import * as constants from '../../../constantFile';
 import complaintContract from '../../../complaintContract.json';
-//import BarChartLayaout from '../Graphics/BarCharLayaout.js';
 
 // project imports
 import EarningCard from './EarningCard';

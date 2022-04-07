@@ -26,15 +26,15 @@ const dashboard = {
             id: 'tfg info',
             title: 'Nuestro proyecto',
             type: 'item',
-            url: '/dashboard',
+            url: '/dashboard/tfg-info',
             icon: icons.IconInfoCircle,
             breadcrumbs: false
         },
         {
             id: 'Denuncia',
-            title: 'Denunciar empresa',
+            title: 'Formulario Denuncia',
             type: 'item',
-            url: '/pages/formu-denuncia',
+            url: '/dashboard/formu-denuncia', //esto es lo que yo tengo en mi proyecto
             icon: icons.IconAlertOctagon,
             breadcrumbs: false
         }

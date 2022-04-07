@@ -24,7 +24,7 @@ const CompanyItem = ({ name, reputation }) => {
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
-          <Button basic color='blue' onClick={reputation}>
+          <Button basic color='blue' onClick={'/dashboard/formu-denuncia'}>
             Ver empresa
           </Button>
         </div>

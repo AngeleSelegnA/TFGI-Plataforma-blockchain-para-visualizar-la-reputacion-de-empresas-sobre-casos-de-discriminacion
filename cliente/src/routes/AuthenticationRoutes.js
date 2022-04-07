@@ -4,19 +4,16 @@ import { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 import MinimalLayout from 'layout/MinimalLayout';
 
-// login option 3 routing
-const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Login3')));
 const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
-const Form= Loadable(lazy(() => import('views/pages/authentication/formu-denuncia')));
-// ==============================|| AUTHENTICATION ROUTING ||============================== //
+const GridForm= Loadable(lazy(() => import('views/dashboard/formu-denuncia')));
 
 const AuthenticationRoutes = {
     path: '/',
     element: <MinimalLayout />,
     children: [
         {
-            path: '/pages/formu-denuncia',
-            element: <Form />
+            path: '/pages/formu-denuncia',//esto creo que lo que quiero que se vea
+            element: <GridForm />
         },
         {
             path: '/comapny/:id',
