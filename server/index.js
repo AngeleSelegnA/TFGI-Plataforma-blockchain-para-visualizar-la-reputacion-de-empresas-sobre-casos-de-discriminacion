@@ -2,6 +2,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config(); //Se cargan las variables de entorno a process.env
 const passport = require('passport');
@@ -9,10 +10,14 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const genName = require("randomstring");
 var session = require('express-session');
 var User = require('./User.module.js');
+const swaggerJSDoc = require('swagger-jsdoc'); //Para generar un documento de Swagger
+const swaggerUi = require('swagger-ui-express');
 
 //Servidor
 const app = express();
 const port = process.env.PORT; //Se esta ejecutando en local y en 3000 se ejecuta la web
+
+app.use(cookieParser());
 
 //Se deshabilita la cabecera x-powered-by para evitar fingerprinting (que no se sepa que se esta utilizando express)
 app.disable('x-powered-by');
@@ -100,11 +105,7 @@ passport.use(new LinkedInStrategy({
   });
 }));
 
-app.get('/auth/linkedin',
-  passport.authenticate('linkedin'),
-  function(req, res){
-  // Esta funcion no se llama, linkedin se encarga de la autenticacion
-});
+app.get('/auth/linkedin', passport.authenticate('linkedin'));
 
 app.get('/auth/linkedin/callback', (req, res, next) => {
   passport.authenticate('linkedin', (err, user, info) => {
@@ -127,13 +128,99 @@ passport.deserializeUser((id, done) => { User.findById(id, (err, user) => {retur
 })});
 
 //Envia al frontend el valor del usuario
-app.get('/getuser' , (req, res) => { res.send(req.user); });
+/**
+* @openapi
+* components:
+*   schemas:
+*     User:
+*       type: string
+* 
+* 
+* @openapi
+* /getuser:
+*   get:
+*     security:
+*      - ApiKeyAuth: []
+*     summary: Obtiene el nombre de usuario.
+*     description: Devuelve el nombre de usuario para enviarlo al front. 
+*     responses: 
+*       200:
+*         description: Un nombre de usuario.
+*         content:
+*           - application/json:
+*             schema:
+*               type: string
+*               items:
+*                 $ref: '#/components/schemas/User'
+*/
+app.get('/getuser' , (req, res) => { 
+  res.status(200).send(req.user); 
+});
 
 //Se cierra la sesion
+/**
+* @openapi
+* /logout:
+*   get:
+*     security:
+*      - ApiKeyAuth: []
+*     summary: Cierra la sesión.
+*     description: Cierra la sesión del usuario.
+*     responses: 
+*       200:
+*         description: Se hace logout correctamente
+*         content:
+*           - application/json:
+*             schema:
+*               type: string
+*/
 app.get('/logout', function(req, res){
-  req.logout();
-  req.session.destroy(function (err) {
-    if(!err) res.redirect(`${process.env.REACT_PAGE}`);
-    else console.log(err.message);
-  });
+    req.logout();
+    req.session.destroy(function (err) {
+      if(!err) res.status(200).redirect(`${process.env.REACT_PAGE}`);
+      else { console.log(err.message); }
+    });
 });
+
+//Swagger
+const options = {
+  swaggerDefinition : { 
+    openapi: '3.0.0',
+    info: {
+      title: 'TFG Blockchain Swagger',
+      version: '1.0.0',
+      description: 'Este documento contiene los endpoints de la API del Servidor de forma que queden explicados y registrados.',
+      license: {
+        name: 'Licencia GPL',
+        url: 'https://www.gnu.org/licenses/gpl-3.0.html',
+      },
+      termsOfService: 'https://localhost/3000/tos',
+      contact: {
+        name: 'Soporte Proyecto',
+        email: 'tfg.blockchain@gmail.com'
+      },
+    },
+    servers: [
+      {
+        url: 'http://localhost:' +`${process.env.PORT}`,
+        description: 'Servidor de la app',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        ApiKeyAuth: {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'connect.sid'
+        }
+      }
+    },
+  },
+  // Paths to files containing OpenAPI definitions
+  apis: ['./index.js'],
+};
+
+const swaggerSpecification = swaggerJSDoc(options);
+
+//Desde este endpoint se puede acceder al documento de swagger que muestra los endpoints
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
