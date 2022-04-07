@@ -1,227 +1,469 @@
-import PropTypes from 'prop-types';
+import React from "react";
 
-// material-ui
-import { Box, Card, Grid, Typography } from '@mui/material';
 
-// project imports
-import SubCard from 'ui-component/cards/SubCard';
-import MainCard from 'ui-component/cards/MainCard';
-import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
-import { gridSpacing } from 'store/constant';
+import { makeStyles } from '@material-ui/core/styles'
 
-// ===============================|| COLOR BOX ||=============================== //
 
-const ColorBox = ({ bgcolor, title, data, dark }) => (
-    <>
-        <Card sx={{ mb: 3 }}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    py: 4.5,
-                    bgcolor,
-                    color: dark ? 'grey.800' : '#ffffff'
-                }}
-            >
-                {title && (
-                    <Typography variant="subtitle1" color="inherit">
-                        {title}
-                    </Typography>
-                )}
-                {!title && <Box sx={{ p: 1.15 }} />}
-            </Box>
-        </Card>
-        {data && (
-            <Grid container justifyContent="space-between" alignItems="center">
-                <Grid item>
-                    <Typography variant="subtitle2">{data.label}</Typography>
-                </Grid>
-                <Grid item>
-                    <Typography variant="subtitle1" sx={{ textTransform: 'uppercase' }}>
-                        {data.color}
-                    </Typography>
-                </Grid>
-            </Grid>
-        )}
-    </>
-);
 
-ColorBox.propTypes = {
-    bgcolor: PropTypes.string,
-    title: PropTypes.string,
-    data: PropTypes.object.isRequired,
-    dark: PropTypes.bool
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.primary.main
+  },
+
+}));
+
+const defaultValues = {
+  name: "",
+  age: 0,
+  gender: "",
+  os: "",
+  favoriteNumber: 0,
 };
+const Form = () => {
+  const classes = useStyles();
 
-// ===============================|| UI COLOR ||=============================== //
+  return(
+     
+    <form className="ui form">
+      <h1 className="ui dividing header">Formulario de Denuncia</h1>
+      <div className="field">
+        
+        <div className="two fields">
+          {/*Nombre empresa*/}
+          <div className="required field">
+            <label>Nombre de la empresa</label>
+            <select className="ui fluid dropdown">
+              <option value="">Empresa</option>
+              <option value="Aa">Telefónica</option>
+              <option value="Ba">HP</option>
+              <option value="Ca">Deloitte</option>
+              <option value="Da">KPMG</option>
+              <option value="Ea">EY</option>
+              <option value="Fa">Movistar</option>
+              <option value="Ga">MS</option>
+              <option value="Ha">Santander</option>
+              <option value="Ia">BBVA</option>
+              <option value="Ja">Westcon</option>
+            </select>
+          </div>
+          {/*Relación con empresa*/}
+          <div className="field">
+            <label>Relación actual con la empresa</label>
+            <select className="ui fluid dropdown">
+              <option value="">Relación</option>
+              <option value="Aaa">Sigo trabajando</option>
+              <option value="Aab">Me despidieron</option>
+              <option value="Bab">He dimitido</option>
+              <option value="Jab">Otro</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-const UIColor = () => (
-    <MainCard title="Color Palette" secondary={<SecondaryAction link="https://next.material-ui.com/system/palette/" />}>
-        <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
-                <SubCard title="Primary Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="primary.light" data={{ label: 'Blue-50', color: '#E3F2FD' }} title="primary.light" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="primary.200" data={{ label: 'Blue-200', color: '#90CAF9' }} title="primary[200]" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="primary.main" data={{ label: 'Blue-500', color: '#2196F3' }} title="primary.main" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="primary.dark" data={{ label: 'Blue-600', color: '#1E88E5' }} title="primary.dark" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="primary.800" data={{ label: 'Blue-800', color: '#1565C0' }} title="primary[800]" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Secondary Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox
-                                bgcolor="secondary.light"
-                                data={{ label: 'DeepPurple-50', color: '#ede7f6' }}
-                                title="secondary.light"
-                                dark
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox
-                                bgcolor="secondary.200"
-                                data={{ label: 'DeepPurple-200', color: '#b39ddb' }}
-                                title="secondary[200]"
-                                dark
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox
-                                bgcolor="secondary.main"
-                                data={{ label: 'DeepPurple-500', color: '#673ab7' }}
-                                title="secondary.main"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox
-                                bgcolor="secondary.dark"
-                                data={{ label: 'DeepPurple-600', color: '#5e35b1' }}
-                                title="secondary.dark"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="secondary.800" data={{ label: 'DeepPurple-800', color: '#4527a0' }} title="secondary[800]" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Success Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="success.light" data={{ label: 'Green-A100', color: '#b9f6ca' }} title="success.light" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="success.main" data={{ label: 'Green-A200', color: '#69f0ae' }} title="success[200]" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="success.main" data={{ label: 'Green-A400', color: '#69f0ae' }} title="success.main" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="success.dark" data={{ label: 'Green-A700', color: '#00c853' }} title="success.dark" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Orange Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox
-                                bgcolor="orange.light"
-                                data={{ label: 'DeepOrange-50', color: '#fbe9e7' }}
-                                title="orange.light"
-                                dark
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="orange.main" data={{ label: 'DeepOrange-200', color: '#ffab91' }} title="orange.main" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="orange.dark" data={{ label: 'DeepOrange-800', color: '#d84315' }} title="orange.dark" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Error Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="error.light" data={{ label: 'Red-50', color: '#ef9a9a' }} title="error.light" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="error.main" data={{ label: 'Red-200', color: '#f44336' }} title="error.main" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="error.dark" data={{ label: 'Red-800', color: '#c62828' }} title="error.dark" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Warning Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="warning.light" data={{ label: 'Amber-50', color: '#b9f6ca' }} title="warning.light" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="warning.main" data={{ label: 'Amber-100', color: '#ffe57f' }} title="warning.main" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="warning.dark" data={{ label: 'Amber-500', color: '#FFC107' }} title="warning.dark" />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-                <SubCard title="Grey Color">
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.50" data={{ label: 'Grey-50', color: '#fafafa' }} title="grey[50]" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.100" data={{ label: 'Grey-100', color: '#f5f5f5' }} title="grey[100]" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.200" data={{ label: 'Grey-200', color: '#eeeeee' }} title="grey[200]" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.300" data={{ label: 'Grey-300', color: '#e0e0e0' }} title="grey[300]" dark />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.500" data={{ label: 'Grey-500', color: '#9e9e9e' }} title="grey[500]" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.700" data={{ label: 'Grey-600', color: '#757575' }} title="grey[600]" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.700" data={{ label: 'Grey-700', color: '#616161' }} title="grey[700]" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="grey.900" data={{ label: 'Grey-900', color: '#212121' }} title="grey[900]" />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4} lg={2}>
-                            <ColorBox bgcolor="#fff" data={{ label: 'Pure White', color: '#ffffff' }} title="Pure White" dark />
-                        </Grid>
-                    </Grid>
-                </SubCard>
-            </Grid>
-        </Grid>
-    </MainCard>
-);
 
-export default UIColor;
+      <div className="three fields">
+
+        {/*Denunciado antes*/}
+        <div className="inline fields">
+          <label for="fruit">¿Has denunciado anteriormente?</label>
+          <div className="field">
+            <div className="ui radio checkbox">
+              <input type="radio" name="fruit" checked="" tabindex="0" className="hidden"/>
+              <label>Sí</label>
+            </div>
+          </div>
+
+          <div className="field">
+            <div className="ui radio checkbox">
+              <input type="radio" name="fruit" tabindex="0" className="hidden"/>
+              <label>No</label>
+            </div>
+          </div>
+          
+        </div>
+        {/*Mediante que medio denunciaste*/}
+        <div className="field">
+          <label>Medio</label>
+          <input type="text" name="card[number]" maxlength="16" placeholder="En caso afirmativo, ¿mediante qué medio?"/>
+        </div>
+        {/*Fecha del suceso*/}
+        <div className="field">
+        <label>Fecha aproximada del suceso o del inicio de este</label>
+        <div className="two fields">
+          <div className="field">
+            <select className="ui fluid search dropdown" name="card[expire-month]">
+              <option value="">Mes</option>
+              <option value="1">Enero</option>
+              <option value="2">Febrero</option>
+              <option value="3">Marzo</option>
+              <option value="4">Abril</option>
+              <option value="5">Mayo</option>
+              <option value="6">Junio</option>
+              <option value="7">Julio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noveembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+          <div className="field">
+            <input type="text" name="card[expire-year]" maxlength="4" placeholder="Año"/>
+          </div>
+        </div>
+        </div>
+      </div>
+        
+        
+
+    <div className="field">      
+      {/*Tipo de denuncia*/}
+      <div className="required field">
+        <label>Tipo de denuncia</label>
+        <select className="ui fluid dropdown">
+          <option value="">Tipo</option>
+          <option value="A">Etnia</option>
+          <option value="B">Género</option>
+          <option value="C">Maltrato</option>
+          <option value="D">Edad</option>
+          <option value="E">Religión</option>
+          <option value="F">Condición sexual</option>
+          <option value="G">Discapacidad</option>
+          <option value="H">Mobbing</option>
+          <option value="I">Explotación</option>
+          <option value="J">Otro</option>
+        </select>
+      </div>
+    </div>
+
+    {/*El usuario deberá solo responder obligatoriamente a aquella relacionada con su tipo de denuncia. El resto son opcionales*/}
+    <div className="four fields">
+        {/*País*/}
+        <div className="field">
+        <label>Si tu denuncia es de etnia</label>
+          <select multiple="" className="ui dropdown">
+          <option value="">Selecciona tu país de origen</option>
+          <option value="AF">Afghanistan</option>
+          <option value="AX">Åland Islands</option>
+          <option value="AL">Albania</option>
+          <option value="DZ">Algeria</option>
+          <option value="AS">American Samoa</option>
+          <option value="AD">Andorra</option>
+          <option value="AO">Angola</option>
+          <option value="AI">Anguilla</option>
+          <option value="AQ">Antarctica</option>
+          <option value="AG">Antigua and Barbuda</option>
+          <option value="AR">Argentina</option>
+          <option value="AM">Armenia</option>
+          <option value="AW">Aruba</option>
+          <option value="AU">Australia</option>
+          <option value="AT">Austria</option>
+          <option value="AZ">Azerbaijan</option>
+          <option value="BS">Bahamas</option>
+          <option value="BH">Bahrain</option>
+          <option value="BD">Bangladesh</option>
+          <option value="BB">Barbados</option>
+          <option value="BY">Belarus</option>
+          <option value="BE">Belgium</option>
+          <option value="BZ">Belize</option>
+          <option value="BJ">Benin</option>
+          <option value="BM">Bermuda</option>
+          <option value="BT">Bhutan</option>
+          <option value="BO">Bolivia, Plurinational State of</option>
+          <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+          <option value="BA">Bosnia and Herzegovina</option>
+          <option value="BW">Botswana</option>
+          <option value="BV">Bouvet Island</option>
+          <option value="BR">Brazil</option>
+          <option value="IO">British Indian Ocean Territory</option>
+          <option value="BN">Brunei Darussalam</option>
+          <option value="BG">Bulgaria</option>
+          <option value="BF">Burkina Faso</option>
+          <option value="BI">Burundi</option>
+          <option value="KH">Cambodia</option>
+          <option value="CM">Cameroon</option>
+          <option value="CA">Canada</option>
+          <option value="CV">Cape Verde</option>
+          <option value="KY">Cayman Islands</option>
+          <option value="CF">Central African Republic</option>
+          <option value="TD">Chad</option>
+          <option value="CL">Chile</option>
+          <option value="CN">China</option>
+          <option value="CX">Christmas Island</option>
+          <option value="CC">Cocos (Keeling) Islands</option>
+          <option value="CO">Colombia</option>
+          <option value="KM">Comoros</option>
+          <option value="CG">Congo</option>
+          <option value="CD">Congo, the Democratic Republic of the</option>
+          <option value="CK">Cook Islands</option>
+          <option value="CR">Costa Rica</option>
+          <option value="CI">Côte d'Ivoire</option>
+          <option value="HR">Croatia</option>
+          <option value="CU">Cuba</option>
+          <option value="CW">Curaçao</option>
+          <option value="CY">Cyprus</option>
+          <option value="CZ">Czech Republic</option>
+          <option value="DK">Denmark</option>
+          <option value="DJ">Djibouti</option>
+          <option value="DM">Dominica</option>
+          <option value="DO">Dominican Republic</option>
+          <option value="EC">Ecuador</option>
+          <option value="EG">Egypt</option>
+          <option value="SV">El Salvador</option>
+          <option value="GQ">Equatorial Guinea</option>
+          <option value="ER">Eritrea</option>
+          <option value="EE">Estonia</option>
+          <option value="ET">Ethiopia</option>
+          <option value="FK">Falkland Islands (Malvinas)</option>
+          <option value="FO">Faroe Islands</option>
+          <option value="FJ">Fiji</option>
+          <option value="FI">Finland</option>
+          <option value="FR">France</option>
+          <option value="GF">French Guiana</option>
+          <option value="PF">French Polynesia</option>
+          <option value="TF">French Southern Territories</option>
+          <option value="GA">Gabon</option>
+          <option value="GM">Gambia</option>
+          <option value="GE">Georgia</option>
+          <option value="DE">Germany</option>
+          <option value="GH">Ghana</option>
+          <option value="GI">Gibraltar</option>
+          <option value="GR">Greece</option>
+          <option value="GL">Greenland</option>
+          <option value="GD">Grenada</option>
+          <option value="GP">Guadeloupe</option>
+          <option value="GU">Guam</option>
+          <option value="GT">Guatemala</option>
+          <option value="GG">Guernsey</option>
+          <option value="GN">Guinea</option>
+          <option value="GW">Guinea-Bissau</option>
+          <option value="GY">Guyana</option>
+          <option value="HT">Haiti</option>
+          <option value="HM">Heard Island and McDonald Islands</option>
+          <option value="VA">Holy See (Vatican City State)</option>
+          <option value="HN">Honduras</option>
+          <option value="HK">Hong Kong</option>
+          <option value="HU">Hungary</option>
+          <option value="IS">Iceland</option>
+          <option value="IN">India</option>
+          <option value="ID">Indonesia</option>
+          <option value="IR">Iran, Islamic Republic of</option>
+          <option value="IQ">Iraq</option>
+          <option value="IE">Ireland</option>
+          <option value="IM">Isle of Man</option>
+          <option value="IL">Israel</option>
+          <option value="IT">Italy</option>
+          <option value="JM">Jamaica</option>
+          <option value="JP">Japan</option>
+          <option value="JE">Jersey</option>
+          <option value="JO">Jordan</option>
+          <option value="KZ">Kazakhstan</option>
+          <option value="KE">Kenya</option>
+          <option value="KI">Kiribati</option>
+          <option value="KP">Korea, Democratic People's Republic of</option>
+          <option value="KR">Korea, Republic of</option>
+          <option value="KW">Kuwait</option>
+          <option value="KG">Kyrgyzstan</option>
+          <option value="LA">Lao People's Democratic Republic</option>
+          <option value="LV">Latvia</option>
+          <option value="LB">Lebanon</option>
+          <option value="LS">Lesotho</option>
+          <option value="LR">Liberia</option>
+          <option value="LY">Libya</option>
+          <option value="LI">Liechtenstein</option>
+          <option value="LT">Lithuania</option>
+          <option value="LU">Luxembourg</option>
+          <option value="MO">Macao</option>
+          <option value="MK">Macedonia, the former Yugoslav Republic of</option>
+          <option value="MG">Madagascar</option>
+          <option value="MW">Malawi</option>
+          <option value="MY">Malaysia</option>
+          <option value="MV">Maldives</option>
+          <option value="ML">Mali</option>
+          <option value="MT">Malta</option>
+          <option value="MH">Marshall Islands</option>
+          <option value="MQ">Martinique</option>
+          <option value="MR">Mauritania</option>
+          <option value="MU">Mauritius</option>
+          <option value="YT">Mayotte</option>
+          <option value="MX">Mexico</option>
+          <option value="FM">Micronesia, Federated States of</option>
+          <option value="MD">Moldova, Republic of</option>
+          <option value="MC">Monaco</option>
+          <option value="MN">Mongolia</option>
+          <option value="ME">Montenegro</option>
+          <option value="MS">Montserrat</option>
+          <option value="MA">Morocco</option>
+          <option value="MZ">Mozambique</option>
+          <option value="MM">Myanmar</option>
+          <option value="NA">Namibia</option>
+          <option value="NR">Nauru</option>
+          <option value="NP">Nepal</option>
+          <option value="NL">Netherlands</option>
+          <option value="NC">New Caledonia</option>
+          <option value="NZ">New Zealand</option>
+          <option value="NI">Nicaragua</option>
+          <option value="NE">Niger</option>
+          <option value="NG">Nigeria</option>
+          <option value="NU">Niue</option>
+          <option value="NF">Norfolk Island</option>
+          <option value="MP">Northern Mariana Islands</option>
+          <option value="NO">Norway</option>
+          <option value="OM">Oman</option>
+          <option value="PK">Pakistan</option>
+          <option value="PW">Palau</option>
+          <option value="PS">Palestinian Territory, Occupied</option>
+          <option value="PA">Panama</option>
+          <option value="PG">Papua New Guinea</option>
+          <option value="PY">Paraguay</option>
+          <option value="PE">Peru</option>
+          <option value="PH">Philippines</option>
+          <option value="PN">Pitcairn</option>
+          <option value="PL">Poland</option>
+          <option value="PT">Portugal</option>
+          <option value="PR">Puerto Rico</option>
+          <option value="QA">Qatar</option>
+          <option value="RE">Réunion</option>
+          <option value="RO">Romania</option>
+          <option value="RU">Russian Federation</option>
+          <option value="RW">Rwanda</option>
+          <option value="BL">Saint Barthélemy</option>
+          <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+          <option value="KN">Saint Kitts and Nevis</option>
+          <option value="LC">Saint Lucia</option>
+          <option value="MF">Saint Martin (French part)</option>
+          <option value="PM">Saint Pierre and Miquelon</option>
+          <option value="VC">Saint Vincent and the Grenadines</option>
+          <option value="WS">Samoa</option>
+          <option value="SM">San Marino</option>
+          <option value="ST">Sao Tome and Principe</option>
+          <option value="SA">Saudi Arabia</option>
+          <option value="SN">Senegal</option>
+          <option value="RS">Serbia</option>
+          <option value="SC">Seychelles</option>
+          <option value="SL">Sierra Leone</option>
+          <option value="SG">Singapore</option>
+          <option value="SX">Sint Maarten (Dutch part)</option>
+          <option value="SK">Slovakia</option>
+          <option value="SI">Slovenia</option>
+          <option value="SB">Solomon Islands</option>
+          <option value="SO">Somalia</option>
+          <option value="ZA">South Africa</option>
+          <option value="GS">South Georgia and the South Sandwich Islands</option>
+          <option value="SS">South Sudan</option>
+          <option value="ES">Spain</option>
+          <option value="LK">Sri Lanka</option>
+          <option value="SD">Sudan</option>
+          <option value="SR">Suriname</option>
+          <option value="SJ">Svalbard and Jan Mayen</option>
+          <option value="SZ">Swaziland</option>
+          <option value="SE">Sweden</option>
+          <option value="CH">Switzerland</option>
+          <option value="SY">Syrian Arab Republic</option>
+          <option value="TW">Taiwan, Province of China</option>
+          <option value="TJ">Tajikistan</option>
+          <option value="TZ">Tanzania, United Republic of</option>
+          <option value="TH">Thailand</option>
+          <option value="TL">Timor-Leste</option>
+          <option value="TG">Togo</option>
+          <option value="TK">Tokelau</option>
+          <option value="TO">Tonga</option>
+          <option value="TT">Trinidad and Tobago</option>
+          <option value="TN">Tunisia</option>
+          <option value="TR">Turkey</option>
+          <option value="TM">Turkmenistan</option>
+          <option value="TC">Turks and Caicos Islands</option>
+          <option value="TV">Tuvalu</option>
+          <option value="UG">Uganda</option>
+          <option value="UA">Ukraine</option>
+          <option value="AE">United Arab Emirates</option>
+          <option value="GB">United Kingdom</option>
+          <option value="US">United States</option>
+          <option value="UM">United States Minor Outlying Islands</option>
+          <option value="UY">Uruguay</option>
+          <option value="UZ">Uzbekistan</option>
+          <option value="VU">Vanuatu</option>
+          <option value="VE">Venezuela, Bolivarian Republic of</option>
+          <option value="VN">Viet Nam</option>
+          <option value="VG">Virgin Islands, British</option>
+          <option value="VI">Virgin Islands, U.S.</option>
+          <option value="WF">Wallis and Futuna</option>
+          <option value="EH">Western Sahara</option>
+          <option value="YE">Yemen</option>
+          <option value="ZM">Zambia</option>
+          <option value="ZW">Zimbabwe</option>
+        </select>
+        </div>
+        {/*Edad*/}
+        <div className="field">
+          <label>Si tu denuncia es de edad</label>
+          <input type="text" name="card[number]" maxlength="16" placeholder="Edad"/>
+        </div>
+        {/*Religión*/}
+        <div className="field">
+          <label>Si tu denuncia es de religión</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Etnia"/>
+        </div>
+        {/*Género*/}
+        <div className="field">
+          <label>Si tu denuncia es de género</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+      </div>
+      <div className="five fields">
+        {/*Maltrato*/}
+        <div className="field">
+          <label>Si tu denuncia es de maltrato</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+        {/*Condición sexual*/}
+        <div className="field">
+          <label>Si tu denuncia es de condición sexual</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+        {/*Discapacidad*/}
+        <div className="field">
+          <label>Si tu denuncia es de discapacidad</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+        {/*Mobbing*/}
+        <div className="field">
+          <label>Si tu denuncia es de mobbing</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+        {/*Explotación*/}
+         <div className="field">
+          <label>Si tu denuncia es de explotación</label>
+          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
+        </div>
+      </div>
+
+  
+
+
+
+    {/*El usuario contará su historia*/} 
+    <div className="required field">
+    <label >Descripción del suceso</label>
+        <input type="text" name="card[number]" maxlength="16" placeholder="Cuéntanos tu hisoria"/>
+    </div>
+
+
+      
+      {/*Botón para permitir compartir la historia. No es obligatorio para el usuario*/}
+      <div className="ui segment">
+        <div className="field">
+          <div className="ui toggle checkbox">
+          <div className="ui checkbox">
+            <input type="checkbox" tabindex="0" className="hidden"/>
+            <label>Acepto que mi historia aparezca publicada de forma anónima</label>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div className="ui button" tabindex="0">Enviar formulario</div>
+    </form>
+  );
+};
+export default Form;

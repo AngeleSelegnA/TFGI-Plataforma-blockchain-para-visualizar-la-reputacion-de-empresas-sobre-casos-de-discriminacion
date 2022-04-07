@@ -8,7 +8,7 @@ import Loadable from 'ui-component/Loadable';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // sample page routing
-const Form=Loadable(lazy(() => import('views/dashboard/formu-denuncia.js')));
+const Form=Loadable(lazy(() => import('views/dashboard/formu-denuncia')));
 
 const MainRoutes = {
     path: '/',
@@ -24,10 +24,10 @@ const MainRoutes = {
         },
         {
             path: '/views/pages/tfg-info',
-            element: <Form />
+            element: <Form/>
         },
         {
-            path: '/views/formu-denuncia', //esto es lo que saldra
+            path: '/views/dashboard/formu-denuncia', //esto es lo que saldra
             element: <Form />
         }
     ]

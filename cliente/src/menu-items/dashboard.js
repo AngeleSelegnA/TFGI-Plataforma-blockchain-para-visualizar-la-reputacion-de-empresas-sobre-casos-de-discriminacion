@@ -34,7 +34,7 @@ const dashboard = {
             id: 'Denuncia',
             title: 'Formulario Denuncia',
             type: 'item',
-            url: '/dashboard/formu-denuncia', //esto es lo que yo tengo en mi proyecto
+            url: '/views/dashboard/formu-denuncia', //esto es lo que yo tengo en mi proyecto
             icon: icons.IconAlertOctagon,
             breadcrumbs: false
         }
