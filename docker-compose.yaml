@@ -8,8 +8,8 @@ services:
     ports: 
       - 3001:3001
 
-  client:
+  cliente:
     build: ./cliente
-    image: client:1.0
+    image: cliente:1.0
     ports:
       - 3000:3000
