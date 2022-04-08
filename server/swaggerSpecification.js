@@ -24,15 +24,6 @@ const options = {
           description: 'Servidor de la app',
         },
       ],
-      components: {
-        securitySchemes: {
-          ApiKeyAuth: {
-          type: 'apiKey',
-          in: 'cookie',
-          name: 'connect.sid'
-          }
-        }
-      },
     },
     // Paths to files containing OpenAPI definitions
     apis: ['./index.js'],
