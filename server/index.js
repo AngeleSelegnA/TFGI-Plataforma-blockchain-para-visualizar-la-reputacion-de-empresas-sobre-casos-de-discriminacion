@@ -112,8 +112,6 @@ passport.use(new LinkedInStrategy({
 *   get:
 *     tags: 
 *       - Login
-*     security:
-*      - ApiKeyAuth: []
 *     summary: Redirigir a Linkedin.
 *     description: Envía al usuario a la página de Linkedin para que allí se autentique.
 *     responses: 
@@ -129,8 +127,6 @@ app.get('/auth/linkedin', passport.authenticate('linkedin'));
 *   get:
 *     tags: 
 *       - Login
-*     security:
-*      - ApiKeyAuth: []
 *     summary: Gestiona la redirección de vuelta a la aplicación web.
 *     description: Gestiona la redirección de vuelta a la aplicación web y genera una sesión de login para el usuario.
 *     responses: 
@@ -171,8 +167,6 @@ passport.deserializeUser((id, done) => { User.findById(id, (err, user) => {retur
 *   get:
 *     tags: 
 *       - Login
-*     security:
-*      - ApiKeyAuth: []
 *     summary: Obtiene el nombre de usuario.
 *     description: Devuelve el nombre de usuario para enviarlo al front. 
 *     responses: 
@@ -197,8 +191,6 @@ app.get('/getuser' , (req, res) => {
 *   get:
 *     tags: 
 *       - Logout
-*     security:
-*      - ApiKeyAuth: []
 *     summary: Cierra la sesión.
 *     description: Cierra la sesión del usuario.
 *     responses: 
