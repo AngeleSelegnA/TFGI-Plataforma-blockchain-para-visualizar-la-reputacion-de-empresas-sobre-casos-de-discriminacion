@@ -10,8 +10,8 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const genName = require("randomstring");
 var session = require('express-session');
 var User = require('./User.module.js');
-const swaggerJSDoc = require('swagger-jsdoc'); //Para generar un documento de Swagger
 const swaggerUi = require('swagger-ui-express');
+const swaggerSpecification = require('./swaggerSpecification');
 
 //Servidor
 const app = express();
@@ -105,13 +105,43 @@ passport.use(new LinkedInStrategy({
   });
 }));
 
+//Se redirige a Linkedin, donde se hará la autenticación
+/**
+* @openapi
+* /auth/linkedin:
+*   get:
+*     tags: 
+*       - Login
+*     security:
+*      - ApiKeyAuth: []
+*     summary: Redirigir a Linkedin.
+*     description: Envía al usuario a la página de Linkedin para que allí se autentique.
+*     responses: 
+*       200:
+*         description: Redirección realizada correctamente.
+*/
 app.get('/auth/linkedin', passport.authenticate('linkedin'));
 
+//Se redirige de vuelta a la web y genera la sesión de login
+/**
+* @openapi
+* /auth/linkedin/callback:
+*   get:
+*     tags: 
+*       - Login
+*     security:
+*      - ApiKeyAuth: []
+*     summary: Gestiona la redirección de vuelta a la aplicación web.
+*     description: Gestiona la redirección de vuelta a la aplicación web y genera una sesión de login para el usuario.
+*     responses: 
+*       200:
+*         description: Redirección y login realizados con éxito.
+*/
 app.get('/auth/linkedin/callback', (req, res, next) => {
   passport.authenticate('linkedin', (err, user, info) => {
    if (err || !user) {
     // Si el usuario cancela el permiso
-    return res.redirect(`${process.env.REACT_PAGE}/user`);
+    return res.redirect(`${process.env.REACT_PAGE}`);
    }
    req.login(user, (err) => { 
     if (err) { return next(err); }
@@ -139,17 +169,20 @@ passport.deserializeUser((id, done) => { User.findById(id, (err, user) => {retur
 * @openapi
 * /getuser:
 *   get:
+*     tags: 
+*       - Login
 *     security:
 *      - ApiKeyAuth: []
 *     summary: Obtiene el nombre de usuario.
 *     description: Devuelve el nombre de usuario para enviarlo al front. 
 *     responses: 
 *       200:
-*         description: Un nombre de usuario.
+*         description: Nombre de usuario recibido con éxito. 
 *         content:
-*           - application/json:
+*           application/json:
 *             schema:
 *               type: string
+*               example: ZcNJA69bAkceP31
 *               items:
 *                 $ref: '#/components/schemas/User'
 */
@@ -162,17 +195,15 @@ app.get('/getuser' , (req, res) => {
 * @openapi
 * /logout:
 *   get:
+*     tags: 
+*       - Logout
 *     security:
 *      - ApiKeyAuth: []
 *     summary: Cierra la sesión.
 *     description: Cierra la sesión del usuario.
 *     responses: 
 *       200:
-*         description: Se hace logout correctamente
-*         content:
-*           - application/json:
-*             schema:
-*               type: string
+*         description: Se hace logout correctamente.
 */
 app.get('/logout', function(req, res){
     req.logout();
@@ -182,45 +213,21 @@ app.get('/logout', function(req, res){
     });
 });
 
-//Swagger
-const options = {
-  swaggerDefinition : { 
-    openapi: '3.0.0',
-    info: {
-      title: 'TFG Blockchain Swagger',
-      version: '1.0.0',
-      description: 'Este documento contiene los endpoints de la API del Servidor de forma que queden explicados y registrados.',
-      license: {
-        name: 'Licencia GPL',
-        url: 'https://www.gnu.org/licenses/gpl-3.0.html',
-      },
-      termsOfService: 'https://localhost/3000/tos',
-      contact: {
-        name: 'Soporte Proyecto',
-        email: 'tfg.blockchain@gmail.com'
-      },
-    },
-    servers: [
-      {
-        url: 'http://localhost:' +`${process.env.PORT}`,
-        description: 'Servidor de la app',
-      },
-    ],
-    components: {
-      securitySchemes: {
-        ApiKeyAuth: {
-        type: 'apiKey',
-        in: 'cookie',
-        name: 'connect.sid'
-        }
-      }
-    },
-  },
-  // Paths to files containing OpenAPI definitions
-  apis: ['./index.js'],
-};
-
-const swaggerSpecification = swaggerJSDoc(options);
-
 //Desde este endpoint se puede acceder al documento de swagger que muestra los endpoints
+/**
+* @openapi
+* /swagger:
+*   get:
+*     tags: 
+*       - Documentación
+*     summary: Sirve este documento.
+*     description: Se usa para poder acceder a este swagger.
+*     responses: 
+*       200:
+*         description: Swagger cargado con éxito.
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*/
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
