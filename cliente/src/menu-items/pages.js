@@ -29,10 +29,10 @@ const pages = {
                     target: true
                 },
                 {
-                    id: 'register3',
-                    title: 'Register',
+                    id: 'tfgInfo',
+                    title: 'Información del proyecto',
                     type: 'item',
-                    url: '/pages/register/register3',
+                    url: '/pages/tfgInfo',
                     target: true
                 },
                 {

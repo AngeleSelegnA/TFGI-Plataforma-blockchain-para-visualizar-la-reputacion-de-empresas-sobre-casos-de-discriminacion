@@ -24,7 +24,7 @@ const dashboard = {
             id: 'tfg info',
             title: 'Nuestro proyecto',
             type: 'item',
-            url: '/views/pages/tfg-info',
+            url: '/views/pages/tfgInfo',
             icon: icons.IconInfoCircle,
             breadcrumbs: false
         },
