@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Card, Image } from 'semantic-ui-react';
+import {  Card, Image } from 'semantic-ui-react';
 import telefonica from '../../../assets/images/telefonica.png';
+import { Button} from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
 
 const CompanyItem = ({ name, reputation }) => {
@@ -19,9 +21,13 @@ const CompanyItem = ({ name, reputation }) => {
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
-          <Button basic color='blue' onClick={'/dashboard/formu-denuncia'}>
+            
+            <NavLink to={`/views/pages/company`}>
+              <Button  color= "primary"  variant="contained" >Ver empresa</Button>
+            </NavLink>
+          {/* <Button basic color='blue' onClick={'/pages/company/index'}>
             Ver empresa
-          </Button>
+          </Button> */}
         </div>
       </Card.Content>
     </Card>

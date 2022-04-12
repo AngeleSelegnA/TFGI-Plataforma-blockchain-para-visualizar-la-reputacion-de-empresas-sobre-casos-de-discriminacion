@@ -41,6 +41,13 @@ const pages = {
                     type: 'item',
                     url: '/pages/formu-denuncia',
                     target: true
+                },
+                {
+                    id: 'company',
+                    title: 'Company',
+                    type: 'item',
+                    url: '/pages/company',
+                    target: true
                 }
 
             ]

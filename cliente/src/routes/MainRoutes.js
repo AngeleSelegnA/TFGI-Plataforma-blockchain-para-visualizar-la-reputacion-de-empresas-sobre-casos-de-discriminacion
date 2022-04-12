@@ -10,6 +10,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 // sample page routing
 const Formulario =Loadable(lazy(() => import('views/pages/formulario')));
 const InfoProyecto =Loadable(lazy(() => import('views/pages/tfgInfo')));
+const Company =Loadable(lazy(() => import('views/pages/company')));
 
 const MainRoutes = {
     path: '/',
@@ -30,6 +31,10 @@ const MainRoutes = {
         {
             path: '/views/pages/formulario',
             element: <Formulario />
+        }, 
+        {
+            path: 'views/pages/company',
+            element: <Company />
         }
     ]
 };

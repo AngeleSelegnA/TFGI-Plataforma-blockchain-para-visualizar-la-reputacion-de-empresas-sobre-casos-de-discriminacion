@@ -22,7 +22,7 @@ const dashboard = {
 
         {
             id: 'tfg info',
-            title: 'Nuestro proyecto',
+            title: 'Información del proyecto',
             type: 'item',
             url: '/views/pages/tfgInfo',
             icon: icons.IconInfoCircle,
@@ -35,7 +35,15 @@ const dashboard = {
             url: '/views/pages/formulario', 
             icon: icons.IconAlertOctagon,
             breadcrumbs: false
-        }
+        },
+        {
+            id: 'company',
+            title: 'Company',
+            type: 'item',
+            url: '/views/pages/company',
+            icon: icons.IconInfoCircle,
+            breadcrumbs: false
+        },
     ]
 };
 
