@@ -1,6 +1,8 @@
 // prettier-ignore	
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
+import Joyride, {  STATUS } from 'react-joyride';
+import { steps } from "../../utilities/Steps";
 
 // material-ui
 import { Grid } from '@mui/material';
@@ -138,6 +140,25 @@ const Dashboard = () => {
 	]
 
     return (
+        <div>
+            <Joyride
+                continuous={true}  
+                scrollToFirstStep={true} //el botoncito
+                showProgress={true}
+                showSkipButton={true}
+                run = {true}
+                steps={steps}
+                styles={{
+                    
+                    buttonClose: {
+                        display: 'none',
+                    },
+                    options: {
+                        zIndex: 10000,
+                        primaryColor: '#099',
+                      },
+                }}
+            />
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
@@ -150,10 +171,12 @@ const Dashboard = () => {
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeDarkCard isLoading={isLoading} />
+                                <div className = "denunciar">
+                                    <TotalIncomeDarkCard isLoading={isLoading} />
+                                </div>
                             </Grid>
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <TotalIncomeLightCard isLoading={isLoading} />
+                            <Grid item sm={6} xs={12} md={6} lg={12}> 
+                                <TotalIncomeLightCard isLoading={isLoading} />  
                             </Grid>
                         </Grid>
                     </Grid>
@@ -163,14 +186,16 @@ const Dashboard = () => {
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={8} md={12} sm={12} xs={12}>
                         {/*añadir sino aqui los tops en vez de empresas y poner un boton ver empresas*/}
-                        <Carousel 
-                        isLoading={isLoading}
-                        elements = {elements}
-                        duration ={3000}
-                        animation = 'slide left'
-                        showNextPrev = {false}
-                        showIndicators = {true}   
-                        />
+                        <div className = "empresa">
+                            <Carousel 
+                            isLoading={isLoading}
+                            elements = {elements}
+                            duration ={3000}
+                            animation = 'slide left'
+                            showNextPrev = {false}
+                            showIndicators = {true}   
+                            />
+                        </div>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <PopularCard isLoading={isLoading} />
@@ -178,6 +203,7 @@ const Dashboard = () => {
                 </Grid>
             </Grid>
         </Grid>
+        </div>
     );
 };
 
