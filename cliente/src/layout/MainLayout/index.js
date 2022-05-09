@@ -90,7 +90,7 @@ const MainLayout = () => {
                 color="inherit"
                 elevation={0}
                 sx={{
-                    bgcolor: theme.palette.background.default,
+                    bgcolor: '#ffffff',
                     transition: leftDrawerOpened ? theme.transitions.create('width') : 'none'
                 }}
             >

@@ -8,9 +8,11 @@ import Loadable from 'ui-component/Loadable';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // sample page routing
-const Formulario =Loadable(lazy(() => import('views/pages/formulario')));
-const InfoProyecto =Loadable(lazy(() => import('views/pages/tfgInfo')));
-const Company =Loadable(lazy(() => import('views/pages/company')));
+
+const Formulario = Loadable(lazy(() => import('views/pages/formulario')));
+const InfoProyecto = Loadable(lazy(() => import('views/pages/tfgInfo')));
+const Company = Loadable(lazy(() => import('views/pages/company')));
+
 
 const MainRoutes = {
     path: '/',
@@ -33,8 +35,13 @@ const MainRoutes = {
             element: <Formulario />
         }, 
         {
-            path: 'views/pages/company',
+            path: 'views/pages/company/:id',
             element: <Company />
+
+        },
+        {
+            path: 'views/pages/company:id/formulario',
+            element: <Formulario />
         }
     ]
 };
