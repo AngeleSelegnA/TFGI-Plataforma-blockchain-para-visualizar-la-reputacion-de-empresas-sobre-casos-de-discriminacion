@@ -2,7 +2,6 @@
 import React, {  useEffect, useState, useContext } from 'react';
 import { context } from '../../../contextProvider.js';
 import { ethers } from "ethers";
-import * as constants from '../../../constantFile.js'
 import Joyride, {  STATUS } from 'react-joyride';
 import { steps } from "../../utilities/Steps";
 import axios from 'axios';
@@ -71,7 +70,7 @@ const Dashboard = () => {
 
     useEffect(async () => {
         setLoading(false);
-        Context.provider.getBalance(constants.ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
+        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
         const [companies, ourReputations, totalComplaints] = await Promise.all([ //Practicamente instantaneo(son gets)
             await Context.contract.methods.getCompaniesNames().call(),
             await Context.contract.methods.getBalances().call(),

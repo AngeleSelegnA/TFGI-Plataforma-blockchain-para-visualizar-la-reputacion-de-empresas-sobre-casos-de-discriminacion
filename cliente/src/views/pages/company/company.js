@@ -14,7 +14,6 @@ import { NavLink } from 'react-router-dom';
 import GraphicsLayout from "../Graphics/GraphicsLayout";
 import ReputationControl from '../../../ReputationControl.json';
 import Web3 from 'web3';
-import * as constants from './../../constantFile.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,11 +53,11 @@ const useStyles = makeStyles((theme) => ({
 
 /*
 //Si todavia no se ha conectado con Metamask entonces aparece un popup para la conexion
-const infuraUrl = constants.INFURA_URL;
+const infuraUrl = process.env.REACT_APP_INFURA_URL;
 //Crea una instancia para comunicarse con el nodo indicado
 const web3 = new Web3(new Web3.providers.HttpProvider(infuraUrl));
 //Nos conectamos con el contrato
-const contract = new web3.eth.Contract(complaintContract.abi, constants.CONTRACT_ADDRESS);
+const contract = new web3.eth.Contract(complaintContract.abi, process.env.REACT_APP_CONTRACT_ADDRESS);
 */
 
 const Company = ({ match }) => {

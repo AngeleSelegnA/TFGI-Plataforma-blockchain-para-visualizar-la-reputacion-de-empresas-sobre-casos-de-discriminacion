@@ -15,7 +15,6 @@ import { Grid } from '@mui/material';
 import ReportButtonCard from './ReportButtonCard';
 import ReputationCard from './ReputationCard';
 import { gridSpacing } from 'store/constant';
-import * as constants from '../../../constantFile';
 import ReputationControl from '../../../ReputationControl.json';
 import { makeStyles } from '@material-ui/core/styles';
 import HeaderCard from './HeaderCard'

@@ -1,7 +1,6 @@
 /* import React, { useState, useContext, useEffect }  from 'react';
 import { context } from '../../../contextProvider.js';
 import Web3 from 'web3';
-import * as constants from '../../../constantFile';
 import complaintContract from '../../../complaintContract.json';
 import MaterialTable , { MTableToolbar, MTableFilterRow, MTablePagination } from "material-table";
 import FilterListIcon from '@material-ui/icons/FilterList';

@@ -9,7 +9,6 @@ import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 
 import { useEffect, useState, useContext } from 'react';
 import { context } from '../../../contextProvider.js';
-import * as constants from '../../../constantFile.js'
 import { ethers } from "ethers";
 
 // project imports
@@ -72,7 +71,7 @@ const DonationCard = ({ isLoading }) => {
     const Context = useContext(context);
 
     useEffect(() => {
-        Context.provider.getBalance(constants.ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
+        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
     }, []);
 
     return (

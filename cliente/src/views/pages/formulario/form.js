@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { context } from '../../../contextProvider.js';
 import Web3 from 'web3';
-import * as constants from '../../../constantFile.js';
 import ReputationControl from '../../../ReputationControl.json';
 import { useForm } from 'react-hook-form';
 import * as data from './constantData';
@@ -11,8 +10,8 @@ import axios from 'axios';
 import { create as ipfsHttpClient } from "ipfs-http-client";
 
 /*
-const projectId = constants.PROJECT_ID;
-const projectSecret = constants.PROJECT_SECRET;
+const projectId = process.env.REACT_APP_PROJECT_ID;
+const projectSecret = process.env.REACT_APP_PROJECT_SECRET;
 
 const auth =
   'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
@@ -49,16 +48,16 @@ const Formulario = () => {
   async function newComplaint(transaction) {
     try {
         const tx = {
-            to      : constants.CONTRACT_ADDRESS, //Dirección del contrato
+            to      : process.env.REACT_APP_CONTRACT_ADDRESS, //Dirección del contrato
             data    : transaction.encodeABI(),      //
-            gas     : await transaction.estimateGas({from: constants.ADDRESS}),   //Se estima el coste en gas
+            gas     : await transaction.estimateGas({from: process.env.REACT_APP_ADDRESS}),   //Se estima el coste en gas
             gasPrice: await Context.web3.eth.getGasPrice(),   //Precio del gas
             gaslimit: 0x1000000,   //Limite de gas que se puede gastar
             value   : 0,   //No se va a realizar una transferencia
         };
         console.log("transacción construida");
         //Se firma la transacción con la clave privada
-        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, constants.PRIVATE_KEY);
+        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_PRIVATE_KEY);
         console.log("transacción firmada");
         //Se envia la transaccion firmada 
         await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
