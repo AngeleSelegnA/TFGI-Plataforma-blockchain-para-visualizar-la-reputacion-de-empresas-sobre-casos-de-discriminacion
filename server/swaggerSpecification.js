@@ -1,18 +1,17 @@
 const swaggerJSDoc = require('swagger-jsdoc'); //Para generar un documento de Swagger
 
-//Swagger
+//Swagger (Se define el nombre del documento, descripción, licencia del proyecto, documento que contiene los endpoints...)
 const options = {
     swaggerDefinition : { 
-      openapi: '3.0.0',
+      openapi: '3.0.3',
       info: {
         title: 'TFG Blockchain Swagger',
-        version: '1.0.0',
+        version: '3.0.0',
         description: 'Este documento contiene los endpoints de la API del Servidor de forma que queden explicados y registrados.',
         license: {
           name: 'Licencia GPL',
           url: 'https://www.gnu.org/licenses/gpl-3.0.html',
         },
-        termsOfService: 'https://localhost/3000/tos',
         contact: {
           name: 'Soporte Proyecto',
           email: 'tfg.blockchain@gmail.com'

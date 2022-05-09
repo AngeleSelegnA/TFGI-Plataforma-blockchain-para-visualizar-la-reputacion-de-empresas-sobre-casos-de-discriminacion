@@ -1,6 +1,6 @@
 {
     "name": "server",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "description": "Servidor para el TFG",
     "main": "index.js",
     "scripts": {
@@ -10,17 +10,18 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "cookie-parser": "^1.4.6",
+        "connect-mongo": "^4.6.0",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "express-session": "^1.17.2",
         "mongoose": "^6.0.12",
+        "node-cron": "^3.0.0",
         "nodemon": "^2.0.15",
         "passport": "^0.5.0",
         "passport-linkedin-oauth2": "^2.0.0",
+        "python-shell": "^3.0.1",
         "randomstring": "^1.2.1",
-        "swagger-autogen": "^2.20.8",
         "swagger-jsdoc": "5.0.1",
         "swagger-ui-express": "^4.3.0"
     }

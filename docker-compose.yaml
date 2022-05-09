@@ -1,15 +1,45 @@
 version: "3.7"
 
 services:
- 
-  server:
-    build: ./server
-    image: server:1.0
-    ports: 
-      - 3001:3001
+  
+  #aplicacion
+  
+  #cliente:
+   # build: ./cliente
+  #image: cliente:latest
+   # ports:
+    #  - 3000:3000
 
-  cliente:
-    build: ./cliente
-    image: cliente:1.0
+  #server pool
+  server_1:
+    build: ./server
+    image: server:latest
     ports:
-      - 3000:3000
+      - 3002:3001
+    restart: on-failure:3
+
+  server_2:
+    build: ./server
+    image: server:latest
+    ports:
+      - 3003:3001
+    restart: on-failure:3
+
+  server_3:
+    build: ./server
+    image: server:latest
+    ports:
+      - 3004:3001
+    restart: on-failure:3
+
+  #load balancer
+  nginx:
+    build: ./load_balancer
+    image: nginx:latest
+    ports:
+      - 3001:3001
+    depends_on: 
+      - server_1
+      - server_2
+      - server_3
+    restart: on-failure:3

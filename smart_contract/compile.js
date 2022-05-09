@@ -9,7 +9,7 @@ const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
 //Cogemos ruta del programa solidity
-const programPath = path.resolve(__dirname,'contracts','complaintContract.sol');
+const programPath = path.resolve(__dirname,'contracts','ReputationControl.sol');
 
 //Leemos el contenido del programa 
 const source = fs.readFileSync(programPath,'utf8');
@@ -18,7 +18,7 @@ const source = fs.readFileSync(programPath,'utf8');
 const input = {
     language: 'Solidity',
     sources: {
-      'complaintContract.sol': {
+      'ReputationControl.sol': {
         content: source
       },
     },
@@ -32,12 +32,12 @@ const input = {
 };
 
 //Compilamos ambos contratos
-const output = JSON.parse(solc.compile(JSON.stringify(input))).contracts['complaintContract.sol']
+const output = JSON.parse(solc.compile(JSON.stringify(input))).contracts['ERC4974','ReputationControl.sol']
 
 //Creamos de nuevo carpeta build. La crea si no existe dicha carpeta
 fs.ensureDirSync(buildPath);
 
-//console.log(output);
+console.log(output);
 
 //output es un diccionario de contratos compilados. La clave es el nombre del contrato. 
 for (let contract in output) {
