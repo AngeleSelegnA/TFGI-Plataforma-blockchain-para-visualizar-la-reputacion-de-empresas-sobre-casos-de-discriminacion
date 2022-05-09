@@ -3,12 +3,11 @@ version: "3.7"
 services:
   
   #aplicacion
-  
-  #cliente:
-   # build: ./cliente
-  #image: cliente:latest
-   # ports:
-    #  - 3000:3000
+  cliente:
+   build: ./cliente
+   image: cliente:latest
+   ports:
+      - 3000:3000
 
   #server pool
   server_1:
