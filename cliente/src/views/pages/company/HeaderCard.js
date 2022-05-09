@@ -52,7 +52,7 @@ const HeaderCard = ({ name, isLoading }) => {
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 4.25 }}>
                         <Grid container direction="column">
-                            <HeaderCompany/>
+                            <HeaderCompany name = {name}/>
                         </Grid>
                     </Box>
                 </CardWrapper>

@@ -1,51 +1,45 @@
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
 
-import {
-  ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-
-  const data = [
-    {
-      name: "Telefónica",
-      reputation: 590
-    },
-    {
-      name: "Deloitte",
-      reputation: 868
-    },
-    {
-      name: "KPMG",
-      reputation: 1397
-    },
-    {
-      name: "Renfe",
-      reputation: 1480
-    },
-    {
-      name: "MS",
-      reputation: 1520
-    }
-  ];
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
   
-  export default function BarChart({colorBarra,colorLinea}) {
+  export default function BarChart({colorBarra, data, title}) {
+
+    let fixedData = [];
+    for(let d of data){
+      fixedData.push({
+        name : d.category.charAt(0).toUpperCase() + d.category.slice(1),
+        denuncias: d.value
+      })
+    }
+
+    
+
+
+
     return (
       <ComposedChart
-        width={400}
-        height={300}
-        data={data}
+        
+        width={350}
+        height={238}
+        data={fixedData}
         margin={{
           top: 20,
           right: 20,
           bottom: 20,
           left: 0
         }}
+        
+
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis dataKey="name" scale="band" />
+        <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} label={{ value: title, position: 'insideBottomRight', offset: 0 }}/>
         <YAxis />
-        <Tooltip />
+        <Tooltip  />
         <Legend />
-        <Bar dataKey="reputation" barSize={20} fill={colorBarra} />
-        <Line type="monotone" dataKey="reputation" stroke={colorLinea} />
+        <Bar dataKey="denuncias" barSize={5} fill={colorBarra} />
       </ComposedChart>
     );
   }
+
+  //label={{ fill: 'red', fontSize: 20 }}

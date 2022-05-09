@@ -11,6 +11,7 @@ import DonationTextCard from './DonationTextCard';
 import TextCard from './TextCard';
 import MemberCard from './MemberCard';
 import HeaderCard from './HeaderCard';
+import EmpresasCard from './EmpresasCard';
 import { gridSpacing } from 'store/constant';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -56,23 +57,32 @@ const tfgInfo = () => {
                  {/* 2 columnas */}
                 <Grid container spacing={gridSpacing}>
                     {/* col 1: texto tfg */}
-                    <Grid item lg={6} xs={12} md={8}>
-                        <TextCard isLoading={isLoading} />
+                    <Grid item lg={6} xs={28} md={4}>
+                        {/* miembros del proyecto */}
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                <TextCard isLoading={isLoading} />
+                            </Grid> 
+                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                <EmpresasCard id={4} isLoading={isLoading} />
+                            </Grid>
+                        </Grid>
                     </Grid>
+                    
                     {/* col 2 y 3 : personas */}
                     <Grid item lg={3} xs={28} md={4}>
                         {/* miembros del proyecto */}
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={0} isLoading={isLoading} />
+                                <MemberCard id={0} isLoading={isLoading} />
                             </Grid>
                         
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={1} isLoading={isLoading} />
+                                <MemberCard id={2} isLoading={isLoading} />
                             </Grid>
                         
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={2} isLoading={isLoading} />
+                                <MemberCard id={4} isLoading={isLoading} />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -80,15 +90,15 @@ const tfgInfo = () => {
                         {/* miembros del proyecto */}
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={3} isLoading={isLoading} />
+                                <MemberCard id={1} isLoading={isLoading} />
                             </Grid>
                         
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={4} isLoading={isLoading} />
+                                <MemberCard id={3} isLoading={isLoading} />
                             </Grid>
                         
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard i={5} isLoading={isLoading} />
+                                <MemberCard id={5} isLoading={isLoading} />
                             </Grid>
                         </Grid>
                     </Grid>

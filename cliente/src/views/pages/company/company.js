@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import BarChartLayaout from '../Graphics/BarCharLayaout.js';
 import { NavLink } from 'react-router-dom';
 import GraphicsLayout from "../Graphics/GraphicsLayout";
-import complaintContract from '../../complaintContract.json';
+import ReputationControl from '../../../ReputationControl.json';
 import Web3 from 'web3';
 import * as constants from './../../constantFile.js';
 
@@ -69,7 +69,7 @@ const Company = ({ match }) => {
   const classes = useStyles();
   
   useEffect(() => {
-    Context.contract.methods.getComplaints(nameCompany).call().then(response => setComplaints(response));
+    Context.contract.methods.getCompanyComplaints(nameCompany).call().then(response => setComplaints(response));
   },[]);
 
   return (

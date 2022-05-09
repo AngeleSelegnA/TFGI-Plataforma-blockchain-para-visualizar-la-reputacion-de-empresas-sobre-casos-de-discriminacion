@@ -9,6 +9,9 @@ import TotalGrowthBarChart from 'ui-component/cards/Skeleton/PopularCard';
 
 
 const Form = () => {
+
+
+
     const [isLoading, setLoading] = useState(true);
     
     useEffect(() => {

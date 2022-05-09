@@ -1,11 +1,16 @@
 /* eslint-disable */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 
+
+import { useEffect, useState, useContext } from 'react';
+import { context } from '../../../contextProvider.js';
+import * as constants from '../../../constantFile.js'
+import { ethers } from "ethers";
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -62,30 +67,13 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const DonationCard = ({ isLoading }) => {
     const theme = useTheme();
-    const [amount, setAmount] = useState(""); //cantidad a donar en ethers
 
+    const [balance, setBalance] = useState("");
+    const Context = useContext(context);
 
-    const handleDonation = async (e) => {
-        try{
-            if(!window.ethereum) //Para ver si el usuario tiene cartera
-                throw new Error("No se encontro cartera de metamask.");
-            await window.ethereum.send("eth_requestAccounts");
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            console.log("enviando transaccion")
-            const tx = await signer.sendTransaction({
-                to: constants.ADDRESS2,
-                value:  ethers.utils.parseEther(amount),
-                gasPrice: signer.getGasPrice(),
-                gasLimit : 100000
-            });
-            console.log({tx});
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
+    useEffect(() => {
+        Context.provider.getBalance(constants.ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
+    }, []);
 
     return (
         <>
@@ -98,7 +86,7 @@ const DonationCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                             <Typography sx={{ fontSize: '1.7rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                108 ether
+                                                {balance.slice(0,6)} ETH
                                             </Typography>
                                         
                                     </Grid>

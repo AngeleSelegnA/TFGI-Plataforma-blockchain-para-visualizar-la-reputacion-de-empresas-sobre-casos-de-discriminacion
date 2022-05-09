@@ -1,116 +1,185 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import { create as ipfsHttpClient } from "ipfs-http-client";
+import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
+
 import MaterialTable , { MTableToolbar, MTableFilterRow, MTablePagination } from "material-table";
-import FilterListIcon from '@material-ui/icons/FilterList';
-import SearchIcon from '@material-ui/icons/Search';
-import Clear from '@material-ui/icons/Clear';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import {Grid, Button, Box} from '@material-ui/core';
+
+import {Grid, Button} from '@material-ui/core';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import { styled, useTheme } from '@mui/material/styles';
+
+import { makeStyles } from '@material-ui/core/styles'
+
+import { 
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Avatar,
+    Typography,
+    TablePagination,
+    TableFooter
+ } from '@material-ui/core';
 
 
 
-const columns=[
-  { title: 'Avatar', field: 'imageUrl', render: rowData => <img src={rowData.imageUrl} style={{width: 40, borderRadius: '50%'}}/>,
-  cellStyle: {
-      backgroundColor: '#FAD7A0',
-      color: '#A04000'
+
+
+const useStyles = makeStyles((theme) => ({
+    table: {
+      minWidth: 650,
     },
-    headerStyle: {
-        backgroundColor: '#EB984E',
-      }
-   },
-  { title: "Tipo de denuncia", field: "tipoDenuncia" ,
-  cellStyle: {
-    backgroundColor: '#FAD7A0',
-    color: '#A04000'
-  },
-  headerStyle: {
-      backgroundColor: '#EB984E',
+    tableContainer: {
+        borderRadius: 15,
+        margin: '10px 10px',
+        maxWidth: 950
+    },
+    tableHeaderCell: {
+        fontWeight: 'bold',
+        backgroundColor: '#5e35b1',
+        color: theme.palette.getContrastText(theme.palette.primary.main)
+    },
+    avatar: {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.getContrastText(theme.palette.primary.main)
+    },
+    tipo: {
+        fontWeight: 'bold',
+        color: theme.palette.primary.dark,
+    },
+    status: {
+        fontWeight: 'bold',
+        fontSize: '0.75rem',
+        color: 'white',
+        backgroundColor: 'grey',
+        borderRadius: 8,
+        padding: '3px 10px',
+        display: 'inline-block'
     }
-  },
+  }));
 
-  { title: "Fecha", field: "fecha" ,
-  cellStyle: {
-    backgroundColor: '#FAD7A0',
-    color: '#A04000'
-  },
-  headerStyle: {
-      backgroundColor: '#EB984E',
-    }
-  },
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-  { title: "Descripción", field: "desc",
-  cellStyle: {
-      backgroundColor: '#FAD7A0',
-      color: '#A04000'
-    },
-    headerStyle: {
-        backgroundColor: '#EB984E',
-      }
-    },
+const CompanyTable = ({ complaints }) => {
 
-  {title: "Denunciada antes", field: "reported",  type: "bool",
-  cellStyle: {
-      backgroundColor: '#FAD7A0',
-      color: '#A04000'
-    },
-    headerStyle: {
-        backgroundColor: '#EB984E',
-      }
-    },
-]
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
+  const [indexToShow, setIndexToShow] = useState(0);
 
-const data=[
-  {
-  tipoDenuncia: "Género",
-  fecha: "1/1/2022",
-  desc: "Esto será un link",
-  reported: true,
-  imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815547_960_720.png'
-  },
-  
-  {
-  tipoDenuncia: "Otro",
-  fecha: "3/1/2022",
-  desc: "Esto será un link",
-  reported: false,
-  imageUrl: 'https://www.todofondos.net/wp-content/uploads/fondos-de-colores-fondos-de-pantalla.-fondo-de-pantalla-lisos.jpg'
-  },
-  {
-  tipoDenuncia: "Raza",
-  fecha: "1/2/2022",
-  desc: "Esto será un link",
-  reported: false,
-  imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
-  },
-  {
-  tipoDenuncia: "Política",
-  fecha: "3/11/2021",
-  desc: "Esto será un link",
-  reported: true,
-  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzhWS9iJ40wlMrZDIazgd8ilESJIB91r08wjN_FLrExTrtrzbUq8dyggaig3u_bobzuxI&usqp=CAU'
-  },
-  {
-    tipoDenuncia: "Raza",
-    fecha: "12/2/2022",
-    desc: "Esto será un link",
-    reported: true,
-    imageUrl: 'https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815546_960_720.png'
-    },
-  
-]
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-function CompanyTable() {
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+ 
   return (
-    <MaterialTable
-      
-  />
+    <TableContainer  className={classes.tableContainer}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell className={classes.tableHeaderCell}>Tipo de Denuncia</TableCell>
+            <TableCell className={classes.tableHeaderCell}>Denunciada antes</TableCell>
+            <TableCell className={classes.tableHeaderCell}>Fecha</TableCell>
+            <TableCell className={classes.tableHeaderCell}>Descripción</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {/*filas.slice(page*rowsPerPage, page*rowsPerPage + complaints.length%rowsPerPage)*/}
+          {complaints.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,index) => (
+            <TableRow key={index}>
+              <TableCell>
+                  <Grid container>
+                      <Grid item lg={2}>
+                          <Avatar alt={row.type} src='.' className={classes.avatar}/>
+                      </Grid>
+                      <Grid item lg={10}>
+                          <Typography   variant="subtitle1" className={classes.tipo}>{row.type}</Typography>
+                      </Grid>
+                  </Grid>
+                </TableCell>
+              <TableCell>
+                  <Typography color="primary" variant="subtitle2">{row.denunciada}</Typography>
+                  <Typography color="textSecondary" variant="body2">{row.media}</Typography>
+                </TableCell>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>
+                <Button onClick={()=>{setIndexToShow(index); setOpen(true)}} disabled = {!row.consent}>
+                  <Typography 
+                    variant="button"
+                    className={classes.status}
+                    style={{
+                        backgroundColor: 
+                        ((row.status === 'Leer experiencia' && 'green') ||
+                        (row.status === 'Denuncia oculta' && 'red')) 
+                       
+                     }}
+                  >{row.status}</Typography>
+                  </Button>
+                  {indexToShow == index &&
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Experiencia de este usuario:"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        {row.text}
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} autoFocus>Cerrar</Button>
+                    </DialogActions>
+                  </Dialog>}
+                </TableCell>
+            </TableRow>
+                    ))}
+        </TableBody>
+        <TableFooter>
+        <TablePagination
+            rowsPerPageOptions={[5, 10, 15]}
+            component="div"
+            count={complaints.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        </TableFooter>
+      </Table>
+    </TableContainer>
   );
 }
+
+
+
+
 
 export default CompanyTable

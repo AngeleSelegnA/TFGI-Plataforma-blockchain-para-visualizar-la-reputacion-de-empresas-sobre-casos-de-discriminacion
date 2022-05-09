@@ -42,7 +42,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const ReputationCard = ({ isLoading }) => {
+const ReputationCard = ({ isLoading, reputation }) => {
     const theme = useTheme();
 
     return (
@@ -73,7 +73,7 @@ const ReputationCard = ({ isLoading }) => {
                                         mt: 0.45,
                                         mb: 0.45
                                     }}
-                                    primary={<Typography color = "#fff" variant="h4">70%</Typography>}
+                                    primary={<Typography color = "white" variant="h4">{reputation}</Typography>}
                                     secondary={
                                         <Typography
                                             variant="subtitle2"

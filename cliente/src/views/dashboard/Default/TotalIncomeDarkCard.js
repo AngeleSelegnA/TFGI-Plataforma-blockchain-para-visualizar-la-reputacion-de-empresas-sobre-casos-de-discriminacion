@@ -10,6 +10,7 @@ import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import { NavLink } from 'react-router-dom';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
@@ -49,6 +50,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
             {isLoading ? (
                 <TotalIncomeCard />
             ) : (
+                <NavLink to={`/views/pages/formulario`}>
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 2 }}>
                         <List sx={{ py: 0 }}>
@@ -87,6 +89,7 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                         </List>
                     </Box>
                 </CardWrapper>
+                </NavLink>
             )}
         </>
     );

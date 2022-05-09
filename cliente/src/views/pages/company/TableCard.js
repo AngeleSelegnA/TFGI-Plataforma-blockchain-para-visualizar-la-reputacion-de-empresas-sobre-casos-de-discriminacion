@@ -14,15 +14,15 @@ import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 import CompanyTable from './CompanyTable'
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
-    color: '#fff',
+    backgroundColor: '#fff',
+    color:  theme.palette.secondary.dark,
     overflow: 'hidden',
     position: 'relative'
 }));
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const TableCard = ({ isLoading }) => {
+const TableCard = ({ isLoading, complaints }) => {
     const theme = useTheme();
 
 
@@ -40,7 +40,7 @@ const TableCard = ({ isLoading }) => {
                             </Grid>
                             
                             <Grid item xs={12} margin = '0 1.2rem'>
-                                {/* <CompanyTable/> */}
+                                <CompanyTable complaints = {complaints}/>
                             </Grid>
                             
                             

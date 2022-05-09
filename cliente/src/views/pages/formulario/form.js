@@ -1,61 +1,217 @@
-/* eslint-disable */
-import React  from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { context } from '../../../contextProvider.js';
+import Web3 from 'web3';
+import * as constants from '../../../constantFile.js';
+import ReputationControl from '../../../ReputationControl.json';
+import { useForm } from 'react-hook-form';
+import * as data from './constantData';
+import swal from 'sweetalert';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { create as ipfsHttpClient } from "ipfs-http-client";
+
+/*
+const projectId = constants.PROJECT_ID;
+const projectSecret = constants.PROJECT_SECRET;
+
+const auth =
+  'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+*/
+
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 
-import { makeStyles } from '@material-ui/core/styles'
-
-
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.primary.main
-  },
-
-}));
-
-const defaultValues = {
-  name: "",
-  age: 0,
-  gender: "",
-  os: "",
-  favoriteNumber: 0,
-};
 const Formulario = () => {
 
-  return(
-     
-    <form className="ui form">
-      <h1 className="ui dividing header">Formulario de Denuncia</h1>
-      <div className="field">
+  const { handleSubmit, register, formState: { errors, isSubmitting, isSubmitSuccessful }} = useForm(/*{ shouldUnregister : true}*/);
+  const [companies, setCompanies] = useState([]);
+  
+  const Context = React.useContext(context);
+  let hash = "";
+
+  useEffect(()=>{
+    Context.contract.methods.getCompaniesNames().call().then(response => setCompanies(response));
+  },[])
+
+  //Obtener la fecha actual
+  function formatoFecha(fecha, formato) {
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+    return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched])
+  }
+  
+
+  //Función para realizar la transaccion al recibir los parametros
+  async function newComplaint(transaction) {
+    try {
+        const tx = {
+            to      : constants.CONTRACT_ADDRESS, //Dirección del contrato
+            data    : transaction.encodeABI(),      //
+            gas     : await transaction.estimateGas({from: constants.ADDRESS}),   //Se estima el coste en gas
+            gasPrice: await Context.web3.eth.getGasPrice(),   //Precio del gas
+            gaslimit: 0x1000000,   //Limite de gas que se puede gastar
+            value   : 0,   //No se va a realizar una transferencia
+        };
+        console.log("transacción construida");
+        //Se firma la transacción con la clave privada
+        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, constants.PRIVATE_KEY);
+        console.log("transacción firmada");
+        //Se envia la transaccion firmada 
+        await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+        Swal.fire({
+          title: "Denuncia cargada",
+          text: "La denuncia ya ha sido registrada en la blockchain",
+          icon: "success",
+          timer: "10000"
+        }).then(function () {//Volver a la pagina principal
+          window.location.href = `http://localhost:3000`;
+        });  
         
+    }
+    catch (err) {
+        console.log(err.message);
+        swal({
+          title: "ERROR",
+          text: "Algo ha ido mal a la hora de subir la denuncia a la blockchain. Vuelva a intentarlo más tarde",
+          icon: "error",
+          button: "Aceptar"
+        });
+    }
+  }
+
+
+  const submitForm = async (data,e) => {
+    e.preventDefault();
+
+    //Comprobar que el usuario esta conectado a linkedin
+    if(!Context.user){
+      console.log("El usuario no está conectado");
+      swal({
+        title: "ERROR",
+        text: "¡Debes estar conectado para enviar una denuncia!",
+        icon: "error",
+        button: "Aceptar"
+      });
+    }
+
+    else{
+      //Obtener fecha
+      const fecha = new Date();
+      fecha.toLocaleDateString();
+      const date = formatoFecha(fecha, 'dd/mm/yy');
+
+      Swal.fire({
+        title: 'La denuncia está siendo cargada en la blockchain',
+        timer: 1000000,
+        timerProgressBar: false,
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      });
+      
+      let complaintJson = 
+      {
+        "text": data.text,
+        "date": date,
+        "type": data.type,
+        "etnia": data.etnia,
+        "gender": data.gender.toLowerCase(),
+        "age": !Number.isNaN(data.age) ? data.age : "",
+        "relation": data.relation != "Seleccione la relación actual con la empresa" ? data.relation : "",
+        "consent": data.consent,
+        "previousComplaints": data.previousComplaints !== null ? data.previousComplaints : "-",
+        "media" : data.media,
+      }
+
+      hash = await client.add(JSON.stringify(complaintJson));
+      
+      //Relizar la denuncia
+      await newComplaint(Context.contract.methods.newComplaint(data.company, hash.path));
+
+      //Añadir datos a la bbdd para graficas generales
+      let gender = data.gender.toLowerCase()
+
+      if(gender == "hombre" || gender == "masculino")
+        gender = "masculino"
+      else if(gender == "mujer" || gender == "femenino")
+        gender = "femenino"
+      else if(gender == "")
+        gender = "prefiero no responder"
+      else gender = "otro" //Faltaria comprobar que en el genero se cometan errores ortograficos
+
+      let age = parseInt(data.age)
+      let rangeAge;
+      if(Number.isNaN(data.age))
+        rangeAge = "prefiero no responder"
+      else if(age>=81)
+        rangeAge = "más de 80"
+      else if(age>=71)
+        rangeAge = "71-80"
+      else if(age>=61)
+        rangeAge = "61-70"
+      else if(age>=51)
+        rangeAge = "51-60"
+      else if(age>=41)
+        rangeAge = "41-50"
+      else if(age>=31)
+        rangeAge = "31-40"
+      else if(age>=21)
+        rangeAge = "21-30"
+      else
+        rangeAge = "16-21"
+     
+
+      let complaintBBDD = {
+        "type": data.type.toLowerCase(),
+        "gender": gender,
+        "age": rangeAge,
+        "consent": data.consent ? "sí" : "no"
+      }
+
+      //Enviar datos de denuncia a BBDD para gráficas
+      axios.post(`${process.env.REACT_APP_SERVER_URL}/charts`, complaintBBDD, { withCredentials : true})
+      //Restaurar estado del formulario
+      e.target.reset();
+    }
+  }
+
+
+  return(
+
+    <form className="ui form" onSubmit = {handleSubmit(submitForm)}>
+      <h1 className="ui dividing header">Formulario de Denuncia</h1>
+      <h4> Todos los datos aportados por el denunciante serán almacenados en la blockchain. Además, se utilizarán para componer las gráficas de esta página </h4>
+      <div className="field">
         <div className="two fields">
+
           {/*Nombre empresa*/}
           <div className="required field">
             <label>Nombre de la empresa</label>
-            <select className="ui fluid dropdown">
-              <option value="">Empresa</option>
-              <option value="Aa">Telefónica</option>
-              <option value="Ba">HP</option>
-              <option value="Ca">Deloitte</option>
-              <option value="Da">KPMG</option>
-              <option value="Ea">EY</option>
-              <option value="Fa">Movistar</option>
-              <option value="Ga">MS</option>
-              <option value="Ha">Santander</option>
-              <option value="Ia">BBVA</option>
-              <option value="Ja">Westcon</option>
+            <select
+              className="ui fluid selection dropdown"
+              {...register("company", {
+                validate : value => value !== "Seleccione la empresa"
+              })}>
+                <option hidden>Seleccione la empresa</option>
+                {companies.map(item => <option value={item} key={item}>{item}</option>)}
             </select>
+            {errors.company && <div className = "ui negative message">
+                      <div className = "header">Debe seleccionar la empresa</div></div>}
           </div>
+          
+          
           {/*Relación con empresa*/}
           <div className="field">
             <label>Relación actual con la empresa</label>
-            <select className="ui fluid dropdown">
-              <option value="">Relación</option>
-              <option value="Aaa">Sigo trabajando</option>
-              <option value="Aab">Me despidieron</option>
-              <option value="Bab">He dimitido</option>
-              <option value="Jab">Otro</option>
+            <select 
+              className="ui fluid selection dropdown" 
+              {...register("relation")}>
+                <option hidden>Seleccione la relación actual con la empresa</option>
+                {data.relations.map(item => <option value={item} key={item}>{item}</option>)}
             </select>
           </div>
         </div>
@@ -66,403 +222,159 @@ const Formulario = () => {
 
         {/*Denunciado antes*/}
         <div className="inline fields">
-          <label for="fruit">¿Has denunciado anteriormente?</label>
+          <label>¿Has denunciado anteriormente?</label>
           <div className="field">
             <div className="ui radio checkbox">
-              <input type="radio" name="fruit" checked="" tabindex="0" className="hidden"/>
+              <input 
+                type="radio"
+                {...register("previousComplaints")}
+                value = {true}/>
               <label>Sí</label>
             </div>
           </div>
 
           <div className="field">
             <div className="ui radio checkbox">
-              <input type="radio" name="fruit" tabindex="0" className="hidden"/>
+              <input 
+                type="radio"
+                {...register("previousComplaints")}
+                value = {false}/>
               <label>No</label>
             </div>
           </div>
-          
         </div>
+
         {/*Mediante que medio denunciaste*/}
         <div className="field">
           <label>Medio</label>
-          <input type="text" name="card[number]" maxlength="16" placeholder="En caso afirmativo, ¿mediante qué medio?"/>
+          <input 
+            type="text"
+            {...register("media")} 
+            placeholder="En caso afirmativo, ¿mediante qué medio?"/>
         </div>
+
         {/*Fecha del suceso*/}
         <div className="field">
         <label>Fecha aproximada del suceso o del inicio de este</label>
         <div className="two fields">
           <div className="field">
-            <select className="ui fluid search dropdown" name="card[expire-month]">
-              <option value="">Mes</option>
-              <option value="1">Enero</option>
-              <option value="2">Febrero</option>
-              <option value="3">Marzo</option>
-              <option value="4">Abril</option>
-              <option value="5">Mayo</option>
-              <option value="6">Junio</option>
-              <option value="7">Julio</option>
-              <option value="8">Agosto</option>
-              <option value="9">Septiembre</option>
-              <option value="10">Octubre</option>
-              <option value="11">Noveembre</option>
-              <option value="12">Diciembre</option>
+            <select 
+              className="ui fluid search dropdown" 
+              {...register("month")} >
+                <option hidden>Seleccione el mes</option>
+                {data.months.map(item => <option value={item} key={item}>{item}</option>)}
             </select>
           </div>
+
           <div className="field">
-            <input type="text" name="card[expire-year]" maxlength="4" placeholder="Año"/>
+            <input 
+              type="text"
+              {... register('year', {
+                valueAsNumber : true,
+                maxLength : 4,
+                minLength : 4
+              })}  
+              placeholder="Año"/>
+            {errors.year && <div className = "ui negative message">
+                      <div className = "header"> Debe escribir correctamente el año</div></div>}
           </div>
         </div>
         </div>
       </div>
         
-        
-
     <div className="field">      
       {/*Tipo de denuncia*/}
       <div className="required field">
         <label>Tipo de denuncia</label>
-        <select className="ui fluid dropdown">
-          <option value="">Tipo</option>
-          <option value="A">Etnia</option>
-          <option value="B">Género</option>
-          <option value="C">Maltrato</option>
-          <option value="D">Edad</option>
-          <option value="E">Religión</option>
-          <option value="F">Condición sexual</option>
-          <option value="G">Discapacidad</option>
-          <option value="H">Mobbing</option>
-          <option value="I">Explotación</option>
-          <option value="J">Otro</option>
+        <select 
+          className="ui fluid dropdown"
+          {...register('type', {
+            validate : value => value !== "Seleccione el tipo de denuncia"
+          })}>
+            <option hidden>Seleccione el tipo de denuncia</option>
+            {data.complaintTypes.map(item => <option value={item} key={item}>{item}</option>)}
         </select>
       </div>
+      {errors.type && <div className = "ui negative message">
+                      <div className = "header">Debe seleccionar el tipo de denuncia</div></div>}
     </div>
+    
+
 
     {/*El usuario deberá solo responder obligatoriamente a aquella relacionada con su tipo de denuncia. El resto son opcionales*/}
-    <div className="four fields">
-        {/*País*/}
-        <div className="field">
-        <label>Si tu denuncia es de etnia</label>
-          <select multiple="" className="ui dropdown">
-          <option value="">Selecciona tu país de origen</option>
-          <option value="AF">Afghanistan</option>
-          <option value="AX">Åland Islands</option>
-          <option value="AL">Albania</option>
-          <option value="DZ">Algeria</option>
-          <option value="AS">American Samoa</option>
-          <option value="AD">Andorra</option>
-          <option value="AO">Angola</option>
-          <option value="AI">Anguilla</option>
-          <option value="AQ">Antarctica</option>
-          <option value="AG">Antigua and Barbuda</option>
-          <option value="AR">Argentina</option>
-          <option value="AM">Armenia</option>
-          <option value="AW">Aruba</option>
-          <option value="AU">Australia</option>
-          <option value="AT">Austria</option>
-          <option value="AZ">Azerbaijan</option>
-          <option value="BS">Bahamas</option>
-          <option value="BH">Bahrain</option>
-          <option value="BD">Bangladesh</option>
-          <option value="BB">Barbados</option>
-          <option value="BY">Belarus</option>
-          <option value="BE">Belgium</option>
-          <option value="BZ">Belize</option>
-          <option value="BJ">Benin</option>
-          <option value="BM">Bermuda</option>
-          <option value="BT">Bhutan</option>
-          <option value="BO">Bolivia, Plurinational State of</option>
-          <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-          <option value="BA">Bosnia and Herzegovina</option>
-          <option value="BW">Botswana</option>
-          <option value="BV">Bouvet Island</option>
-          <option value="BR">Brazil</option>
-          <option value="IO">British Indian Ocean Territory</option>
-          <option value="BN">Brunei Darussalam</option>
-          <option value="BG">Bulgaria</option>
-          <option value="BF">Burkina Faso</option>
-          <option value="BI">Burundi</option>
-          <option value="KH">Cambodia</option>
-          <option value="CM">Cameroon</option>
-          <option value="CA">Canada</option>
-          <option value="CV">Cape Verde</option>
-          <option value="KY">Cayman Islands</option>
-          <option value="CF">Central African Republic</option>
-          <option value="TD">Chad</option>
-          <option value="CL">Chile</option>
-          <option value="CN">China</option>
-          <option value="CX">Christmas Island</option>
-          <option value="CC">Cocos (Keeling) Islands</option>
-          <option value="CO">Colombia</option>
-          <option value="KM">Comoros</option>
-          <option value="CG">Congo</option>
-          <option value="CD">Congo, the Democratic Republic of the</option>
-          <option value="CK">Cook Islands</option>
-          <option value="CR">Costa Rica</option>
-          <option value="CI">Côte d'Ivoire</option>
-          <option value="HR">Croatia</option>
-          <option value="CU">Cuba</option>
-          <option value="CW">Curaçao</option>
-          <option value="CY">Cyprus</option>
-          <option value="CZ">Czech Republic</option>
-          <option value="DK">Denmark</option>
-          <option value="DJ">Djibouti</option>
-          <option value="DM">Dominica</option>
-          <option value="DO">Dominican Republic</option>
-          <option value="EC">Ecuador</option>
-          <option value="EG">Egypt</option>
-          <option value="SV">El Salvador</option>
-          <option value="GQ">Equatorial Guinea</option>
-          <option value="ER">Eritrea</option>
-          <option value="EE">Estonia</option>
-          <option value="ET">Ethiopia</option>
-          <option value="FK">Falkland Islands (Malvinas)</option>
-          <option value="FO">Faroe Islands</option>
-          <option value="FJ">Fiji</option>
-          <option value="FI">Finland</option>
-          <option value="FR">France</option>
-          <option value="GF">French Guiana</option>
-          <option value="PF">French Polynesia</option>
-          <option value="TF">French Southern Territories</option>
-          <option value="GA">Gabon</option>
-          <option value="GM">Gambia</option>
-          <option value="GE">Georgia</option>
-          <option value="DE">Germany</option>
-          <option value="GH">Ghana</option>
-          <option value="GI">Gibraltar</option>
-          <option value="GR">Greece</option>
-          <option value="GL">Greenland</option>
-          <option value="GD">Grenada</option>
-          <option value="GP">Guadeloupe</option>
-          <option value="GU">Guam</option>
-          <option value="GT">Guatemala</option>
-          <option value="GG">Guernsey</option>
-          <option value="GN">Guinea</option>
-          <option value="GW">Guinea-Bissau</option>
-          <option value="GY">Guyana</option>
-          <option value="HT">Haiti</option>
-          <option value="HM">Heard Island and McDonald Islands</option>
-          <option value="VA">Holy See (Vatican City State)</option>
-          <option value="HN">Honduras</option>
-          <option value="HK">Hong Kong</option>
-          <option value="HU">Hungary</option>
-          <option value="IS">Iceland</option>
-          <option value="IN">India</option>
-          <option value="ID">Indonesia</option>
-          <option value="IR">Iran, Islamic Republic of</option>
-          <option value="IQ">Iraq</option>
-          <option value="IE">Ireland</option>
-          <option value="IM">Isle of Man</option>
-          <option value="IL">Israel</option>
-          <option value="IT">Italy</option>
-          <option value="JM">Jamaica</option>
-          <option value="JP">Japan</option>
-          <option value="JE">Jersey</option>
-          <option value="JO">Jordan</option>
-          <option value="KZ">Kazakhstan</option>
-          <option value="KE">Kenya</option>
-          <option value="KI">Kiribati</option>
-          <option value="KP">Korea, Democratic People's Republic of</option>
-          <option value="KR">Korea, Republic of</option>
-          <option value="KW">Kuwait</option>
-          <option value="KG">Kyrgyzstan</option>
-          <option value="LA">Lao People's Democratic Republic</option>
-          <option value="LV">Latvia</option>
-          <option value="LB">Lebanon</option>
-          <option value="LS">Lesotho</option>
-          <option value="LR">Liberia</option>
-          <option value="LY">Libya</option>
-          <option value="LI">Liechtenstein</option>
-          <option value="LT">Lithuania</option>
-          <option value="LU">Luxembourg</option>
-          <option value="MO">Macao</option>
-          <option value="MK">Macedonia, the former Yugoslav Republic of</option>
-          <option value="MG">Madagascar</option>
-          <option value="MW">Malawi</option>
-          <option value="MY">Malaysia</option>
-          <option value="MV">Maldives</option>
-          <option value="ML">Mali</option>
-          <option value="MT">Malta</option>
-          <option value="MH">Marshall Islands</option>
-          <option value="MQ">Martinique</option>
-          <option value="MR">Mauritania</option>
-          <option value="MU">Mauritius</option>
-          <option value="YT">Mayotte</option>
-          <option value="MX">Mexico</option>
-          <option value="FM">Micronesia, Federated States of</option>
-          <option value="MD">Moldova, Republic of</option>
-          <option value="MC">Monaco</option>
-          <option value="MN">Mongolia</option>
-          <option value="ME">Montenegro</option>
-          <option value="MS">Montserrat</option>
-          <option value="MA">Morocco</option>
-          <option value="MZ">Mozambique</option>
-          <option value="MM">Myanmar</option>
-          <option value="NA">Namibia</option>
-          <option value="NR">Nauru</option>
-          <option value="NP">Nepal</option>
-          <option value="NL">Netherlands</option>
-          <option value="NC">New Caledonia</option>
-          <option value="NZ">New Zealand</option>
-          <option value="NI">Nicaragua</option>
-          <option value="NE">Niger</option>
-          <option value="NG">Nigeria</option>
-          <option value="NU">Niue</option>
-          <option value="NF">Norfolk Island</option>
-          <option value="MP">Northern Mariana Islands</option>
-          <option value="NO">Norway</option>
-          <option value="OM">Oman</option>
-          <option value="PK">Pakistan</option>
-          <option value="PW">Palau</option>
-          <option value="PS">Palestinian Territory, Occupied</option>
-          <option value="PA">Panama</option>
-          <option value="PG">Papua New Guinea</option>
-          <option value="PY">Paraguay</option>
-          <option value="PE">Peru</option>
-          <option value="PH">Philippines</option>
-          <option value="PN">Pitcairn</option>
-          <option value="PL">Poland</option>
-          <option value="PT">Portugal</option>
-          <option value="PR">Puerto Rico</option>
-          <option value="QA">Qatar</option>
-          <option value="RE">Réunion</option>
-          <option value="RO">Romania</option>
-          <option value="RU">Russian Federation</option>
-          <option value="RW">Rwanda</option>
-          <option value="BL">Saint Barthélemy</option>
-          <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-          <option value="KN">Saint Kitts and Nevis</option>
-          <option value="LC">Saint Lucia</option>
-          <option value="MF">Saint Martin (French part)</option>
-          <option value="PM">Saint Pierre and Miquelon</option>
-          <option value="VC">Saint Vincent and the Grenadines</option>
-          <option value="WS">Samoa</option>
-          <option value="SM">San Marino</option>
-          <option value="ST">Sao Tome and Principe</option>
-          <option value="SA">Saudi Arabia</option>
-          <option value="SN">Senegal</option>
-          <option value="RS">Serbia</option>
-          <option value="SC">Seychelles</option>
-          <option value="SL">Sierra Leone</option>
-          <option value="SG">Singapore</option>
-          <option value="SX">Sint Maarten (Dutch part)</option>
-          <option value="SK">Slovakia</option>
-          <option value="SI">Slovenia</option>
-          <option value="SB">Solomon Islands</option>
-          <option value="SO">Somalia</option>
-          <option value="ZA">South Africa</option>
-          <option value="GS">South Georgia and the South Sandwich Islands</option>
-          <option value="SS">South Sudan</option>
-          <option value="ES">Spain</option>
-          <option value="LK">Sri Lanka</option>
-          <option value="SD">Sudan</option>
-          <option value="SR">Suriname</option>
-          <option value="SJ">Svalbard and Jan Mayen</option>
-          <option value="SZ">Swaziland</option>
-          <option value="SE">Sweden</option>
-          <option value="CH">Switzerland</option>
-          <option value="SY">Syrian Arab Republic</option>
-          <option value="TW">Taiwan, Province of China</option>
-          <option value="TJ">Tajikistan</option>
-          <option value="TZ">Tanzania, United Republic of</option>
-          <option value="TH">Thailand</option>
-          <option value="TL">Timor-Leste</option>
-          <option value="TG">Togo</option>
-          <option value="TK">Tokelau</option>
-          <option value="TO">Tonga</option>
-          <option value="TT">Trinidad and Tobago</option>
-          <option value="TN">Tunisia</option>
-          <option value="TR">Turkey</option>
-          <option value="TM">Turkmenistan</option>
-          <option value="TC">Turks and Caicos Islands</option>
-          <option value="TV">Tuvalu</option>
-          <option value="UG">Uganda</option>
-          <option value="UA">Ukraine</option>
-          <option value="AE">United Arab Emirates</option>
-          <option value="GB">United Kingdom</option>
-          <option value="US">United States</option>
-          <option value="UM">United States Minor Outlying Islands</option>
-          <option value="UY">Uruguay</option>
-          <option value="UZ">Uzbekistan</option>
-          <option value="VU">Vanuatu</option>
-          <option value="VE">Venezuela, Bolivarian Republic of</option>
-          <option value="VN">Viet Nam</option>
-          <option value="VG">Virgin Islands, British</option>
-          <option value="VI">Virgin Islands, U.S.</option>
-          <option value="WF">Wallis and Futuna</option>
-          <option value="EH">Western Sahara</option>
-          <option value="YE">Yemen</option>
-          <option value="ZM">Zambia</option>
-          <option value="ZW">Zimbabwe</option>
-        </select>
-        </div>
-        {/*Edad*/}
-        <div className="field">
-          <label>Si tu denuncia es de edad</label>
-          <input type="text" name="card[number]" maxlength="16" placeholder="Edad"/>
-        </div>
-        {/*Religión*/}
-        <div className="field">
-          <label>Si tu denuncia es de religión</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Etnia"/>
-        </div>
-        {/*Género*/}
-        <div className="field">
-          <label>Si tu denuncia es de género</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
-      </div>
-      <div className="five fields">
-        {/*Maltrato*/}
-        <div className="field">
-          <label>Si tu denuncia es de maltrato</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
-        {/*Condición sexual*/}
-        <div className="field">
-          <label>Si tu denuncia es de condición sexual</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
-        {/*Discapacidad*/}
-        <div className="field">
-          <label>Si tu denuncia es de discapacidad</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
-        {/*Mobbing*/}
-        <div className="field">
-          <label>Si tu denuncia es de mobbing</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
-        {/*Explotación*/}
-         <div className="field">
-          <label>Si tu denuncia es de explotación</label>
-          <input type="text" name="card[cvc]" maxlength="3" placeholder="Género"/>
-        </div>
+    <div className="five fields">
+    <label>Introduzca los datos que considere oportunos</label>
+      {/*Género*/}
+      <div className="field">
+      <input 
+            type="text"
+            {...register("gender")} 
+            placeholder="Género"/>
       </div>
 
-  
+      {/*Discapacidad*/}
+      <div className="field">
+          <input 
+            type="text"
+            {...register("discapacidad")}
+            placeholder="Discapacidad"/>
+      </div>
 
+      {/*País*/}
+      <div className="field">
+      <input 
+            type="text"
+            {...register("etnia")} 
+            placeholder="Etnia"/>
+      </div>
 
+      {/*Edad*/}
+      <div className="field">
+        <input 
+          type="text"
+          {... register('age', {
+            valueAsNumber : true,
+            maxLength : 3
+          })} 
+          placeholder="Edad"/>
+        {errors.age && <div className = "ui negative message">
+                      <div className = "header"> Debe escribir correctamente su edad</div></div>}
+      </div>
+
+      {/*Religión*/}
+      <div className="field">
+        <input 
+          type="text"
+          {...register("religion")} 
+          placeholder="Religión"/>
+      </div>
+    </div>    
 
     {/*El usuario contará su historia*/} 
     <div className="required field">
     <label >Descripción del suceso</label>
-        <input type="text" name="card[number]" maxlength="16" placeholder="Cuéntanos tu hisoria"/>
+        <textarea  
+          {...register('text', {
+            required : true,
+          })}
+          placeholder="Cuéntanos tu historia"
+          style={{ minHeight: 50 }}/>
+    {errors.text && <div className = "ui negative message">
+                      <div className = "header">Debe describir el suceso</div></div>}
     </div>
 
-
-      
       {/*Botón para permitir compartir la historia. No es obligatorio para el usuario*/}
       <div className="ui segment">
         <div className="field">
-          <div className="ui toggle checkbox">
           <div className="ui checkbox">
-            <input type="checkbox" tabindex="0" className="hidden"/>
+            <input 
+              type="checkbox"
+              {...register("consent")}/>
             <label>Acepto que mi historia aparezca publicada de forma anónima</label>
-          </div>
           </div>
         </div>
       </div>
-      <div className="ui button" tabindex="0">Enviar formulario</div>
+      <button className = "ui button" type = "submit">Enviar denuncia</button>
     </form>
   );
 };

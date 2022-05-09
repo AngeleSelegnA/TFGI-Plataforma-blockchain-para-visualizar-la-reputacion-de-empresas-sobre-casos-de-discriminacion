@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Card, Image } from 'semantic-ui-react'
 // import { useHistory } from "react-router-dom";
+
+
 const CompanyItem =({name,reputation,urlimg}) =>{
   /* let history = useHistory();
 

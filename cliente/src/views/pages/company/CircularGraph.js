@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import {
     PieChart,
     Pie,
@@ -9,47 +10,35 @@ import {
 } from 'recharts'
 const RADIAN = Math.PI / 180;
 
-const COLORES = [ '#7fb3d5' , '#2980b9' , '#1f618d' , '#154360' ];
-
-const data01 = [
-    {
-      "name": "Mujeres",
-      "value": 400
-    },
-    {
-      "name": "Hombres",
-      "value": 300
-    },
-    {
-      "name": "No binario",
-      "value": 300
-    },
-    {
-      "name": "Otros",
-      "value": 200
-    }
-  ];
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
-    return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };      
 
 
-export default function CircularGraph() {
+export default function CircularGraph({ data, colores , ancho, alto, tipo}) {
 
+  //LOS DATOS QUE SE LLEGAN SON DE LA FORMA [{ "category" : .... , "value" : x}]
+  let fixedData = []
+  for(let d of data){
+    fixedData.push({
+      "name" : d.category.charAt(0).toUpperCase() + d.category.slice(1),
+      "value": d.value
+    })
+  }
 
   return (
   
-    <PieChart width={400} height={400}>
+    <PieChart width={ancho} height={alto}>
     <Pie
-        data={data01}
+        data={fixedData}
         cx="50%"
         cy="50%"
         labelLine={false}
@@ -58,11 +47,10 @@ export default function CircularGraph() {
         fill="#5dade2"
         dataKey="value"
       >
-        {data01.map((entry, index) => (
+        {data.map((entry, index) => (
                         <Cell
                             key={`cell-${index}`}
-                            fill={COLORES[index % COLORES.length]}
-                            
+                            fill={colores[index % colores.length]}
                         />
                     ))}
       </Pie>

@@ -1,22 +1,20 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { Image } from 'semantic-ui-react'
+import React, {useContext, useState, useEffect } from 'react'
 
+import PropTypes from 'prop-types';
+import { Image } from 'semantic-ui-react'
+import Member from './Member'
 import MainCard from 'ui-component/cards/MainCard';
 // material-ui
 import { styled } from '@mui/material/styles';
 import {  Box, Grid, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles'
-
+import {GoogleSpreadsheet} from "google-spreadsheet";
 // project imports
 import Button from 'semantic-ui-react';
+import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
-import ana from 'assets/images/member.png'
-import alex from 'assets/images/member.png'
-import jorge from 'assets/images/member.png'
-import angeles from 'assets/images/member.png'
-import david from 'assets/images/member.png'
-import javi from 'assets/images/member.png'
+import { context } from '../../../contextProvider.js';
+
 
 
 // styles
@@ -60,91 +58,38 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  const info = [
-    {
-        header: 'Ana Belén Duarte',
-        meta: 'Estudiante',
-        imageURL: ana
-    },
-    {
-        header: 'Alejandro Ramírez',
-        meta: 'Estudiante',
-        imageURL: alex
-    },
-    {
-        header: 'Jorge del Valle',
-        meta: 'Estudiante',
-        imageURL: jorge
-    },
-    {
-        header: 'Ángeles Plaza',
-        meta: 'Estudiante',
-        imageURL: angeles
-    },
-    {
-        header: 'David Seijas',
-        meta: 'Estudiante',
-        imageURL: david
-    },
-    {
-        header: 'Javier Verde',
-        meta: 'Estudiante',
-        imageURL: javi
-    }
-
-];
-
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const MemberCard = ({ i }) => {
-    const classes = useStyles();
-    return (
-/*         <Paper padding = {20} className={classes.paper}>
- */            
-                <CardWrapper border={false} content={false}>
-                    <Box sx={{ p: 1 }} margin = {2}>
-                        <Typography
-                            margin = {2}
-                            sx={{
-                                fontSize: '1.5rem',
-                                fontWeight: 500,
-                                color: '#276fe6 '
-                            }}
-                            align='center'
-                        >
-                            {info[i].header}
-                        </Typography>
-                        <Typography
-                            margin = {2}
-                            sx={{
-                                fontSize: '1rem',
-                                fontWeight: 500,
-                                color: '#4f87e4 '
-                            }}
-                            align='center'
-                        >
-                            {info[i].meta}
-                        </Typography>
-                        <p></p>
-                        <Box 
-                            margin = {4}
-                            display="flex" 
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <img src={info[i].imageURL} 
-                                alt="logo"
-                                width='100'
-                                height="100" 
-                            />
-                        </Box>
-                        
+const MemberCard = ({ isLoading, id }) => {
+ 
+    const Context = useContext(context);
 
-                    </Box>
-                </CardWrapper>
+
+
+    console.log(id)
+    return (
+        <>
+        {isLoading ? (
+            <SkeletonEarningCard />
+        ) : (
+                <CardWrapper border={false} content={false}>
+                        
+                        {Context.miembros?.filter((member) => member.id==(id) )
+                        .map((member ) => (
+                            <Member
+                            nombre = {member.nombre}
+                            foto={member.foto}
+                            linkedin={member.linkedin}
+                            rol = {member.rol}
+                            />
+                            
+                            
+                        ))}
+
+                </CardWrapper>)}
+        </>
             
-/*         </Paper>
- */    );
+    );
 };
 
 

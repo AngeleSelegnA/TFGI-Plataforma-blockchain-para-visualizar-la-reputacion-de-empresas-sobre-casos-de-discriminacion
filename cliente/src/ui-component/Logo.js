@@ -1,4 +1,4 @@
-  import logo from 'assets/images/fdi_logo.png';
+  import logo from 'assets/images/blockchain.png';
  
  
 

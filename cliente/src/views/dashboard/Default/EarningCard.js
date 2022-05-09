@@ -10,10 +10,10 @@ import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // assets
 
-import Logo from 'assets/images/fdi_logo.png'
+import Logo from 'assets/images/blockchain.png'
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.secondary.main,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative'

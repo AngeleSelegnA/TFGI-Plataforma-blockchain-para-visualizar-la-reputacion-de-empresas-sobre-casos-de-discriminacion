@@ -9,35 +9,35 @@ import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
 
 // assets
-import BarChart from './composedChart';
 import RankingComponent from './RankingComponent.js';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
-const PopularCard = ({ isLoading, companies, reputations }) => {
+
+
+const RankingCard = ({ isLoading, cr }) => {
 
     const theme = useTheme();
-    const c_info = companies.map((e, i) => [e, 10 - 0.01*reputations[i]]);
-    const best = c_info.sort((a,b) => (parseInt(a[1]) > parseInt(b[1]) ? 1 : parseInt(a[1]) < parseInt(b[1]) ? -1 : 0));
+    const best = cr.sort((a,b) => (parseFloat(a[1]) > parseFloat(b[1]) ? 1 : parseFloat(a[1]) < parseFloat(b[1]) ? -1 : 0));
 
     return (
         <>
             {isLoading ? (
                 <SkeletonPopularCard />
             ) : (
-                <MainCard content={false}>
+                <MainCard content={false} >
                     <CardContent>
                         
                         <Grid container alignContent="right" item xs={12} sx={{ pt: '16px !important' }}>
-                            <Grid item  md={12} xs={12}>
-                                <RankingComponent isLoading= {isLoading} titulo = "TOP 5 MEJOR VALORADAS" companies = {best.slice(0,5)}/>
+                            <Grid item  md={12} xs={12} >
+                                <RankingComponent isLoading= {isLoading} titulo = "TOP 5 MEJOR VALORADAS" companies = {best.slice(-5).reverse()}/>
                             </Grid> 
                               
                         </Grid>
                         
                         <Grid container alignContent="right" item xs={12} sx={{ pt: '16px !important' }}>
                             <Grid item md={12} xs={12}>
-                                <RankingComponent isLoading= {isLoading} titulo = "TOP 5 PEOR VALORADAS" companies = {best.slice(-5).reverse()}/>
+                                <RankingComponent isLoading= {isLoading} titulo = "TOP 5 PEOR VALORADAS" companies = {best.slice(0,5)}/>
                             </Grid>
                         </Grid>
                 
@@ -49,8 +49,8 @@ const PopularCard = ({ isLoading, companies, reputations }) => {
     );
 };
 
-PopularCard.propTypes = {
+RankingCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default PopularCard;
+export default RankingCard;

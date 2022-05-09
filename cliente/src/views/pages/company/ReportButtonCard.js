@@ -7,6 +7,7 @@ import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography }
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import { NavLink } from 'react-router-dom';
 
 // assets
 import MoodIcon from '@mui/icons-material/Mood';
@@ -48,6 +49,7 @@ const DonationButtonCard = ({ isLoading }) => {
             {isLoading ? (
                 <TotalIncomeCard />
             ) : (
+                <NavLink to = {`/views/pages/formulario`}>
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 2 }}>
                         <List sx={{ py: 0 }}>
@@ -72,7 +74,7 @@ const DonationButtonCard = ({ isLoading }) => {
                                         mb: 0.45
                                     }}
                                     primary={
-                                        <Typography variant="h2" sx={{ color: '#fff' }}>
+                                        <Typography variant="h4" sx={{ color: '#fff' }}>
                                             DENUNCIAR
                                         </Typography>
                                     }
@@ -85,7 +87,9 @@ const DonationButtonCard = ({ isLoading }) => {
                             </ListItem>
                         </List>
                     </Box>
+                    
                 </CardWrapper>
+                </NavLink>
             )}
         </>
     );

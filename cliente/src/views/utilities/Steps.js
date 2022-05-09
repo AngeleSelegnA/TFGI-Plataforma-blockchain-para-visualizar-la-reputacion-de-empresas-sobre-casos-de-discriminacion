@@ -66,11 +66,10 @@ export const steps= [
     {
       content: (
         <div>
-          <p>Aquí tenemos el índice de nuestra plataforma.</p>
+          <p>Pulsando en el botón de la barra superior accedemos al índice de nuestra plataforma.</p>
           <p>En él encontrarás información sobre el proyecto.</p>
         </div>
         ),
-      placement: 'bottom',
       locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás' , last: 'Fin'},
 
       styles: {
@@ -80,7 +79,10 @@ export const steps= [
           textColor: '#FFFFFF',
         },
       },
-      target: '.indice div',
+      
       title: 'Índice',
+      placement: 'center',
+      disableBeacon: true,
+      target: 'body',
     },
   ];

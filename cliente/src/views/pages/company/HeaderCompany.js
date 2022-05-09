@@ -1,11 +1,12 @@
 /* eslint-disable */
 
-import React from 'react';
+import React, {useContext, useState, useEffect } from 'react'
 import {  Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, Box, Paper, Grid} from '@material-ui/core';
-import empresa from 'assets/images/telefonica.png'
 import { styled, useTheme } from '@mui/material/styles';
+import {GoogleSpreadsheet} from "google-spreadsheet";
+import { context } from '../../../contextProvider.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const HeaderCompany = ({name}) => {
+const HeaderCompany = ({ name }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const Context = useContext(context);
 
 
   return (
@@ -43,7 +45,7 @@ const HeaderCompany = ({name}) => {
                               align='left'
                           >
                       <h1 >                 
-                        Telefónica
+                        {name}
                       </h1>
                     </Typography>
                   </Grid>
@@ -53,11 +55,15 @@ const HeaderCompany = ({name}) => {
                               alignItems="center"
                               justifyContent="center"
                           >
-                              <img src={empresa} 
-                                  alt="logo"
-                                  width='90%'
-                                  height="90%" 
-                              />
+                            {Context.empresas?.filter((company) => ((company.idNombre) == name)).map((company ) => (
+                                              
+                                <img src= {company.url_imagen}
+                                    alt="logo"
+                                    height="163"
+                                    key = {company.idNombre}
+                                />
+                              ))}
+                              
                     </Box>
 
                   </Grid>
