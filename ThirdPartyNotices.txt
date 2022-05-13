@@ -1,1 +1,57 @@
+THIRD-PARTY SOFTWARE NOTICES AND LICENSE ATTRIBUTION
 
+In this project we've incorporated several components and librarys from other projects. In this file we include their original copyright notice and licences, thereby giving attribution to the original authors.
+
+In this section the software used is listed, divided by the main folders:
+
+THIRD-PARTY SOFTWARE USED IN ./CLIENTE/:
+
+1. @emotion/cache version 11.4.0
+2. @emotion/react version 11.4.0
+3. @emotion/styled version 11.3.0
+4. @material-ui/core version 4.12.4
+5. @material-ui/icons version 4.11.3
+6. @mui/icons-material version 5.0.3
+7. @mui/lab version 5.0.0-alpha.50
+8. @mui/material version 5.0.3
+9. @mui/styles version 5.0.1
+10. @mui/system version 5.0.3
+11. @mui/utils version 5.0.1
+12. @mui/x-data-grid version 5.0.0-beta.3
+13. @tabler/icons version 1.39.1
+14. @testing-library/jest-dom version 5.11.10
+15. @testing-library/react version 11.2.6
+16. @testing-library/user-event version 12.8.3
+17. apexcharts version 3.26.1
+18. axios version 0.24.0
+19. clsx version 1.1.1
+20. cookie-parser version 1.4.5
+21. env-cmd version 10.1.0
+22. ethers version 5.6.4
+23. formik version 2.2.6
+24. framer-motion version 4.1.13
+25. google-spreadsheet version 3.2.0
+26. history version 5.0.0
+27. ipfs-http-client version 56.0.2
+28. material-table version 2.0.3
+29. material-ui-popup-state version 1.8.0
+30. prop-types version 15.7.2
+31. react version 17.0.2
+32. react-apexcharts version 1.3.7
+33. react-device-detect version 1.17.0
+34. react-dom version 17.0.2
+35. react-joyride version 2.4.0
+36. react-perfect-scrollbar version 1.5.8
+37. react-redux version 7.2.3
+38. react-router version 6.0.0-beta.0
+39. react-router-dom version 6.0.0-beta.0
+40. react-scripts version 4.0.3
+41. recharts version 2.1.9
+42. redux version 4.0.5
+43. semantic-ui-carousel-react version 1.1.3
+44. semantic-ui-react version 2.1.2
+45. sweetalert version 2.1.2
+46. sweetalert2 version 11.4.8
+47. web-vitals version 1.1.2
+48. web3 version 1.6.1
+49. yup version 0.32.9
