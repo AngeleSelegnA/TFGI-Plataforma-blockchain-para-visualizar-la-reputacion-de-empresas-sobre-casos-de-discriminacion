@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
   
-  #aplicacion
-  cliente:
-   build: ./cliente
-   image: cliente:latest
-   ports:
-      - 3000:3000
+  #aplicacion: Puede probarse para ver la funcionalidad, pero no es buena práctica levantar el front en Docker
+  #cliente:
+  # build: ./cliente
+  # image: cliente:latest
+  # ports:
+  #    - 3000:3000
 
   #server pool
   server_1:
