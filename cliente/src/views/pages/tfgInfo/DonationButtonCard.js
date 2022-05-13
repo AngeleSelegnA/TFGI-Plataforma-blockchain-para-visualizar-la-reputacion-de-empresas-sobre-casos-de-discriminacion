@@ -16,7 +16,6 @@ import Select from '@mui/material/Select';
 
 import { ethers } from "ethers";
 import React, { useState, useEffect } from 'react';
-import * as constants from '../../../constantFile.js'
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -87,7 +86,7 @@ const DonationButtonCard = ({ isLoading }) => {
             const signer = provider.getSigner();
             console.log("enviando transaccion")
             const tx = await signer.sendTransaction({
-                to: constants.ADDRESS,
+                to: process.env.REACT_APP_ADDRESS,
                 value:  ethers.utils.parseUnits(amount, unidades),
                 gasPrice: signer.getGasPrice(),
                 gasLimit : 100000

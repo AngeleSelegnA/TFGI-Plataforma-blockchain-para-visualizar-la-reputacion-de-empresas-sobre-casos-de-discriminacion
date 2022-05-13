@@ -2,7 +2,6 @@
 import React, {  useEffect, useState, useContext } from 'react';
 import { context } from '../../../contextProvider.js';
 import { ethers } from "ethers";
-import * as constants from '../../../constantFile.js'
 import Joyride, {  STATUS } from 'react-joyride';
 import { steps } from "../../utilities/Steps";
 
@@ -36,7 +35,7 @@ const Dashboard = () => {
         setLoading(false);
         Context.contract.methods.getCompaniesNames().call().then(response => setCompanies(response));
         Context.contract.methods.getBalances().call().then(response => setReputation(response));
-        Context.provider.getBalance(constants.ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
+        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
     }, []);
 
 
