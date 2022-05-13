@@ -1,8 +1,8 @@
 THIRD-PARTY SOFTWARE NOTICES AND LICENSE ATTRIBUTION
 
-In this project we've incorporated several components and librarys from other projects. In this file we include their original copyright notice and licences, thereby giving attribution to the original authors.
+In this project we have incorporated several components and libraries from other open source projects. In this file we include their original copyright notice and license, thereby giving attribution to the original authors.
 
-In this section the software used is listed, divided by the main folders:
+The section below contains the software used, divided by the main folders:
 
 THIRD-PARTY SOFTWARE USED IN ./CLIENTE/:
 
@@ -55,3 +55,46 @@ THIRD-PARTY SOFTWARE USED IN ./CLIENTE/:
 47. web-vitals version 1.1.2
 48. web3 version 1.6.1
 49. yup version 0.32.9
+50. @babel/core version7.14.8
+51. @babel/eslint-parser version7.15.8
+52. eslint version7.27.0
+53. eslint-config-airbnb-typescript version12.3.1
+54. eslint-config-prettier version8.3.0
+55. eslint-config-react-app version 6.0.0
+56. eslint-import-resolver-typescript version 2.4.0
+57. eslint-plugin-flowtype version5.7.2
+58. eslint-plugin-import version2.23.3
+59. eslint-plugin-jsx-a11y version 6.3.1
+60. eslint-plugin-prettier version3.4.0
+61. eslint-plugin-react version7.26.1
+62. eslint-plugin-react-hooks version 4.0.8
+63. prettier version2.2.1
+64. sass version1.42.1
+
+THIRD-PARTY SOFTWARE USED IN ./SERVER/:
+
+65. connect-mongo version4.6.0
+66. cors version2.8.5
+67. dotenv version10.0.0
+68. express version4.17.1
+69. express-session version1.17.2
+70. mongoose version6.0.12
+71. node-cron version3.0.0
+72. nodemon version2.0.15
+73. passport version0.5.0
+74. passport-linkedin-oauth2 version2.0.0
+75. python-shell version3.0.1
+76. randomstring version1.2.1
+77. swagger-jsdoc version 5.0.1
+78. swagger-ui-express version4.3.0
+
+THIRD-PARTY SOFTWARE USED IN ./SMART_CONTRACT/:
+
+79. @openzeppelin/contracts version 4.5.0
+80. @truffle/hdwallet-provider version 2.0.0
+81. ethereumjs-wallet version 1.0.2
+82. fs-extra version 10.0.0
+83. path version 0.12.7
+84. solc version 0.8.10
+85. web3 version 1.6.1
+
