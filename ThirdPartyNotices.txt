@@ -1,6 +1,7 @@
 THIRD-PARTY SOFTWARE NOTICES AND LICENSE ATTRIBUTION
 
-In this project we have incorporated several components and libraries from other open source projects. In this file we include their original copyright notice and license, thereby giving attribution to the original authors.
+In this project we have incorporated several components and libraries from other open source projects. In this file we include their
+copyright notice and license, thereby giving attribution to the original authors.
 
 The section below contains the software used, divided by the main folders:
 
