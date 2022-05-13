@@ -9,6 +9,8 @@ TFG de Informática de la UCM. Curso 2021-2022
 * María de los Ángeles Plaza Gutiérrez
 * David Seijas Pérez
 
+# Palabras clave
+
 # Licencias
 |  Tipo                                 | Fichero               |
 |---------------------------------------|-----------------------|
