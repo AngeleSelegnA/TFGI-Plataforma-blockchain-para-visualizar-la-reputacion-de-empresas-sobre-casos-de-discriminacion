@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
-    "license": "ISC",
+    "license": "GPL-3.0",
     "dependencies": {
         "connect-mongo": "^4.6.0",
         "cors": "^2.8.5",
