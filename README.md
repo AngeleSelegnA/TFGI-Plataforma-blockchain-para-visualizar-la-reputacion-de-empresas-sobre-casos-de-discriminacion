@@ -16,4 +16,4 @@ TFG de Informática de la UCM. Curso 2021-2022
 |   Licencias de terceros y atribución  | ThirdPartyNotices     |
 
 # Tags
-<https://img.shields.io/badge/-docker-blue>
+[.](https://img.shields.io/badge/-docker-blue>)
