@@ -16,7 +16,7 @@ Plataforma (**Dapp**) open source construida mediante una arquitectura **híbrid
 |---------------------------------------------------|-----------------------|
 |   Licencia del proyecto                           | LICENSE               |
 |   Licencias de software de terceros y atribución  | ThirdPartyNotices     |
-|   Licencia de plantilla                           | LICENSE.MIT           |
+|   Licencia de plantilla de terceros y atribución  | /cliente/LICENSE.MIT  |
 
 
 # Tags
