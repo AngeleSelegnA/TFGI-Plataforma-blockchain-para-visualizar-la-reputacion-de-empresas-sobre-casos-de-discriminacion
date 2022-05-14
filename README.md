@@ -29,12 +29,12 @@ Para poder ejecutar este proyecto es necesario disponer de:
   * Docker (Linux) o Docker Desktop (Windows/MAC).
   * Metamask plugin u otra funcionalidad de wallet.
 
-# Ejecución del proyecto
+# Instalación y ejecución del proyecto
 
-Debido a que las credenciales son personales no se han incluído los ficheros .env que  las contienen. De estar en posesión de estos solo sería necesario:
+Debido a que las credenciales son personales no se han incluído los ficheros **.env** que  las contienen por lo que no es posible la ejecución por parte de usuarios no atutorizados. De estar en posesión de estos solo sería necesario:
 
   1. Descargar el contenido de este repositorio.
-  2. Abrir una terminal en la carpeta del proyecto y ejecutar los siguientes comandos: cd cliente, npm install (el cuál descargará las dependencias mediante el package.json) y finalmente npm start.
-  3. Abrir otra terminal y realizar una de las siguientes opciones:
-     * Realizar: cd server, npm install y npm start al igual que en cliente.
+  2. (Iniciar back-end) Abrir una terminal  en la carpeta del proyecto y realizar una de las siguientes opciones:
+     * Realizar: cd server, npm install (el cuál descargará las dependencias mediante el package.json) y npm start.
      * En caso de tener docker, realizar docker-compose up el cuál levantará 3 servidores y un balanceador de carga.
+  3. (Iniciar front-end) Abrir otra terminal en la carpeta del proyecto y ejecutar los siguientes comandos: cd cliente, npm install  y finalmente npm start.
