@@ -1,6 +1,8 @@
 # TFGI-Plataforma-blockchain-para-visualizar-la-reputacion-de-empresas-sobre-casos-de-discriminacion
 TFG de la Facultad de Informática de la UCM - Curso 2021-2022
 
+Plataforma (**Dapp**) open source basada en blockchain y construida mediante una arquitectura híbrida (elementos descentralizados y centralizados) que permite realizar denuncias a empresas sobre casos de discriminación así como observar su reputación.
+
 # Estudiantes
 * Javier Verde Marín
 * Jorge del Valle Vázquez
