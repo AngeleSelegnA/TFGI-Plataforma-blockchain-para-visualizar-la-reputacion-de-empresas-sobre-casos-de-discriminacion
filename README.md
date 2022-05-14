@@ -1,5 +1,5 @@
 # TFGI-Plataforma-blockchain-para-visualizar-la-reputacion-de-empresas-sobre-casos-de-discriminacion
-TFG de Informática de la UCM. Curso 2021-2022
+TFG de la Facultad de Informática de la UCM - Curso 2021-2022
 
 # Estudiantes
 * Javier Verde Marín
