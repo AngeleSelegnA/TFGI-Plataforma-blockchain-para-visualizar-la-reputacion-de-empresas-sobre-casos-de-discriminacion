@@ -34,4 +34,6 @@ Para poder ejecutar este proyecto es necesario disponer de:
 Debido a que las credenciales son personales no se han incluído los ficheros .env que  las contienen. De estar en posesión de estos solo sería necesario:
 
   1. Descargar el contenido de este repositorio.
-  2. Realizar cd cliente dentro de la carpeta, ejecutar npm install el cuál descargará las dependencias mediante el package.json. y finalmente realizar npm start.
+  2. Abrir una terminal en la carpeta del proyecto y ejecutar los siguientes comanndos: cd cliente, npm install (el cuál descargará las dependencias mediante el package.json) y finalmente npm start.
+  3. Realizar una de las siguientes opciones:
+     * Abrir 
