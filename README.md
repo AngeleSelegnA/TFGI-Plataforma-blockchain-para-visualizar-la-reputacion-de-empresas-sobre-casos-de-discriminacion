@@ -37,5 +37,5 @@ Debido a que las credenciales son personales no se han incluido los ficheros **.
   1. Descargar el contenido de este repositorio.
   2. (Iniciar back-end) Abrir una terminal  en la carpeta del proyecto y realizar una de las siguientes opciones:
      * Realizar: cd server, npm install (el cuál descargará las dependencias mediante el package.json) y npm start.
-     * En caso de tener docker, realizar docker-compose up el cuál levantará 3 servidores y un balanceador de carga.
+     * En caso de tener docker, realizar docker-compose up, el cuál levantará 3 servidores y un balanceador de carga con todas sus dependencias.
   3. (Iniciar front-end) Abrir otra terminal en la carpeta del proyecto y ejecutar los siguientes comandos: cd cliente, npm install  y finalmente npm start.
