@@ -28,3 +28,9 @@ Para poder ejecutar este proyecto es necesario disponer de:
   * Python 3 junto con bs4, requests y pymongo.
   * Docker (Linux) o Docker Desktop (Windows/MAC).
   * Metamask plugin u otra funcionalidad de wallet.
+
+# Ejecución del proyecto
+
+Debido a que las credenciales son personales no se han incluído los ficheros .env que  las contienen. De estar en posesión de estos solo sería necesario:
+
+  1. Descargar el contenido de este repositorio.
