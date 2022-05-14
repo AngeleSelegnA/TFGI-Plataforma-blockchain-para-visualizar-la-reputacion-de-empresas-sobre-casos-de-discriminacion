@@ -19,4 +19,10 @@ TFG de Informática de la UCM. Curso 2021-2022
 ![](https://img.shields.io/badge/-React-61DAFB) ![](https://img.shields.io/badge/Material_UI-007FFF) ![](https://img.shields.io/badge/Semantic_UI-35BDB2)
 ![](https://img.shields.io/badge/-Smart_Contract-orange) ![](https://img.shields.io/badge/Ethereum-3C3C3D) ![](https://img.shields.io/badge/IPFS-65C2CB)  ![](https://img.shields.io/badge/Tokens-C2A633) ![](https://img.shields.io/badge/-Nginx-009639) ![](https://img.shields.io/badge/-Docker-2496ED) ![](https://img.shields.io/badge/-Node.js-339933) ![](https://img.shields.io/badge/MongoDB-47A248)
 
-# Instalación
+# Requerimientos
+
+Para poder ejecutar este proyecto es necesario:
+  * npm
+  * Node.js
+  * Python 3
+  * Docker o Docker Desktop
