@@ -34,6 +34,7 @@ Para poder ejecutar este proyecto es necesario disponer de:
 Debido a que las credenciales son personales no se han incluído los ficheros .env que  las contienen. De estar en posesión de estos solo sería necesario:
 
   1. Descargar el contenido de este repositorio.
-  2. Abrir una terminal en la carpeta del proyecto y ejecutar los siguientes comanndos: cd cliente, npm install (el cuál descargará las dependencias mediante el package.json) y finalmente npm start.
-  3. Realizar una de las siguientes opciones:
-     * Abrir 
+  2. Abrir una terminal en la carpeta del proyecto y ejecutar los siguientes comandos: cd cliente, npm install (el cuál descargará las dependencias mediante el package.json) y finalmente npm start.
+  3. Abrir otra terminal y realizar una de las siguientes opciones:
+     * Realizar: cd server, npm install y npm start al igual que en cliente.
+     * En caso de tener docker, realizar docker-compose up el cuál levantará 3 servidores y un balanceador de carga.
