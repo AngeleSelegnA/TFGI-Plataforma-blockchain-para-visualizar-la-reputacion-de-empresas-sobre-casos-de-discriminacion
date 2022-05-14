@@ -25,6 +25,6 @@ Plataforma (**Dapp**) open source construida mediante una arquitectura **híbrid
 
 Para poder ejecutar este proyecto es necesario disponer de:
   * Node.js
-  * Python 3 y tener bs4, requests y pymongo instaladas.
+  * Python 3 junto con bs4, requests y pymongo.
   * Docker (Linux) o Docker Desktop (Windows/MAC).
   * Metamask plugin u otra funcionalidad de wallet.
