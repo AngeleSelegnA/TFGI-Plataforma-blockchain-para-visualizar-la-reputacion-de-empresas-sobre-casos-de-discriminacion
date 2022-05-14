@@ -28,7 +28,7 @@ Para poder ejecutar este proyecto es necesario disponer de:
   * Node.js
   * Python 3 junto con bs4, requests y pymongo.
   * Docker (Linux) o Docker Desktop (Windows/MAC).
-  * Metamask plugin u otra funcionalidad de wallet.
+  * Metamask u otro wallet.
 
 # Instalación y ejecución del proyecto
 
