@@ -21,8 +21,8 @@ TFG de Informática de la UCM. Curso 2021-2022
 
 # Requerimientos
 
-Para poder ejecutar este proyecto es necesario:
+Para poder ejecutar este proyecto es necesario disponer de:
   * npm
   * Node.js
-  * Python 3
+  * Python 3 y tener bs4, requests y pymongo instaladas.
   * Docker o Docker Desktop
