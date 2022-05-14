@@ -42,4 +42,4 @@ A causa de que las credenciales son personales, no se han incluido los ficheros 
  
  # ⚠️ Aviso
 
-El proyecto se ejecuta en local y se utilizan redes de prueba; nunca se envía a producción ya que esto se encuentra fuera de la finalidad del TFG. Ninguna de las denuncias realizadas en la aplicación son reales y su único propósito ha sido el de probar funcionalidades y poblar la aplicación con datos de forma que se pueda ver el correcto funcionamiento de esta.
+El proyecto se ejecuta en local y se utilizan redes de prueba; nunca se envía a producción ya que esto se encuentra fuera de la finalidad del TFG. Ninguna de las denuncias realizadas en la aplicación son reales y su único propósito ha sido el de probar funcionalidades y poblar la aplicación con datos de forma que se pueda comprobar el correcto funcionamiento de esta.
