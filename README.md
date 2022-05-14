@@ -24,5 +24,5 @@ TFG de Informática de la UCM. Curso 2021-2022
 Para poder ejecutar este proyecto es necesario disponer de:
   * Node.js
   * Python 3 y tener bs4, requests y pymongo instaladas.
-  * Docker o Docker Desktop.
+  * Docker (Linux) o Docker Desktop (Windows/MAC).
   * Metamask plugin u otra funcionalidad de wallet.
