@@ -16,4 +16,4 @@ TFG de Informática de la UCM. Curso 2021-2022
 |   Licencias de terceros y atribución  | ThirdPartyNotices     |
 
 # Tags
-![](https://img.shields.io/badge/-react-76a2e8) ![](https://img.shields.io/badge/-smart_contract-orange) ![](https://img.shields.io/badge/-docker-blue) ![](https://img.shields.io/badge/-node.js-green) ![](https://img.shields.io/badge/ethereum-grey) ![](https://img.shields.io/badge/tokens-C2A633)
+![](https://img.shields.io/badge/-React-61DAFB) ![](https://img.shields.io/badge/-Smart_Contract-orange) ![](https://img.shields.io/badge/-Docker-2496ED) ![](https://img.shields.io/badge/-node.js-green) ![](https://img.shields.io/badge/Ethereum-3C3C3D) ![](https://img.shields.io/badge/Tokens-C2A633) ![](https://img.shields.io/badge/MongoDB-47A248)
