@@ -12,10 +12,10 @@ Plataforma (**Dapp**) open source construida mediante una arquitectura **híbrid
 * David Seijas Pérez
 
 # Licencias
-|  Tipo                                 | Fichero               |
-|---------------------------------------|-----------------------|
-|   Licencia del proyecto               | LICENSE               |
-|   Licencias de terceros y atribución  | ThirdPartyNotices     |
+|  Tipo                                             | Fichero               |
+|---------------------------------------------------|-----------------------|
+|   Licencia del proyecto                           | LICENSE               |
+|   Licencias de software de terceros y atribución  | ThirdPartyNotices     |
 
 
 # Tags
