@@ -39,3 +39,7 @@ A causa de que las credenciales son personales, no se han incluido los ficheros 
      * Realizar: cd server, npm install (el cuál descargará las dependencias mediante el package.json) y npm start.
      * En caso de tener docker, realizar docker-compose up, el cuál levantará 3 servidores y un balanceador de carga con todas sus dependencias.
   3. (Iniciar front-end) Abrir otra terminal en la carpeta del proyecto y ejecutar los siguientes comandos: cd cliente, npm install  y finalmente npm start.
+ 
+# Aviso
+
+El proyecto se ejecuta en local y se utilizan redes de prueba, nunca se envía a producción ya que esto se encuentra fuera del contexto del TFG. Ninguna de las denuncias realizadas a la hora de probar son reales
