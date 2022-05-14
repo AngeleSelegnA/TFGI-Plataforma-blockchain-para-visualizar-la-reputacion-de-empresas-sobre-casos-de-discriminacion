@@ -12,11 +12,11 @@ Plataforma (**Dapp**) open source construida mediante una arquitectura **híbrid
 * David Seijas Pérez
 
 # Licencias
-|  Tipo                                             | Fichero               |
-|---------------------------------------------------|-----------------------|
-|   Licencia del proyecto                           | LICENSE               |
-|   Licencias de software de terceros y atribución  | ThirdPartyNotices     |
-|   Licencia de plantilla de terceros y atribución  | /cliente/LICENSE.MIT  |
+|  Tipo                                                   -| Fichero               |
+|----------------------------------------------------------|-----------------------|
+|   Licencia del proyecto                                  | LICENSE               |
+|   Licencias software de terceros y atribución            | ThirdPartyNotices     |
+|   Licencia software de terceros y atribución (plantilla) | /cliente/LICENSE.MIT  |
 
 
 # Tags
