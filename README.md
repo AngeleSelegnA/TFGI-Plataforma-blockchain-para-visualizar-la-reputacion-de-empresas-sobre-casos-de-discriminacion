@@ -31,7 +31,7 @@ Para poder ejecutar este proyecto es necesario disponer de:
 
 # Instalación y ejecución del proyecto
 
-Debido a que las credenciales son personales no se han incluído los ficheros **.env** que  las contienen por lo que no es posible la ejecución por parte de usuarios no atutorizados. De estar en posesión de estos solo sería necesario:
+Debido a que las credenciales son personales no se han incluido los ficheros **.env** que  las contienen por lo que no es posible la ejecución por parte de usuarios no atutorizados. De estar en posesión de estos solo sería necesario:
 
   1. Descargar el contenido de este repositorio.
   2. (Iniciar back-end) Abrir una terminal  en la carpeta del proyecto y realizar una de las siguientes opciones:
