@@ -65,7 +65,7 @@ const Formulario = () => {
         };
         console.log("transacción construida");
         //Se firma la transacción con la clave privada
-        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, "0xbaddb5fc5cf1f466ff9067c1f41b0cf05beb66e9e5a9fc44f187f25cc5064ee7");
+        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_ETH_PRIVATE_KEY);
         console.log("transacción firmada");
         //Se envia la transaccion firmada 
         await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
