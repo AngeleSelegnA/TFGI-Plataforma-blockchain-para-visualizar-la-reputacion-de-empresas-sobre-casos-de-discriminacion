@@ -8,7 +8,7 @@ import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { create as ipfsHttpClient } from "ipfs-http-client";
-import {Box, Button} from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -65,7 +65,7 @@ const Formulario = () => {
         };
         console.log("transacción construida");
         //Se firma la transacción con la clave privada
-        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_PRIVATE_KEY);
+        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, "0xbaddb5fc5cf1f466ff9067c1f41b0cf05beb66e9e5a9fc44f187f25cc5064ee7");
         console.log("transacción firmada");
         //Se envia la transaccion firmada 
         await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
@@ -195,13 +195,16 @@ const Formulario = () => {
         aria-describedby="alert-dialog-description"
     >
         <DialogTitle id="alert-dialog-title">
-          Formulario de denuncia
+          <Typography variant = "h3">
+            Formulario de denuncia
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
+            <Typography variant = "h5">
             Recuerde que todos los datos incluídos se almacenan en la blockchain y en IPFS, un sistema de ficheros descentralizado. 
-            Por tanto, son de caracter público. Además, se utilizarán para elaborar las gráficas. Si usted indica que no quiere mostrarla, en la aplicación no
-            se mostrará el texto de la denuncia. Agradecemos su participación y deseamos que se resuelva.
+            Por tanto, son de caracter público. Además, se utilizarán para elaborar las gráficas. Si usted deniega el consentimiento para mostrar la denuncia, en la aplicación no aparecerá su descripción. Agradecemos su participación y deseamos que se resuelva.
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
