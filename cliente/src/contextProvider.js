@@ -36,8 +36,8 @@ const ProviderA = (props) => {
             });
                 // loads document properties and worksheets
                 await doc.loadInfo();
-                const sheet1 = doc.sheetsByIndex[0];
-                const sheet2 = doc.sheetsByIndex[1];
+                const sheet1 = doc.sheetsById[0];
+                const sheet2 = doc.sheetsById[2017905833];
                 const rows1 = await sheet1.getRows();
                 const rows2 = await sheet2.getRows();
                 setData1(rows1);
