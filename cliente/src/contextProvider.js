@@ -49,7 +49,7 @@ const ProviderA = (props) => {
             };
             readSpreadsheet();
         axios.get(`${process.env.REACT_APP_SERVER_URL}/getuser`, { withCredentials :true})
-                .then((response) => {setUser(response.data); console.log(user);})
+                .then((response) => {setUser(response.data);})
         
     }, []);
     return <context.Provider value={{ "user" : user, "web3" : web3, "contract": contract, "provider": provider, "miembros": data1, "empresas": data2, "pesos": pesos }}>{props.children}</context.Provider>;
