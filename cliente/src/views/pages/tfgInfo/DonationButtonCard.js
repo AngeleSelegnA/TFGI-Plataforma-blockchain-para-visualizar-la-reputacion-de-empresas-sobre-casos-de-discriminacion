@@ -62,11 +62,10 @@ const DonationButtonCard = ({ isLoading }) => {
     
     const handleClick = () => {
         setOpen(true);
-    }
+    };
 
     const handleClose = () => {
-        //forceUpdate();
-        setOpen(false);
+       setOpen(false);
     };
 
     const handleChangeUnities = (e) => {
@@ -104,8 +103,8 @@ const DonationButtonCard = ({ isLoading }) => {
             {isLoading ? (
                 <TotalIncomeCard />
             ) : (
-                <CardWrapper border={false} content={false} onClick = {handleClick}>
-                    <Box sx={{ p: 2 }}>
+                <CardWrapper border={false} content={false}>
+                    <Box sx={{ p: 2 }}  onClick = {handleClick}>
                         <List sx={{ py: 0 }}>
                             <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
                                 <ListItemAvatar >
