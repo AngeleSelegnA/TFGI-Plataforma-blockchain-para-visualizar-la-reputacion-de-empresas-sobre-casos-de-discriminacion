@@ -83,7 +83,7 @@ const EmpresasCard = ({ isLoading }) => {
                     <Box sx={{ p: 4.25 }}>
                         <Grid container direction="column">
                             <Grid item>
-                                <Header as='h1' >Empresas disponibles:</Header>
+                                <Header as='h1' style={{ "color" : "white" }}>Empresas disponibles:</Header>
                             </Grid>
                         </Grid>
 
@@ -93,7 +93,7 @@ const EmpresasCard = ({ isLoading }) => {
                             <Grid item lg={2} xs={28} md={4}>
                                 <Grid container spacing={gridSpacing}>
                                         {Context.empresas?.map((company ) => (
-                                                <Grid item lg={3}>
+                                                <Grid item lg={3}  style={{ "margin-left": "10px", "margin-right" : "10px" }}>
                                                     <Empresa
                                                         nombre = {company.nombre_empresa}
                                                         foto={company.url_imagen}
@@ -136,7 +136,4 @@ const EmpresasCard = ({ isLoading }) => {
     );
 };
 
-
-
 export default EmpresasCard;
-
