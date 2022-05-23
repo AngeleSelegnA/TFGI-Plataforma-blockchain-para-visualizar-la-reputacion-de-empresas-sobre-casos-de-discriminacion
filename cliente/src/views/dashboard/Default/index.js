@@ -56,10 +56,9 @@ const Dashboard = () => {
                 companies.map(async (company, index) =>{
                     const metrics = await axios.get(`${process.env.REACT_APP_SERVER_URL}/getMetrics/${company.toLowerCase()}`, { withCredentials : true});
                     var result = 0;
-                    //result = (10 - 0.01*reputations[index]);
                     metrics.data.map((elem) => {result += (elem * Context.pesos[j][0])});
-                    result += (Context.pesos[j][1] * (10 - 0.01*reputations[index]));
-                    //result += (Context.pesos[j][1] * ((5*(Math.exp(-ourReputations[i]/20)) + 5*(1-ourReputations[i]/totalComplaints))));
+                    //result += (Context.pesos[j][1] * (10 - 0.01*reputations[index]));
+                    result += (Context.pesos[j][1] * ((5*(Math.exp(-reputations[index]/20)) + 5*(1-reputations[index]/totalComplaints))));
                     return [company,result.toFixed(2)];
                 })
 
