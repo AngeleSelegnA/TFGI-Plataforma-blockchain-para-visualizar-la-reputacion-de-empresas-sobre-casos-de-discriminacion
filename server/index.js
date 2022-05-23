@@ -303,10 +303,10 @@ app.post('/charts', function(req, res){
   let age = req.body.age;
   let gender = req.body.gender;
   let type = req.body.type;
-  let consent = req.body.consent;
+  let relacion = req.body.relation;
   
   if(chartUtils.updateChartData('graficaEdad',age) && chartUtils.updateChartData('graficaGenero',gender) &&
-    chartUtils.updateChartData('graficaTipo',type) && chartUtils.updateChartData('graficaVisibilidad', consent)) 
+    chartUtils.updateChartData('graficaTipo',type) && chartUtils.updateChartData('graficaRelacion', relacion)) 
     res.status(200).json({ message: "Actualizado con éxito."});
   else res.status(500).json({ message: "No se ha podido actualizar la información"});
 });
