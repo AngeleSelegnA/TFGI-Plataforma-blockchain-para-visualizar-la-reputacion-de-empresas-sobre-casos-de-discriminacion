@@ -18,10 +18,13 @@ const initChartData = () => {
           if(count == 0) {
             var new_chart;
 
-            new_chart = new Chart({ 'chart_name' : 'graficaVisibilidad' , 
+            new_chart = new Chart({ 'chart_name' : 'graficaRelacion' , 
             data : [ 
-                { 'category' : 'sí' , 'value' : 0 }, 
-                { 'category' : 'no' , 'value' : 0 } 
+                { 'category' : 'sigo trabajando' , 'value' : 0 }, 
+                { 'category' : 'me despidieron' , 'value' : 0 },
+                { 'category' : 'he dimitido' , 'value' : 0 },
+                { 'category' : 'otro' , 'value' : 0 },
+
             ]});
             new_chart.save((err, doc) => { chartsResponse(err,doc)});
 
@@ -51,15 +54,12 @@ const initChartData = () => {
 
             new_chart = new Chart({ 'chart_name' : 'graficaTipo' , 
             data : [ 
-                { 'category' : 'etnia' , 'value' : 0 }, 
-                { 'category' : 'género' , 'value' : 0 }, 
-                { 'category' : 'maltrato' , 'value' : 0 },
-                { 'category' : 'edad' , 'value' : 0 },
+                { 'category' : 'racismo' , 'value' : 0 }, 
+                { 'category' : 'discriminación por genero' , 'value' : 0 }, 
+                { 'category' : 'orientación sexual' , 'value' : 0 },
                 { 'category' : 'religión' , 'value' : 0 },
-                { 'category' : 'condición sexual' , 'value' : 0 },
+                { 'category' : 'edad' , 'value' : 0 },
                 { 'category' : 'discapacidad' , 'value' : 0 },
-                { 'category' : 'mobbing' , 'value' : 0 },
-                { 'category' : 'explotación' , 'value' : 0 },
                 { 'category' : 'otro' , 'value' : 0 },
             ] });
             new_chart.save((err, doc) => { chartsResponse(err,doc)});
