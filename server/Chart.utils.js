@@ -47,7 +47,7 @@ const initChartData = () => {
                 { 'category' : '51-60' , 'value' : 0 },
                 { 'category' : '61-70' , 'value' : 0 },
                 { 'category' : '71-80' , 'value' : 0 },
-                { 'más de 80' : '81-90' , 'value' : 0 },
+                { 'category' : 'más de 80' , 'value' : 0 },
                 { 'category' : 'prefiero no responder' , 'value' : 0 }
             ] });
             new_chart.save((err, doc) => { chartsResponse(err,doc)});
