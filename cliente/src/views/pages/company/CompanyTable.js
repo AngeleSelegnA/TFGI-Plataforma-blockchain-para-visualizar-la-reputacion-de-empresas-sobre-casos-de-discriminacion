@@ -176,8 +176,4 @@ const CompanyTable = ({ complaints }) => {
   );
 }
 
-
-
-
-
-export default CompanyTable
+export default CompanyTable;
