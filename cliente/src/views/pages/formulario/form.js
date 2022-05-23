@@ -138,10 +138,9 @@ const Formulario = () => {
           "date": date,
           "type": data.type,
           "etnia": data.etnia,
-          "gender": data.gender.toLowerCase(),
-          "age": !Number.isNaN(data.age) ? data.age : "",
-          "relation": data.relation != "Seleccione la relación actual con la empresa" ? data.relation : "",
-          "consent": data.consent,
+          "gender": gender,
+          "age": rangeAge,
+          "relation": data.relation.toLowerCase(),
           "previousComplaints": data.previousComplaints !== null ? data.previousComplaints : "-",
           "media" : data.media,
         }
@@ -156,7 +155,7 @@ const Formulario = () => {
           "type": data.type.toLowerCase(),
           "gender": gender,
           "age": rangeAge,
-          "consent": data.consent ? "sí" : "no"
+          "relation": data.relation.toLowerCase()
         }
   
         //Enviar datos de denuncia a BBDD para gráficas
@@ -206,7 +205,8 @@ const Formulario = () => {
           <DialogContentText id="alert-dialog-description">
             <Typography variant = "h5">
             Recuerde que todos los datos incluídos se almacenan en la blockchain y en IPFS, un sistema de ficheros descentralizado. 
-            Por tanto, son de caracter público. Además, se utilizarán para elaborar las gráficas. Si usted deniega el consentimiento para mostrar la denuncia, en la aplicación no aparecerá su descripción. Agradecemos su participación y deseamos que se resuelva.
+            Por tanto, son de caracter público. Debe seleccionar obligatoriamente la empresa, su situación actual con dicha compañía, 
+            el tipo de denuncía y la descripción del suceso. Es libre de introducir el resto de datos que considere oportuno. Además, se utilizarán para elaborar las gráficas de la aplicación
             </Typography>
           </DialogContentText>
         </DialogContent>
@@ -241,10 +241,14 @@ const Formulario = () => {
           <label>Relación actual con la empresa</label>
           <select 
             className="ui fluid selection dropdown" 
-            {...register("relation")}>
+            {...register("relation", {
+              validate : value => value !== "Seleccione la relación actual con la empresa"
+            })}>
               <option hidden>Seleccione la relación actual con la empresa</option>
               {data.relations.map(item => <option value={item} key={item}>{item}</option>)}
           </select>
+          {errors.relation && <div className = "ui negative message">
+                    <div className = "header">Debe seleccionar la relación actual con la empresa</div></div>}
         </div>
       </div>
     </div>
@@ -395,7 +399,7 @@ const Formulario = () => {
                     <div className = "header">Debe describir el suceso</div></div>}
   </div>
 
-    {/*Botón para permitir compartir la historia. No es obligatorio para el usuario*/}
+    {/*Botón para permitir compartir la historia. No es obligatorio para el usuario
     <div className="ui segment">
       <div className="field">
         <div className="ui checkbox">
@@ -406,6 +410,10 @@ const Formulario = () => {
         </div>
       </div>
     </div>
+    
+    
+    
+      */}
     <button className = "ui button" type = "submit">Enviar denuncia</button>
   </form>
   </>

@@ -1,7 +1,7 @@
 //Arrays para las opciones del formulario
 export const relations = ["Sigo trabajando", "Me despidieron", "He dimitido", "Otro"];
 export const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", " Septiembre", "Octubre", "Noviembre", "Diciembre"];
-export const complaintTypes = ["Etnia", "Género", "Maltrato", "Edad", "Religión", "Condición sexual", "Discapacidad", "Mobbing", "Explotación", "Otro"]; 
+export const complaintTypes = ["Racismo", "Discriminación por Género", "Orientación Sexual", "Religión", "Edad", "Discapacidad", "Otro"]; 
 export const countries = ["Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
                   "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
                   "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia, Plurinational State of", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina", "Botswana",
