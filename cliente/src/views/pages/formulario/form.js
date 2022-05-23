@@ -54,40 +54,20 @@ const Formulario = () => {
 
   //Función para realizar la transaccion al recibir los parametros
   async function newComplaint(transaction) {
-    try {
-        const tx = {
-            to      : process.env.REACT_APP_CONTRACT_ADDRESS, //Dirección del contrato
-            data    : transaction.encodeABI(),      //
-            gas     : await transaction.estimateGas({from: process.env.REACT_APP_ADDRESS}),   //Se estima el coste en gas
-            gasPrice: await Context.web3.eth.getGasPrice(),   //Precio del gas
-            gaslimit: 0x1000000,   //Limite de gas que se puede gastar
-            value   : 0,   //No se va a realizar una transferencia
-        };
-        console.log("transacción construida");
-        //Se firma la transacción con la clave privada
-        const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_ETH_PRIVATE_KEY);
-        console.log("transacción firmada");
-        //Se envia la transaccion firmada 
-        await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-        Swal.fire({
-          title: "Denuncia cargada",
-          text: "La denuncia ya ha sido registrada en la blockchain",
-          icon: "success",
-          timer: "10000"
-        }).then(function () {//Volver a la pagina principal
-          window.location.href = `http://localhost:3000`;
-        });  
-        
-    }
-    catch (err) {
-        console.log(err.message);
-        swal({
-          title: "ERROR",
-          text: "Algo ha ido mal a la hora de subir la denuncia a la blockchain. Vuelva a intentarlo más tarde",
-          icon: "error",
-          button: "Aceptar"
-        });
-    }
+      const tx = {
+          to      : process.env.REACT_APP_CONTRACT_ADDRESS, //Dirección del contrato
+          data    : transaction.encodeABI(),      //
+          gas     : await transaction.estimateGas({from: process.env.REACT_APP_ADDRESS}),   //Se estima el coste en gas
+          gasPrice: await Context.web3.eth.getGasPrice(),   //Precio del gas
+          gaslimit: 0x1000000,   //Limite de gas que se puede gastar
+          value   : 0,   //No se va a realizar una transferencia
+      };
+      console.log("transacción construida");
+      //Se firma la transacción con la clave privada
+      const signedTx  = await Context.web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_ETH_PRIVATE_KEY);
+      console.log("transacción firmada");
+      //Se envia la transaccion firmada 
+      await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
   }
 
 
@@ -120,25 +100,6 @@ const Formulario = () => {
         }
       });
       
-      let complaintJson = 
-      {
-        "text": data.text,
-        "date": date,
-        "type": data.type,
-        "etnia": data.etnia,
-        "gender": data.gender.toLowerCase(),
-        "age": !Number.isNaN(data.age) ? data.age : "",
-        "relation": data.relation != "Seleccione la relación actual con la empresa" ? data.relation : "",
-        "consent": data.consent,
-        "previousComplaints": data.previousComplaints !== null ? data.previousComplaints : "-",
-        "media" : data.media,
-      }
-
-      hash = await client.add(JSON.stringify(complaintJson));
-      
-      //Relizar la denuncia
-      await newComplaint(Context.contract.methods.newComplaint(data.company, hash.path));
-
       //Añadir datos a la bbdd para graficas generales
       let gender = data.gender.toLowerCase()
 
@@ -170,17 +131,59 @@ const Formulario = () => {
         rangeAge = "21-30"
       else
         rangeAge = "16-21"
-     
 
-      let complaintBBDD = {
-        "type": data.type.toLowerCase(),
-        "gender": gender,
-        "age": rangeAge,
-        "consent": data.consent ? "sí" : "no"
+        let complaintJson = 
+        {
+          "text": data.text,
+          "date": date,
+          "type": data.type,
+          "etnia": data.etnia,
+          "gender": data.gender.toLowerCase(),
+          "age": !Number.isNaN(data.age) ? data.age : "",
+          "relation": data.relation != "Seleccione la relación actual con la empresa" ? data.relation : "",
+          "consent": data.consent,
+          "previousComplaints": data.previousComplaints !== null ? data.previousComplaints : "-",
+          "media" : data.media,
+        }
+
+      hash = await client.add(JSON.stringify(complaintJson));
+      
+      //Relizar la denuncia
+      try{
+        await newComplaint(Context.contract.methods.newComplaint(data.company, hash.path));
+        
+        let complaintBBDD = {
+          "type": data.type.toLowerCase(),
+          "gender": gender,
+          "age": rangeAge,
+          "consent": data.consent ? "sí" : "no"
+        }
+  
+        //Enviar datos de denuncia a BBDD para gráficas
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/charts`, complaintBBDD, { withCredentials : true})
+        
+        Swal.fire({
+          title: "Denuncia cargada",
+          text: "La denuncia ya ha sido registrada en la blockchain",
+          icon: "success",
+          timer: "10000"
+        }).then(function () {//Volver a la pagina principal
+          window.location.href = `http://localhost:3000`;
+        });  
+      
       }
-
-      //Enviar datos de denuncia a BBDD para gráficas
-      axios.post(`${process.env.REACT_APP_SERVER_URL}/charts`, complaintBBDD, { withCredentials : true})
+      catch(err){
+        console.log(err.message);
+        swal({
+          title: "ERROR",
+          text: "Algo ha ido mal a la hora de subir la denuncia a la blockchain. Vuelva a intentarlo más tarde",
+          icon: "error",
+          button: "Aceptar"
+        });
+      }
+      
+      
+      
       //Restaurar estado del formulario
       e.target.reset();
     }
