@@ -203,7 +203,7 @@ const ChartsCard = ({ isLoading, complaints }) => {
                                     <Tab label="Nº de cada tipo" {...a11yProps(0) } />
                                     <Tab label="Género" {...a11yProps(1)} />
                                     <Tab label="Edad" {...a11yProps(2)} />
-                                    <Tab label="Consentimiento" {...a11yProps(3)} disabled />
+                                    <Tab label="Consentimiento" {...a11yProps(3)} />
                                     </Tabs>
                                 </Box>
                                 <TabPanel value={value} index={0} >
