@@ -132,11 +132,13 @@ const Formulario = () => {
       else
         rangeAge = "16-21"
 
+        console.log(data.relation);
+        
         let complaintJson = 
         {
           "text": data.text,
           "date": date,
-          "type": data.type,
+          "type": data.type.toLowerCase(),
           "etnia": data.etnia,
           "gender": gender,
           "age": rangeAge,
@@ -237,7 +239,7 @@ const Formulario = () => {
         
         
         {/*Relación con empresa*/}
-        <div className="field">
+        <div className="required field">
           <label>Relación actual con la empresa</label>
           <select 
             className="ui fluid selection dropdown" 
