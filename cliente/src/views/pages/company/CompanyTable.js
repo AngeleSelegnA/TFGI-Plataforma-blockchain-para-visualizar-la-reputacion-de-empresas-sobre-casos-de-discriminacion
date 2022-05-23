@@ -127,17 +127,15 @@ const CompanyTable = ({ complaints }) => {
                 </TableCell>
               <TableCell>{row.date}</TableCell>
               <TableCell>
-                <Button onClick={()=>{setIndexToShow(index); setOpen(true)}} disabled = {!row.consent}>
+                <Button onClick={()=>{setIndexToShow(index); setOpen(true)}}>
                   <Typography 
                     variant="button"
                     className={classes.status}
                     style={{
                         backgroundColor: 
-                        ((row.status === 'Leer experiencia' && 'green') ||
-                        (row.status === 'Denuncia oculta' && 'red')) 
-                       
+                        'green'
                      }}
-                  >{row.status}</Typography>
+                  >{"Leer Experiencia"}</Typography>
                   </Button>
                   {indexToShow == index &&
                   <Dialog

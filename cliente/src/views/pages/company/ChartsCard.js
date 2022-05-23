@@ -17,9 +17,6 @@ import CircularGraph from './CircularGraph';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-const typesPos = { "Etnia" : 0, "Género" : 1, "Maltrato" : 2, "Edad" : 3, "Religión": 4, "Condición sexual": 5, "Discapacidad": 6, "Mobbing": 7, "Explotación": 8, "Otro": 9}
-
-
 
 
 function TabPanel(props) {
@@ -56,7 +53,7 @@ function TabPanel(props) {
   }
 
 const coloresGenders = ['#87CEEB','#98FB98','#9370DB','#DDA0DD','#483D8B'];
-const coloresConsents = ['#0000FF','#FF0000'];
+const coloresRelations = ['#87CEEB','#98FB98','#9370DB','#DDA0DD'];
 const coloresTypes = [ '#7fb3d5' , '#2980b9' , '#1f618d' , '#154360','#7fb8d5' , '#2960b9' , '#1f718d' , '#134960','#6fb3d5' , '#8980b9'];
 const coloresAges = ["#87CEFA", "#00BFFF","#1E90FF","#4169E1","#0000FF","#0000CD","#00008B","#000080", "#191970"];
 
@@ -67,71 +64,32 @@ const coloresAges = ["#87CEFA", "#00BFFF","#1E90FF","#4169E1","#0000FF","#0000CD
 
 
 
-const typesNames = ["etnia", "género", "maltrato", "edad","religión", "condición sexual", "discapacidad", "mobbing", "explotación", "otro"];
+const typesNames = ["racismo", "discriminación por género", "orientación sexual", "religión", "edad", "discapacidad", "otro"];
 const gendersNames = ["femenino", "masculino", "no binario", "otro", "prefiero no responder"];
-const consentsNames = ["sí", "no"];
+const relationNames = ["sigo trabajando", "me despidieron", "he dimitido", "otro"];
 const ageNames = ["16-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "más de 80", "prefiero no responder"];
 
 
 const ChartsCard = ({ isLoading, complaints }) => {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
-    
-    let typeDicc = {"etnia" : 0, "género" : 0, "maltrato" : 0, "edad" : 0, "religión" : 0, "condición sexual" : 0, "discapacidad" : 0, "mobbing" : 0, "explotación" : 0, "otro" : 0};
+    let typeDicc = {"racismo" : 0, "discriminación por género" : 0, "orientación sexual" : 0, "religión" : 0, "edad" : 0, "discapacidad" : 0, "otro" : 0};
     let genderDicc = {"femenino" : 0, "masculino" : 0, "no binario" : 0 , "otro" : 0, "prefiero no responder" : 0};
-    let consentDicc = { "sí" : 0 , "no" : 0};
+    let relationDicc = { "sigo trabajando" : 0 , "me despidieron" : 0, "he dimitido" : 0, "otro" : 0};
     let ageDicc = { "16-20" : 0, "21-30" : 0, "31-40" : 0, "41-50" : 0, "51-60" : 0, "61-70" : 0, "71-80" : 0, "más de 80" : 0, "prefiero no responder" : 0};
 
     for(let c of complaints){ //Contruir los diccionarios
-        console.log(c);
+        console.log(c.relation);
         //Valores seguros
-        typeDicc[c.type.toLowerCase()] += 1;
-        if(c.consent){
-            consentDicc["sí"] += 1;
-        }
-        else consentDicc["no"] += 1;
-
-        //Checkear generos:
-        if(c.gender == "hombre" || c.gender == "masculino"){
-            genderDicc["masculino"] += 1;
-        }
-        else if(c.gender == "mujer" || c.gender == "femenino"){
-            genderDicc["femenino"] += 1;
-        }
-        else if(c.gender == "no binario"){
-            genderDicc["no binario"] += 1;
-        }
-        else if(c.gender == ""){
-            genderDicc["prefiero no responder"] += 1;
-        }
-        else genderDicc["otro"] += 1;
-
-        //Checkear edades:
-        if(c.age != ""){
-            let age = parseInt(c.age);
-            if(age>=81)
-                ageDicc["más de 80"] += 1;
-            else if(age>=71)
-                ageDicc["71-80"] += 1;
-            else if(age>=61)
-                ageDicc["61-70"] += 1;
-            else if(age>=51)
-                ageDicc["51-60"] += 1;
-            else if(age>=41)
-                ageDicc["41-50"] += 1;
-            else if(age>=31)
-                ageDicc["31-40"] += 1;
-            else if(age>=21)
-                ageDicc["21-30"] += 1;
-            else
-                ageDicc["16-20"] += 1;
-        }
-        else ageDicc["prefiero no responder"] += 1;
+        typeDicc[c.type] += 1;
+        genderDicc[c.gender] += 1;
+        relationDicc[c.relation] += 1;
+        ageDicc[c.age] += 1;
     }
 
     let dataTypes = [];
     let dataGenders = [];
-    let dataConsents = [];
+    let dataRelations = [];
     let dataEdad = [];
     
     for(let elem of typesNames){
@@ -148,10 +106,10 @@ const ChartsCard = ({ isLoading, complaints }) => {
         })
     }
     
-    for(let elem of consentsNames){
-        dataConsents.push({
+    for(let elem of relationNames){
+        dataRelations.push({
             "category" : elem,
-            "value" : consentDicc[elem]
+            "value" : relationDicc[elem]
         })
     }
 
@@ -164,7 +122,7 @@ const ChartsCard = ({ isLoading, complaints }) => {
     
     console.log(dataTypes);
     console.log(dataGenders);
-    console.log(dataConsents);
+    console.log(dataRelations);
     console.log(dataEdad);
 
 
@@ -203,7 +161,7 @@ const ChartsCard = ({ isLoading, complaints }) => {
                                     <Tab label="Nº de cada tipo" {...a11yProps(0) } />
                                     <Tab label="Género" {...a11yProps(1)} />
                                     <Tab label="Edad" {...a11yProps(2)} />
-                                    <Tab label="Consentimiento" {...a11yProps(3)} />
+                                    <Tab label="Relación actual con la empresa" {...a11yProps(3)} />
                                     </Tabs>
                                 </Box>
                                 <TabPanel value={value} index={0} >
@@ -216,7 +174,7 @@ const ChartsCard = ({ isLoading, complaints }) => {
                                     <CircularGraph ancho={400} alto={400} data = {dataEdad} colores = {coloresAges}/>
                                 </TabPanel>
                                 <TabPanel value={value} index={3}>
-                                    <CircularGraph ancho={400} alto={400} data = {dataConsents} colores = {coloresConsents}/>
+                                    <CircularGraph ancho={400} alto={400} data = {dataRelations} colores = {coloresRelations}/>
                                 </TabPanel>
                             </Box>
                                 

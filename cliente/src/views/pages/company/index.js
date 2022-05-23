@@ -74,10 +74,10 @@ const Company = () => {
     const [reputation, setReputation] = useState("");
     const [complaintsHashes, setComplaintsHashes] = useState([]);
     const [complaints, setComplaints] = useState([]);
-    const nameCompany = id; //Obtener el nomrbe de la empresa de la url de la pagina
+    const nameCompany = id; //Obtener el nombre de la empresa de la url de la pagina
     const Context = React.useContext(context);
     const classes = useStyles();
-
+    
     useEffect(() => {
         setLoading(false);
         Context.contract.methods.getCompanyComplaints(nameCompany).call().then(response => setComplaintsHashes(response));
@@ -98,12 +98,14 @@ const Company = () => {
                     date: json.date,
                     gender : json.gender,
                     age : json.age,
-                    consent: json.consent,
-                    status: json.consent ? 'Leer experiencia' : 'Denuncia oculta',
+                    relation : json.relation,
                     text: json.text
                 })
+
+                console.log(json.relation);
             }
         }
+       
         setComplaints(comps);
     }, [complaintsHashes]);
 
@@ -125,8 +127,8 @@ const Company = () => {
             .then((response) => { 
                 var result = 0;
                 response.data.map((elem) => {result += (elem * Context.pesos[j][0])});
-                result += (Context.pesos[j][1] * (10 - 0.01*ourReputation));
-                //result += (Context.pesos[j][1] * ((5*(Math.exp(-ourReputation/20)) + 5*(1-ourReputation/totalComplaints))));
+                //result += (Context.pesos[j][1] * (10 - 0.01*ourReputation));
+                result += (Context.pesos[j][1] * ((5*(Math.exp(-ourReputation/20)) + 5*(1-ourReputation/totalComplaints))));
                 setReputation(result.toFixed(2));
         });
     },[ourReputation, totalComplaints]); 
