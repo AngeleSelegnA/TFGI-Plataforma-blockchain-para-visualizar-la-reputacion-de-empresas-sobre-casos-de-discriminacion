@@ -46,7 +46,7 @@ const pages = {
                     id: 'company',
                     title: 'Company',
                     type: 'item',
-                    url: '/pages/company',
+                    url: '/pages/companies',
                     target: true
                 }
 

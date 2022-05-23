@@ -37,10 +37,10 @@ const dashboard = {
             breadcrumbs: false
         },
         {
-            id: 'company',
-            title: 'Company',
+            id: 'Todas empresas',
+            title: 'Todas las empresas',
             type: 'item',
-            url: '/views/pages/company',
+            url: '/views/pages/companies',
             icon: icons.IconInfoCircle,
             breadcrumbs: false
         },
