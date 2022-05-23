@@ -19,9 +19,9 @@ import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from
 
     return (
       <ComposedChart
-        
+        layout='vertical'
         width={350}
-        height={238}
+        height={290}
         data={fixedData}
         margin={{
           top: 20,
@@ -33,11 +33,11 @@ import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from
 
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} label={{ value: title, position: 'insideBottomRight', offset: 0 }}/>
-        <YAxis />
+        <XAxis />
+        <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} interval={0} label={{ value: title, position: 'insideBottomRight', offset: -30 }}/>
         <Tooltip  />
         <Legend />
-        <Bar dataKey="denuncias" barSize={5} fill={colorBarra} />
+        <Bar dataKey="denuncias" barSize={3} fill={colorBarra} />
       </ComposedChart>
     );
   }

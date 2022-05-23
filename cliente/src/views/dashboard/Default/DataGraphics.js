@@ -53,22 +53,23 @@ let dataPruebasEdad = [{ "category" : "16-20", "value" : 2},{ "category" : "21-3
 
     return (
       <CardWrapper>
-        <Typography sx={{ fontSize: '2rem',fontWeight: 400, color: theme.palette.secondary[800]}}>
+        <Typography sx={{ fontSize: '1.5rem',fontWeight: 400, color: theme.palette.secondary[800]}}>
              Estadísticas sobre denuncias 
         </Typography>
       <Grid container spacing={1}>
           <Grid item xs={6}>
               <Grid sm={1} md={1}  lg={3} >
                     { dataGenders.length > 0
-                      ? <CircularGraph ancho={400} alto={235} data={dataGenders} colores={coloresGenero} tipo = "gender"/>
+                      ? <CircularGraph ancho={410} alto={200} data={dataGenders} colores={coloresGenero} tipo = "gender"/>
                       : <h4> Cargando la gráfica... </h4>
                     }
               </Grid>
               <Grid sm={1}  md={1}  lg={3}>
-                { dataConsents.length > 0
-                  ?  <CircularGraph ancho={400} alto={235} data={dataConsents} colores={coloresConsents} tipo = "consent"/>
-                  :  <h4> Cargando la gráfica... </h4>
-                }
+                    { dataTypes.length > 0
+                      ? <BarChart colorBarra={theme.palette.secondary.dark} legend="denuncias" data = {dataTypes} title="Tipología"/>
+                      : <h4> Cargando la gráfica... </h4>
+                    }
+                
             </Grid>
              
           </Grid>
@@ -76,10 +77,11 @@ let dataPruebasEdad = [{ "category" : "16-20", "value" : 2},{ "category" : "21-3
           <Grid item xs={6}>
           
             <Grid sm={1} md={1} lg={3}  >
-                    { dataTypes.length > 0
-                      ? <BarChart colorBarra={theme.palette.secondary.dark} legend="denuncias" data = {dataTypes} title="Tipo de discriminación"/>
-                      : <h4> Cargando la gráfica... </h4>
-                    }
+                  { dataConsents.length > 0
+                    ?  <CircularGraph ancho={410} alto={200} data={dataConsents} colores={coloresConsents} tipo = "consent"/>
+                    :  <h4> Cargando la gráfica... </h4>
+                  }
+                  
             </Grid>
             <Grid sm={1} md={1} lg={3}  >
                 { dataAges.length > 0
