@@ -89,7 +89,7 @@ const RankingItem = ({ isLoading, name, reputation, number }) => {
                                                 mt: 0.5
                                             }}
                                         >
-                                            {reputation} reputacion
+                                            {reputation.substring(0,3)}/10 reputacion
                                         </Typography>
                                     }
                                 />
