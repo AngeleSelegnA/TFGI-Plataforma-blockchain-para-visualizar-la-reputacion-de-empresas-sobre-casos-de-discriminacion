@@ -12,6 +12,7 @@ import TextCard from './TextCard';
 import MemberCard from './MemberCard';
 import HeaderCard from './HeaderCard';
 import EmpresasCard from './EmpresasCard';
+import ReputationInfoCard from './ReputationInfoCard';
 import { gridSpacing } from 'store/constant';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -70,38 +71,57 @@ const tfgInfo = () => {
                     </Grid>
                     
                     {/* col 2 y 3 : personas */}
-                    <Grid item lg={3} xs={28} md={4}>
-                        {/* miembros del proyecto */}
+                    <Grid item lg={6} xs={28} md={4}>
+                        {/* segunda columna, tiene una fila con la card de reputacion, y otra fila con dos columnas */}
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={0} isLoading={isLoading} />
-                            </Grid>
-                        
+                                <ReputationInfoCard isLoading={isLoading} />
+                            </Grid> 
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={2} isLoading={isLoading} />
-                            </Grid>
-                        
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={4} isLoading={isLoading} />
+                                <Grid container spacing={gridSpacing}>
+                                    <Grid item lg={6} xs={28} md={4}>
+                                        {/* miembros del proyecto */}
+                                        <Grid container spacing={gridSpacing}>
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={0} isLoading={isLoading} />
+                                            </Grid>
+                                        
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={2} isLoading={isLoading} />
+                                            </Grid>
+                                        
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={4} isLoading={isLoading} />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid lg={6} item xs={12} md={4}>
+                                        {/* miembros del proyecto */}
+                                        <Grid container spacing={gridSpacing}>
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={1} isLoading={isLoading} />
+                                            </Grid>
+                                        
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={3} isLoading={isLoading} />
+                                            </Grid>
+                                        
+                                            <Grid item sm={6} xs={12} md={6} lg={12}>
+                                                <MemberCard id={5} isLoading={isLoading} />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                
                             </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid lg={3} item xs={12} md={4}>
-                        {/* miembros del proyecto */}
-                        <Grid container spacing={gridSpacing}>
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={1} isLoading={isLoading} />
-                            </Grid>
                         
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={3} isLoading={isLoading} />
-                            </Grid>
                         
-                            <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <MemberCard id={5} isLoading={isLoading} />
-                            </Grid>
-                        </Grid>
+
                     </Grid>
+
+
+                    
                 </Grid>
             </Grid>
         </Grid>

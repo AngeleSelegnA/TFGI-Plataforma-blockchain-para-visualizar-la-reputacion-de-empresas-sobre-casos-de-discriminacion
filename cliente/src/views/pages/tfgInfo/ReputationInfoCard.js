@@ -12,8 +12,8 @@ import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-    backgroundColor: theme.palette.secondary.dark,
-    color: '#fff',
+    backgroundColor:  '#fff',
+    color: theme.palette.secondary.dark,
     overflow: 'hidden',
     position: 'relative'
 }));
@@ -21,7 +21,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const DonationTextCard = ({ isLoading }) => {
+const ReputationInfoCard = ({ isLoading }) => {
     const theme = useTheme();
 
 
@@ -36,7 +36,7 @@ const DonationTextCard = ({ isLoading }) => {
                         <Grid container direction="column">
                             <Grid item>
                                 <Typography sx={{ fontSize: '2rem', fontWeight: 800, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                    ¿Por qué donar?
+                                    ¿Cómo se calcula la reputación?
                                 </Typography>
                             </Grid>
                             
@@ -46,7 +46,7 @@ const DonationTextCard = ({ isLoading }) => {
                                     sx={{
                                         fontSize: '1rem',
                                         fontWeight: 500,
-                                        color: '#fff'
+                                        color: theme.palette.secondary.dark
                                     }}
                                     align='left'
                                     margin = {12}
@@ -54,7 +54,8 @@ const DonationTextCard = ({ isLoading }) => {
                                     <p></p>
                                     
                                     <p color= '#3949ab'>
-                                        Publicar la denuncia en la Blockchain no es gratis. Con tu ayuda estás dando voz a los denunciantes.
+                                        La reputación se calcula en base al número de denuncias registradas y a los datos sobre reputación obtenidos en Glassdoor.
+                                        A medida que el número de denuncias aumenta, este tiene un mayor peso en el cálculo de la reputación.
                                     
                                     </p>
                                     
@@ -70,8 +71,8 @@ const DonationTextCard = ({ isLoading }) => {
     );
 };
 
-DonationTextCard.propTypes = {
+ReputationInfoCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default DonationTextCard;
+export default ReputationInfoCard;

@@ -1,11 +1,9 @@
 /* eslint-disable */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
-import {  Header } from 'semantic-ui-react'
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -35,7 +33,9 @@ const TextCard = ({ isLoading }) => {
                     <Box sx={{ p: 4.25 }}>
                         <Grid container direction="column">
                             <Grid item margin = '1.5rem 1.2rem'>
-                                <Header as='h1' style={{ "color" : "white" }}>Descripción del Proyecto</Header>
+                                <Typography sx={{ fontSize: '2rem', fontWeight: 800, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                    Descripción del Proyecto
+                                </Typography>
                             </Grid>
                             
                             <Grid item xs={12} margin = '0 1.2rem'>

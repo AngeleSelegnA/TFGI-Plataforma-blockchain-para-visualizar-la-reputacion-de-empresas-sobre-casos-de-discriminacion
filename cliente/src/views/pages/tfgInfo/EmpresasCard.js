@@ -1,7 +1,6 @@
 import React, { useState, useEffect,useContext } from 'react'
 
 import PropTypes from 'prop-types';
-import { Image } from 'semantic-ui-react'
 import Member from './Member'
 import MainCard from 'ui-component/cards/MainCard';
 // material-ui
@@ -10,11 +9,9 @@ import {  Box, Grid, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles'
 import Empresa from './Empresa';
 import {GoogleSpreadsheet} from "google-spreadsheet";
-import {  Header } from 'semantic-ui-react'
 import { gridSpacing } from 'store/constant';
 
 // project imports
-import Button from 'semantic-ui-react';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 import { context } from '../../../contextProvider.js';
 
@@ -83,7 +80,9 @@ const EmpresasCard = ({ isLoading }) => {
                     <Box sx={{ p: 4.25 }}>
                         <Grid container direction="column">
                             <Grid item>
-                                <Header as='h1' style={{ "color" : "white" }}>Empresas disponibles:</Header>
+                                <Typography sx={{ fontSize: '2rem', fontWeight: 800, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                    Empresas disponibles:
+                                </Typography>
                             </Grid>
                         </Grid>
 
@@ -93,7 +92,7 @@ const EmpresasCard = ({ isLoading }) => {
                             <Grid item lg={2} xs={28} md={4}>
                                 <Grid container spacing={gridSpacing}>
                                         {Context.empresas?.map((company ) => (
-                                                <Grid item lg={3}  style={{ "margin-left": "10px", "margin-right" : "10px" }}>
+                                                <Grid item lg={3}>
                                                     <Empresa
                                                         nombre = {company.nombre_empresa}
                                                         foto={company.url_imagen}
@@ -136,4 +135,7 @@ const EmpresasCard = ({ isLoading }) => {
     );
 };
 
+
+
 export default EmpresasCard;
+
