@@ -23,7 +23,7 @@ const CompanyItem = ({ name, reputation }) => {
         ))}
         <p></p>
         <Card.Header>{name}</Card.Header>
-        <Card.Meta>Reputación: <strong>{reputation}</strong></Card.Meta>
+        <Card.Meta>Reputación: <strong>{reputation.substring(0,3)}/10</strong></Card.Meta>
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
