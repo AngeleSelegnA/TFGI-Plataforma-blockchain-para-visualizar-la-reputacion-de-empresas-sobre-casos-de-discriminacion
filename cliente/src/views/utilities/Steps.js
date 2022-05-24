@@ -66,8 +66,10 @@ export const steps= [
     {
       content: (
         <div>
-          <p>Pulsando en el botón de la barra superior accedemos al índice de nuestra plataforma.</p>
-          <p>En él encontrarás información sobre el proyecto.</p>
+          <p>Pulsando en el botón de la barra superior accedemos a la información sobre el proyecto.</p>
+          <p>Allí podrás ayudar a pagar el coste de publicar las denuncias en la Blockchain mediante una donación.</p>
+          <p>📣 🗣 Donando das voz a los denunciantes 🗣 📣</p> 
+          <p>También podrás conocer cómo calculamos la reputación</p> 
         </div>
         ),
       locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás' , last: 'Fin'},
@@ -75,12 +77,13 @@ export const steps= [
       styles: {
         options: {
           arrowColor: ' #0a2d58 ',
+          width: 500,
           backgroundColor: '  #0a2d58   ',
           textColor: '#FFFFFF',
         },
       },
       
-      title: 'Índice',
+      title: 'Información del Proyecto',
       placement: 'center',
       disableBeacon: true,
       target: 'body',
