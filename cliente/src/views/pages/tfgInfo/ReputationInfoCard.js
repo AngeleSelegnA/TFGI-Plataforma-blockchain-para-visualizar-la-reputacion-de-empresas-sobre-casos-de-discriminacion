@@ -54,8 +54,7 @@ const ReputationInfoCard = ({ isLoading }) => {
                                     <p></p>
                                     
                                     <p color= '#3949ab'>
-                                        La reputación se calcula en base al número de denuncias registradas y a los datos sobre reputación obtenidos en Glassdoor.
-                                        A medida que el número de denuncias aumenta, este tiene un mayor peso en el cálculo de la reputación.
+                                      La reputación mostrada en esta plataforma se calcula de acuerdo con tres valores reputacionales distintos. Los dos primeros son las reputaciones de las plataformas Indeed y Glasdoor de esas empresas. El tercero es una reputación interna que se calcula según el número de denuncias que recibe cada empresa en esta web, a más denuncias la reputación decrece. Para calcular la reputación final se asigna unos pesos a cada uno de los tres valores reputaciones, que en total suman 1, siendo los pesos de los valores de Indeed y Glassdoor siempre iguales. Estos pesos se ajustan según el número denuncias que se reciben en nuestro plataforma. Al inicio, cuando el número de denundias a través de esta plataforma es bajo, el peso de la reputación calculada en base a estas es bajo y va aumentando según el uso de la web aumenta y se reciben más denuncias.
                                     
                                     </p>
                                     
