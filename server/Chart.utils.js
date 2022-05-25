@@ -24,6 +24,7 @@ const initChartData = () => {
                 { 'category' : 'me despidieron' , 'value' : 0 },
                 { 'category' : 'he dimitido' , 'value' : 0 },
                 { 'category' : 'otro' , 'value' : 0 },
+                { 'category' : 'prefiero no responder' , 'value' : 0 } 
 
             ]});
             new_chart.save((err, doc) => { chartsResponse(err,doc)});
