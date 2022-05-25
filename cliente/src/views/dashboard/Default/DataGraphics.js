@@ -66,10 +66,11 @@ let dataPruebasEdad = [{ "category" : "16-20", "value" : 2},{ "category" : "21-3
                     }
               </Grid>
               <Grid sm={1}  md={1}  lg={3}>
-                    { dataTypes.length > 0
-                      ? <BarChart colorBarra={theme.palette.secondary.dark} legend="denuncias" data = {dataTypes} title="Tipología"/>
+                    { dataAges.length > 0
+                      ? <BarChart colorBarra={theme.palette.primary.main} legend="Edad de denunciantes" data = {dataAges} title="Rango de edad"/>
                       : <h4> Cargando la gráfica... </h4>
                     }
+                    
                 
             </Grid>
              
@@ -85,10 +86,11 @@ let dataPruebasEdad = [{ "category" : "16-20", "value" : 2},{ "category" : "21-3
                   
             </Grid>
             <Grid sm={1} md={1} lg={3}  >
-                { dataAges.length > 0
-                  ? <BarChart colorBarra={theme.palette.primary.main} legend="Edad de denunciantes" data = {dataAges} title="Rango de edad"/>
-                  : <h4> Cargando la gráfica... </h4>
-                }
+                    { dataTypes.length > 0
+                      ? <BarChart colorBarra={theme.palette.secondary.dark} legend="denuncias" data = {dataTypes} title="Tipología"/>
+                      : <h4> Cargando la gráfica... </h4>
+                    }
+               
                 </Grid>
           </Grid>
       </Grid>

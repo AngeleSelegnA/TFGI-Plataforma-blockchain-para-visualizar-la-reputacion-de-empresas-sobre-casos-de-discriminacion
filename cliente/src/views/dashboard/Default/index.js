@@ -13,13 +13,13 @@ import {CardGroup } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 // project imports
-import EarningCard from './EarningCard';
+import TarjetPrincipal from './TarjetPrincipal';
 import RankingCard from './RankingCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
+import TarjetaInfo from './TarjetaInfo';
 import { gridSpacing } from 'store/constant';
 import CompanyItem from './CompanyItem';
-import Carousel from 'semantic-ui-carousel-react';
+import Carousel, { Divider } from 'semantic-ui-carousel-react';
 import DataGraphics from './DataGraphics.js'
 
 const Dashboard = () => {
@@ -155,19 +155,21 @@ const Dashboard = () => {
 
                     {/* columna 1 de 12 ocupa 8 (mas ancha)*/}
                     <Grid item lg={8} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
+                        <TarjetPrincipal isLoading={isLoading} />
                     </Grid>
 
                     {/* columna 2= tarjetas peq*/}
                     <Grid item lg={4} md={12} sm={12} xs={12}>
-                        <Grid container spacing={gridSpacing}>
+                        <Grid container spacing={1.5}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
                                 <div className = "denunciar">
                                     <TotalIncomeDarkCard isLoading={isLoading} />
                                 </div>
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}> 
-                                <TotalIncomeLightCard isLoading={isLoading} balance = {balance.slice(0,6)}/>  
+                                <div className="informacion">
+                                    <TarjetaInfo isLoading={isLoading}/>  
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -193,12 +195,16 @@ const Dashboard = () => {
 
                                 />
                             </div>
-                            </Grid>
                             
+                            </Grid>
+                       
                             <Grid item sm={4} xs={12} md={6} lg={12}>
+                                <p></p>
+                                <p></p>
+                                <p></p>
                                 <DataGraphics /> 
                             </Grid>
-
+                        
                         </Grid>
                     </Grid>
                   

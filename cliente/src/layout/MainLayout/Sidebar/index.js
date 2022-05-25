@@ -6,10 +6,9 @@ import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { BrowserView, MobileView } from 'react-device-detect';
+import { BrowserView } from 'react-device-detect';
 
 // project imports
-import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import { drawerWidth } from 'store/constant';
 
@@ -35,15 +34,10 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                         paddingRight: '16px'
                     }}
                 >
-                    <MenuList />
+                 
                 </PerfectScrollbar>
             </BrowserView>
-            <MobileView>
-                <Box sx={{ px: 2 }}>
-                    <MenuList />
-                   
-                </Box>
-            </MobileView>
+
         </>
     );
 

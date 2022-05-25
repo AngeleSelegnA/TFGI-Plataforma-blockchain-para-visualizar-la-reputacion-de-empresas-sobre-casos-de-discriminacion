@@ -66,7 +66,7 @@ export const steps= [
     {
       content: (
         <div>
-          <p>Pulsando en el botón de la barra superior accedemos a la información sobre el proyecto.</p>
+          <p>Pulsando en este botón accedemos a la información sobre el proyecto.</p>
           <p>Allí podrás ayudar a pagar el coste de publicar las denuncias en la Blockchain mediante una donación.</p>
           <p>📣 🗣 Donando das voz a los denunciantes 🗣 📣</p> 
           <p>También podrás conocer cómo calculamos la reputación</p> 
@@ -84,8 +84,9 @@ export const steps= [
       },
       
       title: 'Información del Proyecto',
-      placement: 'center',
+      placement: 'left',
       disableBeacon: true,
-      target: 'body',
+      target: '.informacion div',
+
     },
   ];

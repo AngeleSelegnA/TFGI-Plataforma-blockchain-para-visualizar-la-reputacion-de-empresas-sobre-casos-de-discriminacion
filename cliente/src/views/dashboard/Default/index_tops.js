@@ -12,10 +12,10 @@ import {CardGroup } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 // project imports
-import EarningCard from './EarningCard';
+import EarningCard from './TarjetPrincipal';
 import PopularCard from './PopularCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
+import TotalIncomeLightCard from './TarjetaInfo';
 import { gridSpacing } from 'store/constant';
 import CompanyItem from './CompanyItem';
 import Carousel from 'semantic-ui-carousel-react';

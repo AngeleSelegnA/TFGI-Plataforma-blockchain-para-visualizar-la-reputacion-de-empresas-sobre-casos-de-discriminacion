@@ -43,22 +43,22 @@ const NavCollapse = ({ menu, level }) => {
         }
     });
 
-    const Icon = menu.icon;
-    const menuIcon = menu.icon ? (
-        <Icon strokeWidth={1.5} size="1.3rem" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
-    ) : (
-        <FiberManualRecordIcon
-            sx={{
-                width: selected === menu.id ? 8 : 6,
-                height: selected === menu.id ? 8 : 6
-            }}
-            fontSize={level > 0 ? 'inherit' : 'medium'}
-        />
-    );
+    // const Icon = menu.icon;
+    // const menuIcon = menu.icon ? (
+    //     <Icon strokeWidth={1.5} size="1.3rem" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+    // ) : (
+    //     <FiberManualRecordIcon
+    //         sx={{
+    //             width: selected === menu.id ? 8 : 6,
+    //             height: selected === menu.id ? 8 : 6
+    //         }}
+    //         fontSize={level > 0 ? 'inherit' : 'medium'}
+    //     />
+    // );
 
     return (
         <>
-            <ListItemButton
+            {/* <ListItemButton
                 sx={{
                     borderRadius: `${customization.borderRadius}px`,
                     mb: 0.5,
@@ -90,7 +90,7 @@ const NavCollapse = ({ menu, level }) => {
                 ) : (
                     <IconChevronDown stroke={1.5} size="1rem" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
                 )}
-            </ListItemButton>
+            </ListItemButton> */}
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List
                     component="div"
