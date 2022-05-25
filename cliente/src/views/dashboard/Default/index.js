@@ -185,7 +185,7 @@ const Dashboard = () => {
                                 <Carousel 
                                 isLoading={isLoading}
                                 elements = {elements}
-                                duration ={3000}
+                                duration ={6000}
                                 animation = 'slide left'
                                 showNextPrev = {false}
                                 showIndicators = {true}  
