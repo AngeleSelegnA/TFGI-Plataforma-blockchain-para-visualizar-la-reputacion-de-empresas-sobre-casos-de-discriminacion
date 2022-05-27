@@ -67,12 +67,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const DonationCard = ({ isLoading, amount }) => {
     const theme = useTheme();
 
-    const [balance, setBalance] = useState("");
     const Context = useContext(context);
-
-    useEffect(() => {
-        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
-    }, []);
 
     return (
         <>

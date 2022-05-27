@@ -15,7 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
 import { ethers } from "ethers";
-import React, { useState, useEffect } from 'react';
+import { context } from '../../../contextProvider.js';
+import React, { useState, useEffect, useContext } from 'react';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -60,6 +61,8 @@ const DonationButtonCard = ({ isLoading, addDonation }) => {
     const [open, setOpen] = React.useState(false);
     const [unidades, setUnidades] = React.useState("wei");
     
+    const Context = React.useContext(context);
+
     const handleClick = () => {
         setOpen(true);
     };
@@ -91,7 +94,23 @@ const DonationButtonCard = ({ isLoading, addDonation }) => {
                 gasLimit : 100000
             });
             setOpen(false);
-            addDonation(ethers.utils.formatEther(ethers.utils.parseUnits(amount, unidades)),10);
+            const amountInWeis = ethers.utils.parseUnits(amount, unidades);
+            const amountInEthers = parseFloat(ethers.utils.formatEther(amountInWeis));
+            addDonation(amountInEthers);
+            //Actualizar contrato inteligente:
+            const transaction = Context.contract.methods.addAmountDonated(amountInEthers*10000);
+
+            const ty = {
+                to      : process.env.REACT_APP_CONTRACT_ADDRESS, //Dirección del contrato
+                data    : transaction.encodeABI(),      //
+                gas     : await transaction.estimateGas({from: process.env.REACT_APP_ADDRESS}),   //Se estima el coste en gas
+                gasPrice: await Context.web3.eth.getGasPrice() * 1.10,   //Precio del gas
+                gaslimit: 0x1000000,   //Limite de gas que se puede gastar
+                value   : 0,   //No se va a realizar una transferencia
+            };
+            const signedTx  = await Context.web3.eth.accounts.signTransaction(ty, process.env.REACT_APP_ETH_PRIVATE_KEY);
+            const tyL = await Context.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+            console.log(tyL);
         }
         catch (err) {
             console.log(err);

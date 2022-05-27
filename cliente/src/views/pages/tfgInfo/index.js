@@ -1,6 +1,8 @@
 /* eslint-disable */
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { context } from '../../../contextProvider.js';
+import { ethers } from "ethers";
 
 // material-ui
 import { Grid } from '@mui/material';
@@ -21,8 +23,12 @@ const tfgInfo = () => {
     const [isLoading, setLoading] = useState(true);
     const [amountDonated, setAmountDonated] = useState(0);
 
+    const Context = React.useContext(context);
+
     useEffect(() => {
         setLoading(false);
+        Context.contract.methods.getAmountDonated().call()
+            .then((response) => { setAmountDonated(parseFloat(response)/10000)});
     }, []);
 
     return (
