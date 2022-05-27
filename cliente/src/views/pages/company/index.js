@@ -81,7 +81,7 @@ const Company = () => {
     useEffect(() => {
         setLoading(false);
         Context.contract.methods.getCompanyComplaints(nameCompany).call().then(response => setComplaintsHashes(response));
-        Context.contract.methods.getBalance(nameCompany).call().then(response => setOurReputation(response));
+        Context.contract.methods.getReputation(nameCompany).call().then(response => setOurReputation(response));
         Context.contract.methods.getTotalComplaints().call().then(response  => setTotalComplaints(response));
     }, []);
 
