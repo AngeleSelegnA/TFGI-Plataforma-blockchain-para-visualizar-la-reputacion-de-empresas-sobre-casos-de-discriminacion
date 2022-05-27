@@ -1,5 +1,5 @@
 //Arrays para las opciones del formulario
-export const relations = ["Sigo trabajando", "Me despidieron", "He dimitido", "Otro"];
+export const relations = ["Sigo trabajando", "Me despidieron", "He dimitido", "Otro", "Prefiero no responder"];
 export const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", " Septiembre", "Octubre", "Noviembre", "Diciembre"];
 export const complaintTypes = ["Racismo", "Discriminación por Género", "Orientación Sexual", "Religión", "Edad", "Discapacidad", "Otro"]; 
 export const countries = ["Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
