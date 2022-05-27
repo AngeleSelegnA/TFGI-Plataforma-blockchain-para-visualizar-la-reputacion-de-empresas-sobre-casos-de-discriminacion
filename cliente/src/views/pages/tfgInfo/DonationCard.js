@@ -64,7 +64,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const DonationCard = ({ isLoading }) => {
+const DonationCard = ({ isLoading, amount }) => {
     const theme = useTheme();
 
     const [balance, setBalance] = useState("");
@@ -85,7 +85,7 @@ const DonationCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                             <Typography sx={{ fontSize: '1.7rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                {balance.slice(0,6)} ETH
+                                                {amount} ETH
                                             </Typography>
                                         
                                     </Grid>

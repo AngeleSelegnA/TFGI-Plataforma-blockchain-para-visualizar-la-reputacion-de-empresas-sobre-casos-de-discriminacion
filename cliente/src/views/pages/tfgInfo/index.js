@@ -19,6 +19,8 @@ import { gridSpacing } from 'store/constant';
 
 const tfgInfo = () => {
     const [isLoading, setLoading] = useState(true);
+    const [amountDonated, setAmountDonated] = useState(0);
+
     useEffect(() => {
         setLoading(false);
     }, []);
@@ -43,10 +45,13 @@ const tfgInfo = () => {
                     <Grid item lg={3} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <DonationCard isLoading={isLoading} />
+                                <DonationCard isLoading={isLoading} amount = {amountDonated}/>
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <DonationButtonCard isLoading={isLoading} />
+                                <DonationButtonCard isLoading={isLoading} addDonation = {(amount) => {
+                                    console.log(amount);
+                                    setAmountDonated(amountDonated + parseFloat(amount));
+                                }} />
                             </Grid>
                         </Grid>
                     </Grid>

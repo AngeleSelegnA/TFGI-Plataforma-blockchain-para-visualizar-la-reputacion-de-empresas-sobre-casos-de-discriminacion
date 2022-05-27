@@ -53,7 +53,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
-const DonationButtonCard = ({ isLoading }) => {
+const DonationButtonCard = ({ isLoading, addDonation }) => {
     const theme = useTheme();
 
     const [amount, setAmount] = React.useState(""); //cantidad a donar en ethers
@@ -90,8 +90,8 @@ const DonationButtonCard = ({ isLoading }) => {
                 gasPrice: signer.getGasPrice(),
                 gasLimit : 100000
             });
-            console.log({tx});
             setOpen(false);
+            addDonation(ethers.utils.formatEther(ethers.utils.parseUnits(amount, unidades)),10);
         }
         catch (err) {
             console.log(err);
