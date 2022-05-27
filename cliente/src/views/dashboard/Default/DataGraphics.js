@@ -9,17 +9,11 @@ import MainCard from 'ui-component/cards/MainCard';
 
 const coloresGenders = ['#87CEEB','#98FB98','#9370DB','#DDA0DD','#483D8B'];
 const coloresGenero=["#2471A3","#6C3483","#BB8FCE","#F5B041 ","#F4D03F"];
-const coloresRelations = ['#87CEEB','#98FB98','#9370DB','#DDA0DD'];
+const coloresRelations = ['#87CEEB','#98FB98','#9370DB','#DDA0DD','#483D8B'];
 const coloresTypes = [ '#7fb3d5' , '#2980b9' , '#1f618d' , '#154360','#7fb8d5' , '#2960b9' , '#1f718d' , '#134960','#6fb3d5' , '#8980b9'];
 const coloresAges = ["#87CEFA", "#00BFFF","#1E90FF","#4169E1","#0000FF","#0000CD","#00008B","#000080", "#191970"];
 const coloresEdad=["#BB8FCE","#F5B041 ","#5DADE2","#EC7063","#F4D03F","#2471A3","#6C3483","#229954" ]
 
-/*
-let dataPruebasGenders = [{"category": "Femenino", "value":3},{"category": "Masculino", "value":5},{"category": "No binario", "value":1},{"category": "Prefiere no contestar", "value":2}];
-let dataPruebasTipos = [{ "category" : "Etnia", "value" : 2},{ "category" : "Género", "value" : 8},{ "category" : "Maltrato", "value" : 0},{ "category" : "Edad", "value" : 1},{ "category" : "Religión", "value" : 3},{ "category" : "Condición sexual", "value" : 5},{ "category" : "Discapacidad", "value" : 3},{ "category" : "Mobbing", "value" : 6}, { "category" : "Explotación", "value" : 7},{ "category" : "Otro", "value" : 2}];
-let dataPruebasConsents = [{"category" : "Sí", "value" : 5},{"category" : "No", "value" : 3}]
-let dataPruebasEdad = [{ "category" : "16-20", "value" : 2},{ "category" : "21-30", "value" : 3},{ "category" : "31-40", "value" : 0},{ "category" : "41-50", "value" : 5},{ "category" : "51-60", "value" : 8},{ "category" : "61-70", "value" : 13},{ "category" : "71-80", "value" : 3},{ "category" : "más de 80", "value" : 0}]
-*/
 
   export default function DataGraphics() {
 
