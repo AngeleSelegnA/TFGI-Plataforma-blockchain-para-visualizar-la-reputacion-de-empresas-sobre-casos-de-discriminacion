@@ -34,7 +34,7 @@ const Dashboard = () => {
     useEffect(() => {
         setLoading(false);
         Context.contract.methods.getCompaniesNames().call().then(response => setCompanies(response));
-        Context.contract.methods.getBalances().call().then(response => setReputation(response));
+        Context.contract.methods.getAllReputations().call().then(response => setReputation(response));
         Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
     }, []);
 

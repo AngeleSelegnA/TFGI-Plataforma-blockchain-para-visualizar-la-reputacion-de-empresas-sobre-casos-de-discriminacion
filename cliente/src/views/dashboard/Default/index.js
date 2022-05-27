@@ -69,13 +69,12 @@ const Dashboard = () => {
 
     useEffect(async () => {
         setLoading(false);
-        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
         const [companies, ourReputations, totalComplaints] = await Promise.all([ //Practicamente instantaneo(son gets)
             await Context.contract.methods.getCompaniesNames().call(),
-            await Context.contract.methods.getBalances().call(),
+            await Context.contract.methods.getAllReputations().call(),
             await Context.contract.methods.getTotalComplaints().call()
         ]); 
-
+        
 
         const cards = await buildReputations(companies, ourReputations, totalComplaints);
         console.log("cards");
