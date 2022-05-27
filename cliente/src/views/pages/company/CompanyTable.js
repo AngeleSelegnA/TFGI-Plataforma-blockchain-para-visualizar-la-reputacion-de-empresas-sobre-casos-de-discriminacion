@@ -114,10 +114,10 @@ const CompanyTable = ({ complaints }) => {
               <TableCell>
                   <Grid container>
                       <Grid item lg={2}>
-                          <Avatar alt={row.type} src='.' className={classes.avatar}/>
+                          <Avatar alt={row.type.charAt(0).toUpperCase() + row.type.slice(1)} src='.' className={classes.avatar}/>
                       </Grid>
                       <Grid item lg={10}>
-                          <Typography   variant="subtitle1" className={classes.tipo}>{row.type}</Typography>
+                          <Typography   variant="subtitle1" className={classes.tipo}>{row.type.charAt(0).toUpperCase() + row.type.slice(1)}</Typography>
                       </Grid>
                   </Grid>
                 </TableCell>

@@ -53,7 +53,7 @@ function TabPanel(props) {
   }
 
 const coloresGenders = ['#87CEEB','#98FB98','#9370DB','#DDA0DD','#483D8B'];
-const coloresRelations = ['#87CEEB','#98FB98','#9370DB','#DDA0DD'];
+const coloresRelations = ['#87CEEB','#98FB98','#9370DB','#DDA0DD','#483D8B'];
 const coloresTypes = [ '#7fb3d5' , '#2980b9' , '#1f618d' , '#154360','#7fb8d5' , '#2960b9' , '#1f718d' , '#134960','#6fb3d5' , '#8980b9'];
 const coloresAges = ["#87CEFA", "#00BFFF","#1E90FF","#4169E1","#0000FF","#0000CD","#00008B","#000080", "#191970"];
 
@@ -66,7 +66,7 @@ const coloresAges = ["#87CEFA", "#00BFFF","#1E90FF","#4169E1","#0000FF","#0000CD
 
 const typesNames = ["racismo", "discriminación por género", "orientación sexual", "religión", "edad", "discapacidad", "otro"];
 const gendersNames = ["femenino", "masculino", "no binario", "otro", "prefiero no responder"];
-const relationNames = ["sigo trabajando", "me despidieron", "he dimitido", "otro"];
+const relationNames = ["sigo trabajando", "me despidieron", "he dimitido", "otro", "prefiero no responder"];
 const ageNames = ["16-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "más de 80", "prefiero no responder"];
 
 
@@ -75,11 +75,10 @@ const ChartsCard = ({ isLoading, complaints }) => {
     const [value, setValue] = React.useState(0);
     let typeDicc = {"racismo" : 0, "discriminación por género" : 0, "orientación sexual" : 0, "religión" : 0, "edad" : 0, "discapacidad" : 0, "otro" : 0};
     let genderDicc = {"femenino" : 0, "masculino" : 0, "no binario" : 0 , "otro" : 0, "prefiero no responder" : 0};
-    let relationDicc = { "sigo trabajando" : 0 , "me despidieron" : 0, "he dimitido" : 0, "otro" : 0};
+    let relationDicc = { "sigo trabajando" : 0 , "me despidieron" : 0, "he dimitido" : 0, "otro" : 0, "prefiero no responder" : 0};
     let ageDicc = { "16-20" : 0, "21-30" : 0, "31-40" : 0, "41-50" : 0, "51-60" : 0, "61-70" : 0, "71-80" : 0, "más de 80" : 0, "prefiero no responder" : 0};
 
     for(let c of complaints){ //Contruir los diccionarios
-        console.log(c.relation);
         //Valores seguros
         typeDicc[c.type] += 1;
         genderDicc[c.gender] += 1;
