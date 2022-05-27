@@ -53,12 +53,14 @@ const coloresEdad=["#BB8FCE","#F5B041 ","#5DADE2","#EC7063","#F4D03F","#2471A3",
         </Typography>
       <Grid container spacing={1}>
           <Grid item xs={6}>
+              <h3 style={{"color" : "#4527a0", "margin-top" : "10px"}}>Por género</h3>
               <Grid sm={1} md={1}  lg={3} >
                     { dataGenders.length > 0
                       ? <CircularGraph ancho={410} alto={200} data={dataGenders} colores={coloresGenero} tipo = "gender"/>
                       : <h4> Cargando la gráfica... </h4>
                     }
               </Grid>
+              <h3 style={{"color" : "#4527a0", "margin-top" : "10px"}}>Por edad</h3>
               <Grid sm={1}  md={1}  lg={3}>
                     { dataAges.length > 0
                       ? <BarChart colorBarra={theme.palette.primary.main} legend="Edad de denunciantes" data = {dataAges} title="Rango de edad"/>
@@ -71,7 +73,7 @@ const coloresEdad=["#BB8FCE","#F5B041 ","#5DADE2","#EC7063","#F4D03F","#2471A3",
           </Grid>
 
           <Grid item xs={6}>
-          
+            <h3 style={{"color" : "#4527a0", "margin-top" : "10px"}}>Por relación con la empresa</h3>
             <Grid sm={1} md={1} lg={3}  >
                   { dataRelations.length > 0
                     ?  <CircularGraph ancho={410} alto={200} data={dataRelations} colores={coloresRelations} tipo = "consent"/>
@@ -79,6 +81,7 @@ const coloresEdad=["#BB8FCE","#F5B041 ","#5DADE2","#EC7063","#F4D03F","#2471A3",
                   }
                   
             </Grid>
+            <h3 style={{"color" : "#4527a0", "margin-top" : "10px"}}>Por tipo de denuncia</h3>
             <Grid sm={1} md={1} lg={3}  >
                     { dataTypes.length > 0
                       ? <BarChart colorBarra={theme.palette.secondary.dark} legend="denuncias" data = {dataTypes} title="Tipología"/>
