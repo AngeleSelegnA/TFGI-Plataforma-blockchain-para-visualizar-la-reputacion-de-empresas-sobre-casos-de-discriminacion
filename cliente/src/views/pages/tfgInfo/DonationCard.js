@@ -67,12 +67,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const DonationCard = ({ isLoading, amount }) => {
     const theme = useTheme();
 
-    const [balance, setBalance] = useState("");
     const Context = useContext(context);
-
-    useEffect(() => {
-        Context.provider.getBalance(process.env.REACT_APP_ADDRESS).then(response => setBalance(ethers.utils.formatEther(response)));
-    }, []);
 
     return (
         <>
@@ -85,7 +80,7 @@ const DonationCard = ({ isLoading, amount }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                             <Typography sx={{ fontSize: '1.7rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                {amount} ETH
+                                                {amount.toString().substring(0,6)} ETH
                                             </Typography>
                                         
                                     </Grid>
