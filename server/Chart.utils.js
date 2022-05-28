@@ -56,7 +56,7 @@ const initChartData = () => {
             new_chart = new Chart({ 'chart_name' : 'graficaTipo' , 
             data : [ 
                 { 'category' : 'racismo' , 'value' : 0 }, 
-                { 'category' : 'discriminación por genero' , 'value' : 0 }, 
+                { 'category' : 'discriminación por género' , 'value' : 0 }, 
                 { 'category' : 'orientación sexual' , 'value' : 0 },
                 { 'category' : 'religión' , 'value' : 0 },
                 { 'category' : 'edad' , 'value' : 0 },
