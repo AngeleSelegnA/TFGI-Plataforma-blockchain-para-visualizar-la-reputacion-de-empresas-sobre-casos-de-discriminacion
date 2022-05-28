@@ -37,7 +37,7 @@ const TextCard = ({ isLoading }) => {
                                     Descripción del Proyecto
                                 </Typography>
                             </Grid>
-                            
+                            <p></p>
                             <Grid item xs={12} margin = '0 1.2rem'>
                                 <Typography 
                                     component = {'span'}
