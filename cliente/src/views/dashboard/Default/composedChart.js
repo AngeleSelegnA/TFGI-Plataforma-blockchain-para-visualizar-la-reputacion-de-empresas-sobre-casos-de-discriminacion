@@ -13,9 +13,7 @@ import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from
       })
     }
 
-    
-
-
+    console.log(fixedData)
 
     return (
       <ComposedChart
@@ -29,12 +27,10 @@ import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from
           bottom: 20,
           left: 0
         }}
-        
-
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis />
         <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} interval={0} label={{ value: title, position: 'insideBottomRight', offset: -30 }}/>
+        <XAxis type="number" />
         <Tooltip  />
         <Legend />
         <Bar dataKey="denuncias" barSize={3} fill={colorBarra} />
