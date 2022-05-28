@@ -24,13 +24,14 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Avatar,
     Typography,
     TablePagination,
     TableFooter
  } from '@material-ui/core';
 
-import { Avatar } from '@mui/material';
+
+  import { Avatar } from '@mui/material';
+
 
 const useStyles = makeStyles((theme) => ({
     table: {
