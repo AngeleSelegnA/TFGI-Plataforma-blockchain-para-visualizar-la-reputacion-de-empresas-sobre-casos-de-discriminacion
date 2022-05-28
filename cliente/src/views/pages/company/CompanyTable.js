@@ -30,9 +30,7 @@ import {
     TableFooter
  } from '@material-ui/core';
 
-
-
-
+import { Avatar } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     table: {
