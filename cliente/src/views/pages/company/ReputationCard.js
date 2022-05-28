@@ -60,8 +60,8 @@ const ReputationCard = ({ isLoading, reputation }) => {
                                         sx={{
                                             ...theme.typography.commonAvatar,
                                             ...theme.typography.largeAvatar,
-                                            backgroundColor: theme.palette.warning.light,
-                                            color: theme.palette.warning.dark
+                                            backgroundColor: theme.palette.secondary.light,
+                                            color: theme.palette.secondary.dark
                                         }}
                                     >
                                         <StorefrontTwoToneIcon fontSize="inherit" />

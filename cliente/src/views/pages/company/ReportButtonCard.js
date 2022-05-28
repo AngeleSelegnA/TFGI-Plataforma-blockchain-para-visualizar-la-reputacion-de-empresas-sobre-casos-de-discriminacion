@@ -41,7 +41,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
-const DonationButtonCard = ({ isLoading }) => {
+const ReportButtonCard = ({ isLoading }) => {
     const theme = useTheme();
 
     return (
@@ -49,7 +49,7 @@ const DonationButtonCard = ({ isLoading }) => {
             {isLoading ? (
                 <TotalIncomeCard />
             ) : (
-                <NavLink to = {`/views/pages/formulario`}>
+                <NavLink style={{ textDecoration: 'none' }} to = {`/views/pages/formulario`}>
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 2 }}>
                         <List sx={{ py: 0 }}>
@@ -60,8 +60,8 @@ const DonationButtonCard = ({ isLoading }) => {
                                         sx={{
                                             ...theme.typography.commonAvatar,
                                             ...theme.typography.largeAvatar,
-                                            backgroundColor: theme.palette.primary[800],
-                                            color: '#fff'
+                                            backgroundColor: theme.palette.primary.light,
+                                            color: theme.palette.primary.dark,
                                         }}
                                     >
                                         <MoodIcon fontSize="inherit" />
@@ -95,8 +95,8 @@ const DonationButtonCard = ({ isLoading }) => {
     );
 };
 
-DonationButtonCard.propTypes = {
+ReportButtonCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default DonationButtonCard;
+export default ReportButtonCard;

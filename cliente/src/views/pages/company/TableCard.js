@@ -35,10 +35,12 @@ const TableCard = ({ isLoading, complaints }) => {
                 <CardWrapper border={false} content={false}>
                     <Box sx={{ p: 4.25 }}>
                         <Grid container direction="column">
-                            <Grid item margin = '1.5rem 1.2rem'>
-                                <Header as='h1' color = "#fff">Denuncias registradas</Header>
+                            <Grid item margin = '1.5rem 1.5rem 1.5rem'>
+                                <h1 >
+                                    Denuncias registradas
+                                </h1>
                             </Grid>
-                            
+                            <p></p>
                             <Grid item xs={12} margin = '0 1.2rem'>
                                 <CompanyTable complaints = {complaints}/>
                             </Grid>
