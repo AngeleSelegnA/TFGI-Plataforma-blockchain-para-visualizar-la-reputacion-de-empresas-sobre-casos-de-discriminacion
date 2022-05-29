@@ -92,7 +92,7 @@ const EmpresasCard = ({ isLoading }) => {
                             <Grid item lg={2} xs={28} md={4}>
                                 <Grid container spacing={gridSpacing}>
                                         {Context.empresas?.map((company ) => (
-                                                <Grid item lg={3} style = {{"margin-left" : "10px", "margin-right" : "10px"}}>
+                                                <Grid item lg={3}>
                                                     <Empresa
                                                         nombre = {company.nombre_empresa}
                                                         foto={company.url_imagen}
@@ -108,25 +108,7 @@ const EmpresasCard = ({ isLoading }) => {
                             
 
                         </Grid>
-                        {/* <Grid container direction="column">
-                                                
-                             <Grid item lg={2} xs={28} md={4}>
-                                <Grid container spacing={gridSpacing}>
-                                        {data?.filter((company) => ((company.id)%2 == 1)).map((company ) => (
-                                            <Grid item lg={2}>
-                                                <Empresa
-                                                    nombre = {company.nombre_empresa}
-                                                    foto={company.url_imagen}
-                                                    link={company.url}
-                                                    reputacion={company.reputacion}
-                                                />
-                                            </Grid> 
-                                        ))}
-                                 </Grid>
-                            </Grid> 
-                            
-
-                        </Grid> */}
+                       
                         
                     </Box>
                 </CardWrapper>)}

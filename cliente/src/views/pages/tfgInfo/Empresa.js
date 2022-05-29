@@ -10,15 +10,15 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     overflow: 'hidden',
     position: 'relative',
     span:"1.1rem" ,
-    margin:"1rem" ,
+    margin:"1rem 0 1rem" ,
 }));
 
 const Empresa = ({ foto, link, nombre }) => {
     return (
          <CardWrapper sx={{
                 p: 1,
-                width: 150,
-                height: 150,
+                width: '100%',
+                height: 170,
                 backgroundColor: '#fff',
                 '&:hover': {
                 backgroundColor: '#fff',
