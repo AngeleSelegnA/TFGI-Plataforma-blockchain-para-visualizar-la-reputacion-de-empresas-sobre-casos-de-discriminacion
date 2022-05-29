@@ -56,7 +56,7 @@ contract ReputationControl {
     mapping(string => CompanyData) infoCompanies;
     string[] companies;
     address immutable owner;
-    uint amountDonated;
+    string amountDonated;
 
      modifier onlyOwner{
         require(msg.sender == owner,"No allowances");
@@ -71,7 +71,7 @@ contract ReputationControl {
     constructor(){
         owner = msg.sender;
         tokenContract = new ReksTokens("Reks", "R");
-        amountDonated = 0;
+        amountDonated = "0";
     }
     
 
@@ -162,11 +162,11 @@ contract ReputationControl {
         tokenContract.burn(infoCompanies[_company]._address,1);
     }
 
-    function addAmountDonated(uint amount) external onlyOwner{
-        amountDonated += amount;
+    function changeAmountDonated(string memory amount) external onlyOwner{
+        amountDonated = amount;
     }
 
-    function getAmountDonated() external view returns (uint){
+    function getAmountDonated() external view returns (string memory){
         return amountDonated;
     }
 }
