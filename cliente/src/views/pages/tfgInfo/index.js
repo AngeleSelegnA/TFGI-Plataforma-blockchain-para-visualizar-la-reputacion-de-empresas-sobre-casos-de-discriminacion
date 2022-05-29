@@ -21,14 +21,14 @@ import { gridSpacing } from 'store/constant';
 
 const tfgInfo = () => {
     const [isLoading, setLoading] = useState(true);
-    const [amountDonated, setAmountDonated] = useState(0);
+    const [amountDonated, setAmountDonated] = useState("0");
 
     const Context = React.useContext(context);
 
     useEffect(() => {
         setLoading(false);
         Context.contract.methods.getAmountDonated().call()
-            .then((response) => { setAmountDonated(parseFloat(response)/10000)});
+            .then((response) => { console.log(response); setAmountDonated(response)});
     }, []);
 
     return (
@@ -54,8 +54,8 @@ const tfgInfo = () => {
                                 <DonationCard isLoading={isLoading} amount = {amountDonated}/>
                             </Grid>
                             <Grid item sm={6} xs={12} md={6} lg={12}>
-                                <DonationButtonCard isLoading={isLoading} addDonation = {(amount) => {
-                                    setAmountDonated(amountDonated + parseFloat(amount));
+                                <DonationButtonCard isLoading={isLoading} amountDonated = {amountDonated} addDonation = {(amount) => {
+                                    setAmountDonated((parseFloat(amountDonated) + amount).toString());
                                 }} />
                             </Grid>
                         </Grid>

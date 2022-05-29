@@ -80,7 +80,7 @@ const DonationCard = ({ isLoading, amount }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                             <Typography sx={{ fontSize: '1.7rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                {amount.toString().substring(0,6)} ETH
+                                                {amount.substring(0,6)} ETH
                                             </Typography>
                                         
                                     </Grid>

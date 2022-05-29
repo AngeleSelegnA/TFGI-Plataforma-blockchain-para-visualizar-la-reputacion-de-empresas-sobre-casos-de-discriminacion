@@ -54,7 +54,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
-const DonationButtonCard = ({ isLoading, addDonation }) => {
+const DonationButtonCard = ({ isLoading, amountDonated, addDonation }) => {
     const theme = useTheme();
 
     const [amount, setAmount] = React.useState(""); //cantidad a donar en ethers
@@ -94,17 +94,30 @@ const DonationButtonCard = ({ isLoading, addDonation }) => {
                 gasLimit : 100000
             });
             setOpen(false);
-            const amountInWeis = ethers.utils.parseUnits(amount, unidades);
-            const amountInEthers = parseFloat(ethers.utils.formatEther(amountInWeis));
+            let amountInEthers;
+            switch(unidades){
+                case "wei":
+                    amountInEthers = parseFloat(amount)/Math.pow(10,18);
+                    break;
+                case "gwei":
+                    amountInEthers = parseFloat(amount)/Math.pow(10,9);
+                    break;
+                case "ether":
+                    amountInEthers = parseFloat(amount);
+                    break;
+            }
+
             addDonation(amountInEthers);
+            
             //Actualizar contrato inteligente:
-            const transaction = Context.contract.methods.addAmountDonated(amountInEthers*10000);
+            
+            const transaction = Context.contract.methods.changeAmountDonated((parseFloat(amountDonated) + amountInEthers).toString());
 
             const ty = {
                 to      : process.env.REACT_APP_CONTRACT_ADDRESS, //Dirección del contrato
                 data    : transaction.encodeABI(),      //
                 gas     : await transaction.estimateGas({from: process.env.REACT_APP_ADDRESS}),   //Se estima el coste en gas
-                gasPrice: await Context.web3.eth.getGasPrice() * 1.10,   //Precio del gas
+                gasPrice: await Context.web3.eth.getGasPrice(),   //Precio del gas
                 gaslimit: 0x1000000,   //Limite de gas que se puede gastar
                 value   : 0,   //No se va a realizar una transferencia
             };
