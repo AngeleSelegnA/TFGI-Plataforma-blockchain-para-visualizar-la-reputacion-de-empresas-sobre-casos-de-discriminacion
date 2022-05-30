@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import levenshtein from 'js-levenshtein';
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -103,15 +104,26 @@ const Formulario = () => {
       //Añadir datos a la bbdd para graficas generales
       let gender = data.gender.toLowerCase()
 
-      if(gender == "hombre" || gender == "masculino")
-        gender = "masculino"
-      else if(gender == "mujer" || gender == "femenino")
-        gender = "femenino"
-      else if(gender == "no binario" || gender == "nobinario" || gender == "no-binario")
-        gender = "no binario"
-      else if(gender == "")
-        gender = "prefiero no responder"
-      else gender = "otro" //Faltaria comprobar que en el genero se cometan errores ortograficos
+      const options= ["masculino", "hombre", "femenino", "mujer", "no binario",
+      "lesbiana", "gay", "homosexual", "transexual", "bisexual", "polisexual", "Pansexual", "Omnisexual", "Skoliosexual", "Demisexual", "Grisexual", 
+      "Asexual", "Poliamoroso", "Intersexual", "Agénero", "Género fluido", "Bigénero", "Trigénero", "Pangénero", "Poligénero", "Andrógino",
+      "Intergénero", "non-conforming", "Homorromántico", "Birromántico", "Panromántico", "Arromántico", "Antrosexual", "Cisgénero", "Transgénero"];
+      let m = 10;
+      let index = 0;
+      for(let i = 0; i< options.length;i++){
+          let l=levenshtein(options[i],gender);
+          if(l < m){
+              m = l;
+              index =i;
+          }
+      }
+      if (gender=="")gender = "prefiero no responder";
+      else if (m>3) gender = "otro";
+      else {
+        if (index <=1) gender = "masculino";
+        else if (index <=3) gender = "femenino";
+        else gender = "no binario";
+      }
 
       let age = parseInt(data.age)
       let rangeAge;
@@ -133,8 +145,6 @@ const Formulario = () => {
         rangeAge = "21-30"
       else
         rangeAge = "16-21"
-
-        console.log(data.relation);
         
         let complaintJson = 
         {
