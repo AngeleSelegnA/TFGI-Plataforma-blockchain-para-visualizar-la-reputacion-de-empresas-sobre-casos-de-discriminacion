@@ -9,7 +9,7 @@ const Logo = () => {
     return (
         
         
-        <img src={logo} alt="Plataforma CD" width="40" />
+        <img src={logo} alt="Voicechain" width="40" />
          
          
         // <svg width="92" height="32" viewBox="0 0 92 32" fill="none" xmlns="http://www.w3.org/2000/svg">
