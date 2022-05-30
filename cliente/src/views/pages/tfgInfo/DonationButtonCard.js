@@ -209,6 +209,7 @@ const DonationButtonCard = ({ isLoading, amountDonated, addDonation }) => {
                             </Select>
                             </FormControl>
                             <br/>
+                            <p></p>
                             <TextField id="outlined-basic" label="Amount" value = {amount} onChange = {handleChangeAmount}/>
                         </Box>
                         </DialogContent>
