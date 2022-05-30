@@ -107,6 +107,8 @@ const Formulario = () => {
         gender = "masculino"
       else if(gender == "mujer" || gender == "femenino")
         gender = "femenino"
+      else if(gender == "no binario" || gender == "nobinario" || gender == "no-binario")
+        gender = "no binario"
       else if(gender == "")
         gender = "prefiero no responder"
       else gender = "otro" //Faltaria comprobar que en el genero se cometan errores ortograficos
