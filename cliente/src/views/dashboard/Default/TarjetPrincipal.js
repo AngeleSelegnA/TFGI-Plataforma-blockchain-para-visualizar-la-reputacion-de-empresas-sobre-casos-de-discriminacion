@@ -39,7 +39,7 @@ const TarjetPrincipal = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '3.125rem', fontWeight: 800, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            PLATAFORMA CD
+                                            VOICECHAIN
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -59,7 +59,7 @@ const TarjetPrincipal = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Tell your story. Help others.
+                                    Cuenta tu historia. Ayuda al resto. Alza tu voz.
                                 </Typography>
                             </Grid>
                         </Grid>
